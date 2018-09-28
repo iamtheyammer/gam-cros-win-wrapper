@@ -145,6 +145,11 @@ namespace ChromebookGUI
 
         private void deprovisionButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Globals.DeviceIdExists() == false)
+            {
+                outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
+                return;
+            }
             int depChoice = GetInput.GetDeprovisionReason();
             string depAction = null;
             switch (depChoice) {
