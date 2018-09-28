@@ -1,0 +1,22 @@
+﻿<Window x:Class="ChromebookGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChromebookGUI"
+        mc:Ignorable="d"
+        Title="ChromeOSGAMGUI" Height="450" Width="800" >
+    <Grid Margin="10,0,10,0">
+        <Button x:Name="submitDeviceId" Content="Submit" HorizontalAlignment="Left" Margin="583,28,0,0" VerticalAlignment="Top" Width="150" Click="SubmitDeviceId_Click" Height="30" FontSize="18" Background="#FF35A3DC" BorderBrush="White" Foreground="White">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF6D6D6D"/>
+            </Button.Effect>
+        </Button>
+        <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="30" Margin="24,28,0,0" TextWrapping="Wrap" Text="5CD725686P" VerticalAlignment="Top" Width="500" FontSize="18"/>
+        <TextBox x:Name="outputField" HorizontalAlignment="Left" Height="123" Margin="24,268,0,0" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Top" Width="709"/>
+
+    </Grid>
+
+
+
+</Window>

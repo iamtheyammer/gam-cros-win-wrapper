@@ -1,0 +1,17 @@
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\bin\Debug\ChromebookGUI.exe.config
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\bin\Debug\ChromebookGUI.exe
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\bin\Debug\ChromebookGUI.pdb
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csprojAssemblyReference.cache
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\MainWindow.g.cs
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\App.g.cs
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI_MarkupCompile.cache
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI_MarkupCompile.lref
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\MainWindow.baml
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.g.resources
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.Properties.Resources.resources
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.GenerateResource.cache
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.CoreCompileInputs.cache
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.exe
+c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.pdb
+C:\Users\Sam Mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\Home.g.cs
+C:\Users\Sam Mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\Home.baml
