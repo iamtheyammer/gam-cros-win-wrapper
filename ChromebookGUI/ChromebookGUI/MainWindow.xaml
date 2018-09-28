@@ -14,6 +14,10 @@
         </Button>
         <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="30" Margin="24,28,0,0" TextWrapping="Wrap" Text="5CD725686P" VerticalAlignment="Top" Width="500" FontSize="18"/>
         <TextBox x:Name="outputField" HorizontalAlignment="Left" Height="123" Margin="24,268,0,0" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Top" Width="709"/>
+        <Button x:Name="getInfoButton" Content="Get Info" HorizontalAlignment="Left" Margin="24,90,0,0" VerticalAlignment="Top" Width="140" Height="40" FontSize="18" Click="getInfoButton_Click"/>
+        <Button x:Name="setLocationButton" Content="Set Location" HorizontalAlignment="Left" Margin="187,90,0,0" VerticalAlignment="Top" Width="140" Height="40" FontSize="18" Click="setLocationButton_Click"/>
+        <Button x:Name="getInfoButton_Copy2" Content="Get Info" HorizontalAlignment="Left" Margin="506,90,0,0" VerticalAlignment="Top" Width="140" Height="40" FontSize="18" Click="getInfoButton_Click" RenderTransformOrigin="0.506,0.555"/>
+        <Button x:Name="getInfoButton_Copy3" Content="Get Info" HorizontalAlignment="Left" Margin="348,90,0,0" VerticalAlignment="Top" Width="140" Height="40" FontSize="18" Click="getInfoButton_Click"/>
 
     </Grid>
 

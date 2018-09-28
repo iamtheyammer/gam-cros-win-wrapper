@@ -10,19 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ChromebookGUI
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for InputWindow.xaml
     /// </summary>
-    public partial class Home : Page
+    public partial class InputWindow : Window
     {
-        public Home()
+        public InputWindow()
         {
             InitializeComponent();
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text = null;
+            this.Close();
+        }
+
+        private void okButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

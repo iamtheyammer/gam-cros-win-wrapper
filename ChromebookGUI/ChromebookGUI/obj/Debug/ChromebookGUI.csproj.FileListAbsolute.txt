@@ -13,5 +13,3 @@ c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\Chrome
 c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.CoreCompileInputs.cache
 c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.exe
 c:\users\sam mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.pdb
-C:\Users\Sam Mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\Home.g.cs
-C:\Users\Sam Mendelson\source\repos\ChromebookGUI\ChromebookGUI\obj\Debug\Home.baml
