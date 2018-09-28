@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\
 ChromebookGUI
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\App.xaml
 3-1265970298
 
-14356081797
+101317431148
 131569487696
 DeprovosionSelect.xaml;InputWindow.xaml;MainWindow.xaml;
 

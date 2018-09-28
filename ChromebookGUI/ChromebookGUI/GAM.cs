@@ -21,6 +21,7 @@ namespace ChromebookGUI
                     Arguments = gamCommand, // this must be passed in without the "gam"
                     UseShellExecute = false,
                     RedirectStandardOutput = true, // let us read the output here
+                    RedirectStandardError = true,
                     CreateNoWindow = true // don't open a cmd window
                 }
             };
@@ -31,6 +32,10 @@ namespace ChromebookGUI
             while (!proc.StandardOutput.EndOfStream) // while it's still running
             {
                 output.Add(proc.StandardOutput.ReadLine()); // append the line to output
+                //Console.WriteLine("Standard output:");
+                //Console.WriteLine(proc.StandardOutput.ReadLine());
+                Console.WriteLine("Error output:");
+                Console.WriteLine(proc.StandardError.ReadLine());
 
             }
             return output;

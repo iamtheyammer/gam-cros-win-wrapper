@@ -10,5 +10,16 @@ namespace ChromebookGUI
     {
 
         public static string DeviceId { get; set; }
+
+        public static bool DeviceIdExists()
+        {
+            if(DeviceId == null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+        }
     }
 }
