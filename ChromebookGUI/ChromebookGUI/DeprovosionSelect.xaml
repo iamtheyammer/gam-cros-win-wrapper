@@ -10,8 +10,8 @@
         <RadioButton x:Name="sameModelReplacementRadio" Content="Same Model Replacement" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Checked="sameModelReplacementRadio_Checked"/>
         <RadioButton x:Name="retiringDeviceRadio" Content="Retiring Device" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="differentModelReplacementRadio" Content="Different Model Replacement" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
-        <Button x:Name="OkButton" Content="OK" HorizontalAlignment="Left" Margin="264,116,0,0" VerticalAlignment="Top" Width="75" Click="OkButton_Click"/>
-        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="171,116,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button x:Name="OkButton" Content="OK" HorizontalAlignment="Left" Margin="264,108,0,0" VerticalAlignment="Top" Width="75" Click="OkButton_Click"/>
+        <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="171,108,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Why are you deprovisioning this device?" VerticalAlignment="Top" Height="29" Width="349" FontSize="18"/>
 
     </Grid>

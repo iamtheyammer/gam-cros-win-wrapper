@@ -43,6 +43,11 @@ namespace ChromebookGUI
             outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
             string deviceId = GAM.GetDeviceId(deviceInputField.Text);
             Globals.DeviceId = deviceId;
+            if(deviceId.Length != 36)
+            {
+                outputField.Text = deviceId;
+                return;
+            }
             outputField.Text = "Found device. ID: " + deviceId + ".";
             //deviceInputField.Text = deviceId;
         }
@@ -141,6 +146,8 @@ namespace ChromebookGUI
         private void changeOuButton_Click(object sender, RoutedEventArgs e)
         {
             // we'll use the radio selector here, not doing now
+            outputField.Text = "This feature is not currently supported, but will be in the future.";
+            return;
         }
 
         private void deprovisionButton_Click(object sender, RoutedEventArgs e)

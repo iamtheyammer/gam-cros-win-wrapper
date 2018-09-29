@@ -29,6 +29,7 @@ namespace ChromebookGUI
             sameModelReplacementRadio.IsChecked = false;
             retiringDeviceRadio.IsChecked = false;
             differentModelReplacementRadio.IsChecked = false;
+            this.Close();
             return;
         }
 
