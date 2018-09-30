@@ -30,7 +30,11 @@ namespace ChromebookGUI
         {
 
         }
-
+        /// <summary>
+        /// Essentially, run GAM.GetDeviceId() on whatever is entered into the text field.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
             outputField.Text = "Loading...";
@@ -42,6 +46,7 @@ namespace ChromebookGUI
 
             //outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
             BasicDeviceInfo deviceInfo = GAM.GetDeviceId(deviceInputField.Text);
+            Globals.ClearGlobals(); // clear the globals before adding new ones
             Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
             if (deviceInfo.Error)
             {
@@ -62,7 +67,11 @@ namespace ChromebookGUI
 
         }
 
-
+        /// <summary>
+        /// Get info about the device.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void getInfoButton_Click(object sender, RoutedEventArgs e)
         {
             if(Globals.DeviceIdExists() == false)
@@ -75,6 +84,11 @@ namespace ChromebookGUI
             outputField.Text = GAM.RunGAMFormatted("info cros " + Globals.DeviceId + " allfields");
         }
 
+        /// <summary>
+        /// Set the location of the device.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setLocationButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false)
@@ -82,16 +96,21 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string newLocation = GetInput.getInput("What would you like to set the location to?", "Enter a new location...", "Add/Change Device Location");
-            if(newLocation == null)
+            string location = !String.IsNullOrEmpty(Globals.Location) ? Globals.Location : "No location found. Enter one...";
+            string newLocation = GetInput.getInput("What would you like to set the location to?", location , !String.IsNullOrEmpty(Globals.SerialNumber) ? "Add/Change Device Location: " + Globals.SerialNumber : "Add/Change Device Location: " + Globals.DeviceId);
+            if (newLocation == null | newLocation == location)
             {
-                outputField.Text = "You didn't enter anything, silly goose!";
+                outputField.Text = "You didn't enter anything or pressed cancel.";
                 return;
             }
             string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location " + newLocation);
-            outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
+            outputField.Text = gamResult + "\nAs long as you don't see an error, the location has been updated.";
         }
-
+        /// <summary>
+        /// Set the asset id of the device.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setAssetIdButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false)
@@ -99,10 +118,11 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string newAssetId = GetInput.getInput("What would you like to set the asset ID to?", "Enter a new asset ID...", "Enter/Change Device Asset ID");
+            string assetId = !String.IsNullOrEmpty(Globals.AssetId) ? Globals.AssetId : "No Asset ID found. Enter one...";
+            string newAssetId = GetInput.getInput("What would you like to set the asset ID to?", assetId, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Enter/Change Device Asset ID: " + Globals.SerialNumber : "Enter/Change Device Asset ID: " + Globals.DeviceId);
             if(newAssetId == null)
             {
-                outputField.Text = "You didn't enter anything, silly goose!";
+                outputField.Text = "You didn't enter anything or you pressed cancel, silly goose!";
                 return;
             }
             string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " assetid " + newAssetId);
@@ -116,10 +136,11 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string newUser = GetInput.getInput("What would you like to set the user to?", "Enter a new user...", "Modify Device User");
+            string user = !String.IsNullOrEmpty(Globals.User) ? Globals.User : "No location found. Enter one...";
+            string newUser = GetInput.getInput("What would you like to set the user to?", user, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Modify Device User: " + Globals.SerialNumber : "Modify Device User: " + Globals.DeviceId);
             if (newUser == null)
             {
-                outputField.Text = "You didn't enter anything, silly goose!";
+                outputField.Text = "You didn't enter anything or you pressed cancel, silly goose!";
                 return;
             }
             string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " user " + newUser);
@@ -232,20 +253,26 @@ namespace ChromebookGUI
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
             }
-            List<string> gamResult = GAM.RunGAM("info cros " + Globals.DeviceId + " fields notes");
             string note = null;
-            if(gamResult.Count < 2)
+            if(String.IsNullOrEmpty(Globals.Note))
             {
-                note = "No note found.";
+                List<string> gamResult = GAM.RunGAM("info cros " + Globals.DeviceId + " fields notes");
+                if (gamResult.Count < 2)
+                {
+                    note = "No note found. Enter a new one here...";
+                }
+                else
+                {
+                    note = gamResult[1].Substring(9);
+                }
             } else
             {
-                note = gamResult[1].Substring(9);
+                note = Globals.Note;
             }
-            Console.WriteLine("GAMRESULT:");
-            Console.WriteLine(gamResult);
-            string newNote = GetInput.getInput("Edit/modify note:", note, "Add/Change Device Note");
 
-            if (newNote == null)
+            string newNote = GetInput.getInput("Edit/modify note:", note, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Add/Change Device Note: " + Globals.SerialNumber : "Add/Change Device Note: " + Globals.DeviceId);
+
+            if (newNote == null | newNote == note)
             {
                 outputField.Text = "You didn't change the note so I'm leaving it as it is.";
                 return;

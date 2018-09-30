@@ -17,7 +17,7 @@
                 <DropShadowEffect Color="#FF6D6D6D"/>
             </Button.Effect>
         </Button>
-        <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="30" Margin="24,28,0,0" TextWrapping="Wrap" Text="Enter a Device ID, Serial Number or Email..." VerticalAlignment="Top" Width="500" FontSize="18" TextChanged="deviceInputField_TextChanged" GotKeyboardFocus="selectAllTextInBox" GotMouseCapture="selectAllTextInBox" Cursor="SizeAll"/>
+        <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="30" Margin="24,28,0,0" TextWrapping="Wrap" Text="Enter a Device ID, Serial Number or Email..." VerticalAlignment="Top" Width="500" FontSize="18" TextChanged="deviceInputField_TextChanged" GotKeyboardFocus="selectAllTextInBox" GotMouseCapture="selectAllTextInBox" Cursor="IBeam"/>
         <TextBox x:Name="outputField" HorizontalAlignment="Left" Height="123" Margin="24,268,0,0" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Top" Width="709" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         <Button x:Name="getInfoButton" Content="Get Info" HorizontalAlignment="Left" Margin="24,90,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="getInfoButton_Click"/>
         <Button x:Name="setLocationButton" Content="Set Location" HorizontalAlignment="Left" Margin="173,90,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="setLocationButton_Click"/>

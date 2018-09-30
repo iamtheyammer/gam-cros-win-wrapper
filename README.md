@@ -13,6 +13,8 @@ Before running, make sure that you can run `gam print cros` and from that comman
 
 Installation of this app is simple. Just pop on over to the releases page, and download the exe. It should run on both x86 and x64 platforms. It's a portable app, so no "installation" is required.
 
+Note: if you'd like the latest build (not verified stable, but *should* work), download the ChromebookGUI.exe file from ChromebookGUI/bin/Release/ChromebookGUI.exe
+
 ## Usage
 
 Using the app is fairly simple, and usability is something I want to work on more.
