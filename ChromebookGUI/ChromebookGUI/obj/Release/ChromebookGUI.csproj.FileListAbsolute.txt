@@ -34,3 +34,5 @@ C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\Chrom
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.csproj.CoreCompileInputs.cache
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\DeprovosionSelect.g.cs
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\DeprovosionSelect.baml
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\DataGridInput.g.cs
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\DataGridInput.baml

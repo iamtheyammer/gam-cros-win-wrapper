@@ -53,5 +53,26 @@ namespace ChromebookGUI
                 return 0;
             }
         }
+        public static List<string> GetDataGridSelection(String instructionText, String instructionTextBoxText, List<OrgUnit> inputData)
+        {
+            DataGridInput inputWindow = new DataGridInput();
+            inputWindow.instructionTextBlock.Text = instructionText;
+            inputWindow.radioGrid.ItemsSource = inputData;
+            inputWindow.inputTextBox.Text = instructionTextBoxText;
+            inputWindow.ShowDialog();
+            string inputTextBoxData = inputWindow.inputTextBox.Text;
+            return inputWindow.inputTextBox.Text.Split('|').ToList();
+        }
+
+        public static List<string> GetDataGridSelection(String instructionText, String instructionTextBoxText, List<BasicDeviceInfo> inputData)
+        {
+            DataGridInput inputWindow = new DataGridInput();
+            inputWindow.instructionTextBlock.Text = instructionText;
+            inputWindow.radioGrid.ItemsSource = inputData;
+            inputWindow.inputTextBox.Text = instructionTextBoxText;
+            inputWindow.ShowDialog();
+            string inputTextBoxData = inputWindow.inputTextBox.Text;
+            return inputWindow.inputTextBox.Text.Split('|').ToList();
+        }
     }
 }

@@ -34,13 +34,13 @@ namespace ChromebookGUI
         private void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
             outputField.Text = "Loading...";
-            if (deviceInputField.Text.Length < 1 || deviceInputField.Text == "Output will appear here.")
+            if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, serial number or email...")
             {
-                deviceInputField.Text = "You must enter something into the field at the top.";
+                outputField.Text = "You must enter something into the field at the top.";
                 return;
             }
 
-            outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
+            //outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
             string deviceId = GAM.GetDeviceId(deviceInputField.Text);
             Globals.DeviceId = deviceId;
             if(deviceId.Length != 36)
@@ -145,9 +145,47 @@ namespace ChromebookGUI
 
         private void changeOuButton_Click(object sender, RoutedEventArgs e)
         {
-            // we'll use the radio selector here, not doing now
-            outputField.Text = "This feature is not currently supported, but will be in the future.";
-            return;
+            if (Globals.DeviceIdExists() == false)
+            {
+                outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
+                return;
+            }
+            outputField.Text = "You should see the org selector in a second...";
+            //return;
+
+            List<string> allOrgs = GAM.RunGAM("print orgs allfields");
+            List<List<string>> fixedOrgs = FixCSVCommas.FixCommas(allOrgs);
+
+            List<OrgUnit> orgUnits = new List<OrgUnit>();
+            foreach(List<string> org in fixedOrgs)
+            {
+                if (org[0] == "orgUnitPath") continue;
+
+                orgUnits.Add(new OrgUnit()
+                {
+                    OrgUnitPath = org[0],
+                    OrgUnitName = org[2].StartsWith("id:") ? "(no description provided)" : org[2],
+                    OrgUnitDescription = org[3].StartsWith("id:") ? "(no description provided)" : org[3]
+                });
+            }
+            if(orgUnits.Count < 2)
+            {
+                outputField.Text = "There was an error getting your org units. You don't seem to have any.";
+                return;
+            }
+            List<string> orgSelection = GetInput.GetDataGridSelection("Pick an org!", "Click on an row to select it, or paste the full path here and press submit...", orgUnits);
+            string orgPath = null;
+            foreach(string item in orgSelection)
+            {
+                if (item.Contains("/")) orgPath = item;
+            }
+            if (orgPath == null | orgSelection.Contains("Click on an row to select it, or paste the full path here and press submit..."))
+            {
+                outputField.Text = "Either you didn't enter anything or there was an error. Nothing has been changed.";
+                return;
+            }
+            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " ou \"" + orgPath + "\"");
+            outputField.Text = "Done! Your OU has been changed.";
         }
 
         private void deprovisionButton_Click(object sender, RoutedEventArgs e)
@@ -235,11 +273,6 @@ namespace ChromebookGUI
         }
 
         private void deviceInputField_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void deviceInputField_TextChanged_1(object sender, TextChangedEventArgs e)
         {
 
         }

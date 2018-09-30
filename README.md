@@ -17,9 +17,9 @@ Installation of this app is simple. Just pop on over to the releases page, and d
 
 Using the app is fairly simple, and usability is something I want to work on more.
 
-**The first step is to put a serial number/device ID into the big box asking for it, then pressing submit.** In the output box, you should see the device ID you're working with.
+**The first step is to put a serial number/device ID/email into the big box asking for it, then pressing submit.** In the output box, you should see the device ID you're working with.
 
-Now, you can click on any of the buttons. (except for Change OU, this will be supported in the future.)
+Now, you can click on any of the buttons.
 
 | Item Title      | Equivalent GAM command | Description |
 | :------------- | :---------------------- | :---------- |
@@ -29,10 +29,10 @@ Now, you can click on any of the buttons. (except for Change OU, this will be su
 | Set User | `gam update cros $deviceId user $user` | Set's the device's assigned user |
 | Disable | `gam update cros $deviceId disable` | Disables the device, allowing no one to sign into it. |
 | Reenable | `gam update cros $deviceId reenable` | Reenables a disabled device. |
-| Change OU | `gam update cros $deviceId ou $ou` | Changes the OU of a device. **Not currently supported** |
+| Change OU | `gam update cros $deviceId ou $ou` | Changes the OU of a device. |
 | Deprovision | `gam update cros $deviceId $deprovisionReason acknowledge_device_touch_requirement` | Allows you to deprovision a device. |
 | Edit Note | `gam update cros $deviceId note $note` | Allows you to update the note on a device. |
-| Copy ID | not a single gam command. to find a device id by serial number: `gam print cros query "id:$serialNumber"`, or by user: `gam print cros query "user:joesmith@acme.com"` | Takes the current device ID and copies it to the clipboard. |
+| Copy ID | not a single gam command. to find a device id by serial number: `gam print cros query "id:$serialNumber"`, or by user: `gam print cros query "user:$user"` | Takes the current device ID and copies it to the clipboard. |
 
 Output will be displayed in the large box on the bottom of the window. Use the `Copy output to clipboard` button to place the entire output box in the clipboard.
 
@@ -40,10 +40,21 @@ Output will be displayed in the large box on the bottom of the window. Use the `
 | Description | Image     |
 | :------------- | :------------- |
 | Main window, displayed after startup.   | ![main window](images/main-screen.png)       |
+| Device selection screen. Shown if you enter an email with more than once device. | ![device-selection small](images/device-selection-small.png) |
 | Asset ID change window | ![assetid change](images/assetId.png) |
 | Set User window | ![user change](images/userChange.png) |
+| Change OU window | ![change ou small](images/org-selection-small.png) |
 | Deprovision window | ![deprovision window](images/deprovisionSelect.png) |
 | Set/change note window | ![set/change note window](images/note.png) |
+
+<details open>
+<summary>Both the device selection and OU selection screens expand. Click for an expanded image.</summary>
+<br>
+| Description | Image     |
+| :------------- | :------------- |
+| Expanded device selection menu       | ![device-selection-large](images/device-selection-large.png) |
+| Expanded OU selection menu | ![org-selection-large](images/org-selection-large.png) |
+<details>
 
 ## Bug reporting
 Please open an issue! I want to fix your bugs, I just don't know about them yet. Please include a screenshot with your report.

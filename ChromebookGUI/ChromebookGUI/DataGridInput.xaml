@@ -1,0 +1,16 @@
+﻿<Window x:Class="ChromebookGUI.DataGridInput"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChromebookGUI"
+        mc:Ignorable="d"
+        Title="DataGridInput" Height="525" Width="725">
+    <Grid>
+        <DataGrid x:Name="radioGrid" Height="Auto" Margin="0,80,0.286,-0.571" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" SelectedCellsChanged="dataGrid_SelectedCellsChanged"/>
+        <TextBlock x:Name="instructionTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You should never see this-- it should be set with instructionTextBlock.Text" VerticalAlignment="Top" Height="29" Width="617" FontSize="18"/>
+        <TextBox x:Name="inputTextBox" Text="You should never see this either-- set it with inputTextBox.Text" HorizontalAlignment="Stretch" TextAlignment="Left" Margin="10,45,134.286,0" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="Auto" Height="30"/>
+        <Button x:Name="submitButton" Content="Submit" HorizontalAlignment="Right" Margin="589,45,10.286,396.429" VerticalAlignment="Top" Width="95" Height="30" FontSize="16" Click="submitButton_Click"/>
+
+    </Grid>
+</Window>

@@ -55,6 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataGridInput.xaml.cs">
+      <DependentUpon>DataGridInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FixCSVCommas.cs" />
+    <Compile Include="ObjectClasses.cs" />
+    <Page Include="DataGridInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DeprovosionSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
