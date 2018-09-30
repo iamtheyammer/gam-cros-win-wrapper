@@ -11,9 +11,9 @@ This simple Chromebook management app makes it easy to perform simple Chrome OS 
 
 Before running, make sure that you can run `gam print cros` and from that command you get a bunch of 36 character ids, like this: `90a79523-658p-686y-bf20-19638646153c`. `gam` must be in your PATH.
 
-Installation of this app is simple. Just pop on over to the releases page, and download the exe. It should run on both x86 and x64 platforms. It's a portable app, so no "installation" is required.
+Installation of this app is simple. Just pop on over to the [releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the exe. It should run on both x86 and x64 platforms. It's a portable app, so no "installation" is required.
 
-Note: if you'd like the latest build (not verified stable, but *should* work), download the ChromebookGUI.exe file from ChromebookGUI/bin/Release/ChromebookGUI.exe
+Note: if you'd like the latest build (not verified stable, but *should* work), download the ChromebookGUI.exe file from [ChromebookGUI/bin/Release/ChromebookGUI.exe (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/ChromebookGUI/bin/Release/ChromebookGUI.exe)
 
 ## Usage
 
