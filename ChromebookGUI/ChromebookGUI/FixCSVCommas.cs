@@ -11,8 +11,16 @@ using System.Threading.Tasks;
 /// </summary>
 namespace ChromebookGUI
 {
+    /// <summary>
+    /// A class for its only method, FixCommas.
+    /// </summary>
     class FixCSVCommas
     {
+        /// <summary>
+        /// A simple class that fixes comma based escapes from CSV files. Takes in a List<string> and returns a List<List<string>> with your data.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static List<List<string>> FixCommas(List<string> input)
         {
             // cycle through each match, and if it contains a comma, join it with the next.

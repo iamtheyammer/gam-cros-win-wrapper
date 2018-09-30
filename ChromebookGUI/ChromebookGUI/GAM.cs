@@ -58,30 +58,43 @@ namespace ChromebookGUI
             return FixCSVCommas.FixCommas(GAM.RunGAM(gamCommand));
         }
 
-        public static String GetDeviceId(String input)
+        public static BasicDeviceInfo GetDeviceId(String input)
         {
             if (input.Length == 36) // this is already a device ID
             {
-                return input;
+                return new BasicDeviceInfo
+                {
+                    DeviceId = input
+                };
             }
             else if (input.Contains("@"))
             {
                 string user = input.Split('@')[0];
                 if (String.IsNullOrEmpty(user))
                 {
-                    return "There was an error processing your email entry: I couldn't find the email.";
+                    return new BasicDeviceInfo {
+                        ErrorText = "There was an error processing your email entry: I couldn't find the email.",
+                        Error = true
+                    };
                 }
                 // results:
                 // deviceId,lastSync,notes,serialNumber,status
                 List<string> gamResults = RunGAM("print cros query \"user:" + user + "\" fields deviceId,lastSync,notes,serialNumber,status");
                 List<List<string>> deviceInfos = FixCSVCommas.FixCommas(gamResults);
                 if (deviceInfos[0][0] == "deviceId") deviceInfos.RemoveAt(0);
-                if(deviceInfos.Count == 1) if (deviceInfos[0].Count > 1)
+                if (deviceInfos.Count == 1) if (deviceInfos[0].Count > 1)
                     {
-                        return deviceInfos[0][0];
+                        return new BasicDeviceInfo()
+                        {
+                            DeviceId = deviceInfos[0][0],
+                            LastSync = deviceInfos[0][1],
+                            Notes = deviceInfos[0][2],
+                            SerialNumber = deviceInfos[0][3],
+                            Status = deviceInfos[0][4]
+                        };
                     }
                 List<BasicDeviceInfo> infoObjects = new List<BasicDeviceInfo>();
-                foreach(List<string> line in deviceInfos)
+                foreach (List<string> line in deviceInfos)
                 {
                     infoObjects.Add(new BasicDeviceInfo()
                     {
@@ -92,29 +105,61 @@ namespace ChromebookGUI
                         Notes = line[2]
                     });
                 }
-                List<string> selection = GetInput.GetDataGridSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", infoObjects);
+                List<string> selection = GetInput.GetDataGridSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", infoObjects);
                 string deviceId = null;
                 foreach (string item in selection)
                 {
                     if (item.Length == 36) deviceId = item;
                     break;
                 }
-                if(deviceId == null)
+                if (deviceId == null)
                 {
-                    return "There was an error. You didn't pick anything.";
+                    return new BasicDeviceInfo {
+                        ErrorText = "There was an error. You didn't pick anything.",
+                        Error = true
+                    };
                 } else
                 {
-                    return deviceId;
+                    for(int i = 1; i < deviceInfos.Count; i++)
+                    {
+                        if(deviceId == deviceInfos[i][0])
+                        {
+                            return new BasicDeviceInfo
+                            {
+                                DeviceId = deviceId,
+                                LastSync = deviceInfos[i][1],
+                                Notes = deviceInfos[i][2],
+                                SerialNumber = deviceInfos[i][3],
+                                Status = deviceInfos[i][4],
+                                Error = false
+                            };
+                        }
+                    }
+                    // we have not found a match for the device id
+                    return new BasicDeviceInfo
+                    {
+                        DeviceId = deviceId
+                    };
                 }
             }
             else
             {
                 // must be a serial number. 
-                List<string> response = RunGAM("print cros query \"id:" + input + "\"");
-                if (response.Count < 2) return "No results found for that entry (" + input + ")."; // this count thing does NOT start at zero. ugh!
-                return response[1];
+                List<List<string>> response = FixCSVCommas.FixCommas(RunGAM("print cros query \"id:" + input + "\" fields deviceId,lastSync,notes,serialNumber,status"));
+                if (response.Count < 2) return new BasicDeviceInfo {
+                    ErrorText = "No results found for that entry (" + input + ").",
+                    Error = true
+                }; // this count thing does NOT start at zero. ugh!
+
+                return new BasicDeviceInfo
+                {
+                    DeviceId = response[1][0],
+                    LastSync = response[1][1],
+                    Notes = response[1][2],
+                    SerialNumber = response[1][3],
+                    Status = response[1][4]
+                };
             }
-            return "hi";
         }
     }
 }

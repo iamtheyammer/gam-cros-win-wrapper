@@ -6,15 +6,26 @@ using System.Threading.Tasks;
 
 namespace ChromebookGUI
 {
+    /// <summary>
+    /// A class for getting input. Contains methods for a text input, deprovision reason input and a DataGrid input.
+    /// </summary>
     class GetInput
     {
-        public static string getInput(String instructionText, String inputBoxPrefill)
+        /// <summary>
+        /// Allows you to get text input via a dialog.
+        /// </summary>
+        /// <param name="instructionText">The top header text block shown to the user.</param>
+        /// <param name="inputBoxPrefill">What will be prefilled in the input box.</param>
+        /// <param name="title">The title of the window.</param>
+        /// <returns></returns>
+        public static string getInput(String instructionText, String inputBoxPrefill, String title)
         {
             InputWindow inputWindow = new InputWindow();
             inputWindow.instructionTextBlock.Text = instructionText;
             inputWindow.inputBox.Text = inputBoxPrefill;
             inputWindow.inputBox.SelectionStart = 0;
             inputWindow.inputBox.SelectionLength = inputBoxPrefill.Length;
+            inputWindow.Title = title;
             inputWindow.ShowDialog();
             inputWindow.Activate();
             if (inputWindow.inputBox.Text == inputBoxPrefill || inputWindow.inputBox.Text.Length < 1)
@@ -28,12 +39,22 @@ namespace ChromebookGUI
         
         public static string getInput(String instructionText)
         {
-            return getInput(instructionText, "Enter value here...");
+            return getInput(instructionText, "Enter value here...", "InputWindow");
         }
 
+        public static string getInput(String instructionText, String inputBoxPrefill)
+        {
+            return getInput(instructionText, inputBoxPrefill, "InputWindow");
+        }
+
+        /// <summary>
+        /// A method for getting the deprovision reason for a deprovision action.
+        /// </summary>
+        /// <returns></returns>
         public static int GetDeprovisionReason()
         {
-            DeprovosionSelect window = new DeprovosionSelect();
+            DeprovisionSelect window = new DeprovisionSelect();
+            window.Title = "Deprovision Reason";
             window.ShowDialog();
             window.Activate();
 
@@ -53,23 +74,33 @@ namespace ChromebookGUI
                 return 0;
             }
         }
-        public static List<string> GetDataGridSelection(String instructionText, String instructionTextBoxText, List<OrgUnit> inputData)
+        /// <summary>
+        /// Gets a DataGrid input. When the user clicks on a row in the DataGrid, you get that row, back as a List<string>.
+        /// </summary>
+        /// <param name="instructionText">The header text at the top of the window.</param>
+        /// <param name="instructionTextBoxText">The text that will go in the optional manual input box.</param>
+        /// <param name="title">The window title.</param>
+        /// <param name="inputData">An object containing data for the DataTable.</param>
+        /// <returns></returns>
+        public static List<string> GetDataGridSelection(String instructionText, String instructionTextBoxText, String title, List<OrgUnit> inputData)
         {
             DataGridInput inputWindow = new DataGridInput();
             inputWindow.instructionTextBlock.Text = instructionText;
             inputWindow.radioGrid.ItemsSource = inputData;
             inputWindow.inputTextBox.Text = instructionTextBoxText;
+            inputWindow.Title = title;
             inputWindow.ShowDialog();
             string inputTextBoxData = inputWindow.inputTextBox.Text;
             return inputWindow.inputTextBox.Text.Split('|').ToList();
         }
 
-        public static List<string> GetDataGridSelection(String instructionText, String instructionTextBoxText, List<BasicDeviceInfo> inputData)
+        public static List<string> GetDataGridSelection(String instructionText, String instructionTextBoxText, String title, List<BasicDeviceInfo> inputData)
         {
             DataGridInput inputWindow = new DataGridInput();
             inputWindow.instructionTextBlock.Text = instructionText;
             inputWindow.radioGrid.ItemsSource = inputData;
             inputWindow.inputTextBox.Text = instructionTextBoxText;
+            inputWindow.Title = title;
             inputWindow.ShowDialog();
             string inputTextBoxData = inputWindow.inputTextBox.Text;
             return inputWindow.inputTextBox.Text.Split('|').ToList();

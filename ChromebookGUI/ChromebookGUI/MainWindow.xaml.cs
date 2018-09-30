@@ -41,14 +41,19 @@ namespace ChromebookGUI
             }
 
             //outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
-            string deviceId = GAM.GetDeviceId(deviceInputField.Text);
-            Globals.DeviceId = deviceId;
-            if(deviceId.Length != 36)
+            BasicDeviceInfo deviceInfo = GAM.GetDeviceId(deviceInputField.Text);
+            Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
+            if (deviceInfo.Error)
             {
-                outputField.Text = deviceId;
+                outputField.Text = deviceInfo.ErrorText;
                 return;
             }
-            outputField.Text = "Found device. ID: " + deviceId + ".";
+            
+            outputField.Text = "Found device. ID: " + deviceInfo.DeviceId + ".";
+            if (!String.IsNullOrEmpty(deviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + deviceInfo.SerialNumber;
+            if (!String.IsNullOrEmpty(deviceInfo.Notes)) outputField.Text += "\nNotes: " + deviceInfo.Notes;
+            if (!String.IsNullOrEmpty(deviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + deviceInfo.LastSync;
+            if (!String.IsNullOrEmpty(deviceInfo.Status)) outputField.Text += "\nStatus: " + deviceInfo.Status;
             //deviceInputField.Text = deviceId;
         }
 
@@ -77,7 +82,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string newLocation = GetInput.getInput("What would you like to set the location to?", "Enter a new location...");
+            string newLocation = GetInput.getInput("What would you like to set the location to?", "Enter a new location...", "Add/Change Device Location");
             if(newLocation == null)
             {
                 outputField.Text = "You didn't enter anything, silly goose!";
@@ -94,7 +99,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string newAssetId = GetInput.getInput("What would you like to set the asset ID to?", "Enter a new asset ID...");
+            string newAssetId = GetInput.getInput("What would you like to set the asset ID to?", "Enter a new asset ID...", "Enter/Change Device Asset ID");
             if(newAssetId == null)
             {
                 outputField.Text = "You didn't enter anything, silly goose!";
@@ -111,7 +116,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string newUser = GetInput.getInput("What would you like to set the user to?", "Enter a new user...");
+            string newUser = GetInput.getInput("What would you like to set the user to?", "Enter a new user...", "Modify Device User");
             if (newUser == null)
             {
                 outputField.Text = "You didn't enter anything, silly goose!";
@@ -173,7 +178,7 @@ namespace ChromebookGUI
                 outputField.Text = "There was an error getting your org units. You don't seem to have any.";
                 return;
             }
-            List<string> orgSelection = GetInput.GetDataGridSelection("Pick an org!", "Click on an row to select it, or paste the full path here and press submit...", orgUnits);
+            List<string> orgSelection = GetInput.GetDataGridSelection("Pick an org!", "Click on an row to select it, or paste the full path here and press submit...", "Organizational Unit Selector", orgUnits);
             string orgPath = null;
             foreach(string item in orgSelection)
             {
@@ -200,7 +205,7 @@ namespace ChromebookGUI
             switch (depChoice) {
                 case 0:
                     outputField.Text = "Either you cancelled or selected nothing.";
-                    break;
+                    return;
                 case 1:
                     // same model replacement
                     depAction = "deprovision_same_model_replace";
@@ -234,11 +239,11 @@ namespace ChromebookGUI
                 note = "No note found.";
             } else
             {
-                note = gamResult[1].Substring(8);
+                note = gamResult[1].Substring(9);
             }
             Console.WriteLine("GAMRESULT:");
             Console.WriteLine(gamResult);
-            string newNote = GetInput.getInput("Edit/modify note:", note);
+            string newNote = GetInput.getInput("Edit/modify note:", note, "Add/Change Device Note");
 
             if (newNote == null)
             {

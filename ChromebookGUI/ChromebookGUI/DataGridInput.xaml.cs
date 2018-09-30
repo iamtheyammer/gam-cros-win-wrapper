@@ -34,9 +34,13 @@ namespace ChromebookGUI
             string result = null;
             foreach (var item in e.AddedCells)
             {
+                string textBoxValue = "uh oh";
                 var col = item.Column as DataGridColumn;
                 var fc = col.GetCellContent(item.Item);
-                string textBoxValue = (fc as TextBlock).Text;
+                if(fc is TextBlock && col.DisplayIndex == 0)
+                {
+                    textBoxValue = (fc as TextBlock).Text;
+                }
                 result += textBoxValue + "|";
                 //// Like this for all available types of cells
             }

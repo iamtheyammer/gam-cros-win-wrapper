@@ -47,14 +47,15 @@ Output will be displayed in the large box on the bottom of the window. Use the `
 | Deprovision window | ![deprovision window](images/deprovisionSelect.png) |
 | Set/change note window | ![set/change note window](images/note.png) |
 
-<details open>
+<details>
 <summary>Both the device selection and OU selection screens expand. Click for an expanded image.</summary>
 <br>
-| Description | Image     |
-| :------------- | :------------- |
-| Expanded device selection menu       | ![device-selection-large](images/device-selection-large.png) |
-| Expanded OU selection menu | ![org-selection-large](images/org-selection-large.png) |
-<details>
+  <p>Expanded Device Selection</p>
+  <img src="images/device-selection-large.png">
+  <p>Expanded Organizational Unit Selection</p>
+  <img src="images/org-selection-large.png">
+</details>
+
 
 ## Bug reporting
 Please open an issue! I want to fix your bugs, I just don't know about them yet. Please include a screenshot with your report.

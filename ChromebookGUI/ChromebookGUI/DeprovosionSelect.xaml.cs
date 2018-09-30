@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ChromebookGUI
 {
     /// <summary>
-    /// Interaction logic for DeprovosionSelect.xaml
+    /// Interaction logic for DeprovisionSelect.xaml
     /// </summary>
-    public partial class DeprovosionSelect : Window
+    public partial class DeprovisionSelect : Window
     {
-        public DeprovosionSelect()
+        public DeprovisionSelect()
         {
             InitializeComponent();
         }
