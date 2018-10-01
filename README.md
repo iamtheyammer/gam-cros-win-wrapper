@@ -15,6 +15,8 @@ Installation of this app is simple. Just pop on over to the [releases page](http
 
 Note: if you'd like the latest build (not verified stable, but *should* work), download the ChromebookGUI.exe file from [ChromebookGUI/bin/Release/ChromebookGUI.exe (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/ChromebookGUI/bin/Release/ChromebookGUI.exe)
 
+#### If you would like an email when this project gets a new release, or you would like to provide a little information about how you found ChromebookGUI, please click [here](https://goo.gl/forms/INpW33oJajuJhyBF2).
+
 ## Usage
 
 Using the app is fairly simple, and usability is something I want to work on more.
