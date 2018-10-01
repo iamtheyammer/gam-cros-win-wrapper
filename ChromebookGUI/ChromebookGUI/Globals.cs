@@ -49,6 +49,7 @@ namespace ChromebookGUI
             AssetId = null;
             Location = null;
             SerialNumber = null;
+            AssetId = null;
         }
         
         /// <summary>
@@ -61,6 +62,7 @@ namespace ChromebookGUI
             Note = (!String.IsNullOrEmpty(info.Notes)) ? info.Notes : null;
             Status = (!String.IsNullOrEmpty(info.Status)) ? info.Status : null;
             SerialNumber = (!String.IsNullOrEmpty(info.SerialNumber)) ? info.SerialNumber : null;
+            AssetId = (!String.IsNullOrEmpty(info.AssetId)) ? info.AssetId : null;
         }
     }
 }

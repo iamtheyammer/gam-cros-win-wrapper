@@ -145,20 +145,27 @@ namespace ChromebookGUI
             else
             {
                 // must be a serial number. 
-                List<List<string>> response = FixCSVCommas.FixCommas(RunGAM("print cros query \"id:" + input + "\" fields deviceId,lastSync,notes,serialNumber,status"));
+                List<List<string>> response = FixCSVCommas.FixCommas(RunGAM("print cros query \"id:" + input + "\" fields deviceId,lastSync,notes,serialNumber,status,assetid"));
+                if(response.Count < 2)
+                {
+                    response = FixCSVCommas.FixCommas(RunGAM("print cros query \"asset_id:'" + input + "'\" fields deviceId,lastSync,notes,serialNumber,status,assetid"));
+                }
                 if (response.Count < 2) return new BasicDeviceInfo {
                     ErrorText = "No results found for that entry (" + input + ").",
                     Error = true
                 }; // this count thing does NOT start at zero. ugh!
-
-                return new BasicDeviceInfo
+                
+                BasicDeviceInfo deviceInfo = new BasicDeviceInfo()
                 {
                     DeviceId = response[1][0],
                     LastSync = response[1][1],
                     Notes = response[1][2],
                     SerialNumber = response[1][3],
-                    Status = response[1][4]
+                    Status = response[1][4],
+                    AssetId = response[1][5]
                 };
+                Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
+                return deviceInfo;
             }
         }
     }

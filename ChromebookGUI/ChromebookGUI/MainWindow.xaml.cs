@@ -136,7 +136,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string user = !String.IsNullOrEmpty(Globals.User) ? Globals.User : "No location found. Enter one...";
+            string user = !String.IsNullOrEmpty(Globals.User) ? Globals.User : "Set the user...";
             string newUser = GetInput.getInput("What would you like to set the user to?", user, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Modify Device User: " + Globals.SerialNumber : "Modify Device User: " + Globals.DeviceId);
             if (newUser == null)
             {
@@ -311,7 +311,13 @@ namespace ChromebookGUI
 
         private void selectAllTextInBox(object sender, object e)
         {
-            deviceInputField.SelectAll();
+            if (deviceInputField.Text == "Enter a Device ID, Asset ID, Serial Number or Email...")
+            {
+                deviceInputField.Text = String.Empty;
+            } else
+            {
+                deviceInputField.SelectAll();
+            }
         }
 
     }
