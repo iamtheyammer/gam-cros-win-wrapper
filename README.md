@@ -21,7 +21,7 @@ Note: if you'd like the latest build (not verified stable, but *should* work), d
 
 Using the app is fairly simple, and usability is something I want to work on more.
 
-**The first step is to put a serial number/device ID/email into the big box asking for it, then pressing submit.** In the output box, you should see the device ID you're working with.
+**The first step is to put a serial number/device ID/email/asset ID into the big box asking for it, then pressing submit.** In the output box, you should see the device ID you're working with.
 
 Now, you can click on any of the buttons.
 
