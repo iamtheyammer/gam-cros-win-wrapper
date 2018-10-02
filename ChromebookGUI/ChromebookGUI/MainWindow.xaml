@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChromebookGUI"
         mc:Ignorable="d"
-        Title="Chrome OS GAM GUI" Height="450" Width="800" >
+        Title="Chrome OS GAM GUI" Height="500" Width="800" >
     <Grid Margin="10,0,10,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -19,7 +19,7 @@
         </Button>
         <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="30" Margin="24,28,0,0" TextWrapping="Wrap" Text="Enter a Device ID, Asset ID, Serial Number or Email..." VerticalAlignment="Top" Width="500" FontSize="18" TextChanged="deviceInputField_TextChanged" GotKeyboardFocus="selectAllTextInBox" GotMouseCapture="selectAllTextInBox" Cursor="IBeam"/>
         <!--If you change the above text make sure you change selectAllTextInBox, that's in MainWindow.xaml.cs-->
-        <TextBox x:Name="outputField" HorizontalAlignment="Left" Height="123" Margin="24,268,0,0" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Top" Width="709" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="outputField" HorizontalAlignment="Stretch" Height="Auto" Margin="24,10.429,41.286,31.714" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Width="Auto"/>
         <Button x:Name="getInfoButton" Content="Get Info" HorizontalAlignment="Left" Margin="24,90,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="getInfoButton_Click"/>
         <Button x:Name="setLocationButton" Content="Set Location" HorizontalAlignment="Left" Margin="173,90,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="setLocationButton_Click"/>
         <Button x:Name="setAssetIdButton" Content="Set Asset ID" HorizontalAlignment="Left" Margin="322,90,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="setAssetIdButton_Click" RenderTransformOrigin="0.506,0.555"/>
@@ -30,8 +30,10 @@
         <Button x:Name="deprovisionButton" Content="Deprovision" HorizontalAlignment="Left" Margin="322,161,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="deprovisionButton_Click"  RenderTransformOrigin="0.508,0.519"/>
         <Button x:Name="noteButton" Content="Edit Note" HorizontalAlignment="Left" Margin="468,161,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="noteButton_Click"  RenderTransformOrigin="0.508,0.519"/>
         <Button x:Name="copyIdButton" Content="Copy ID" HorizontalAlignment="Left" Margin="613,161,0,0" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="copyId_Click"  RenderTransformOrigin="0.508,0.519"/>
-        <Button Content="Copy output to clipboard" HorizontalAlignment="Left" Margin="24,242,0,0" VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.5,0.5" Click="copyToClipboard_Click">
+        <Button Content="Copy output to clipboard" HorizontalAlignment="Left" Margin="24,236,0,0" VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.5,0.5" Click="copyToClipboard_Click">
         </Button>
+        <Button x:Name="FontSizeUpButton" Content="Font Size +" HorizontalAlignment="Left" Margin="661,236,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.5,0.5" Click="FontSizeUpButton_Click" Grid.RowSpan="3"/>
+        <Button x:Name="FontSizeDownButton" Content="Font Size -" HorizontalAlignment="Left" Margin="583,236,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.5,0.5" Click="FontSizeDownButton_Click" Grid.RowSpan="3"/>
 
 
     </Grid>

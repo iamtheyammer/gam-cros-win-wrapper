@@ -154,7 +154,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " disable");
+            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action disable");
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
@@ -165,7 +165,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " enable");
+            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action enable");
             outputField.Text = gamResult += "\nAs long as you don't see an error, this query completed successfully.";
         }
 
@@ -189,9 +189,9 @@ namespace ChromebookGUI
 
                 orgUnits.Add(new OrgUnit()
                 {
-                    OrgUnitPath = org[0],
-                    OrgUnitName = org[2].StartsWith("id:") ? "(no description provided)" : org[2],
-                    OrgUnitDescription = org[3].StartsWith("id:") ? "(no description provided)" : org[3]
+                    OrgUnitPath = !String.IsNullOrEmpty(org[0]) ? org[0] : null,
+                    OrgUnitName = !String.IsNullOrEmpty(org[2]) ? (org[2].StartsWith("id:") ? "(no description provided)" : org[2]) : null,
+                    OrgUnitDescription = !String.IsNullOrEmpty(org[3]) ? (org[3].StartsWith("id:") ? "(no description provided)" : org[3]) : null
                 });
             }
             if(orgUnits.Count < 2)
@@ -320,6 +320,15 @@ namespace ChromebookGUI
             }
         }
 
+        private void FontSizeUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            outputField.FontSize += 2;
+        }
+
+        private void FontSizeDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            outputField.FontSize -= 2;
+        }
     }
 
 }

@@ -44,6 +44,7 @@ Output will be displayed in the large box on the bottom of the window. Use the `
 | Description | Image     |
 | :------------- | :------------- |
 | Main window, displayed after startup.   | ![main window](images/main-screen.png)       |
+| Main window, maximized (makes output window larger) | ![main window maximized](images/maximized-main-screen.png)
 | Device selection screen. Shown if you enter an email with more than once device. | ![device-selection small](images/device-selection-small.png) |
 | Asset ID change window | ![assetid change](images/assetId.png) |
 | Set User window | ![user change](images/userChange.png) |
