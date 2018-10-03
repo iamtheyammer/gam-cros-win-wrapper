@@ -11,11 +11,17 @@ This simple Chromebook management app makes it easy to perform simple Chrome OS 
 
 Before running, make sure that you can run `gam print cros` and from that command you get a bunch of 36 character ids, like this: `90a79523-658p-686y-bf20-19638646153c`. `gam` must be in your PATH.
 
-Installation of this app is simple. Just pop on over to the [releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the exe. It should run on both x86 and x64 platforms. It's a portable app, so no "installation" is required.
+Installation of this app is simple. Just pop on over to the [**beta** releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the msi. It should run on both x86 and x64 platforms.
 
-Note: if you'd like the latest build (not verified stable, but *should* work), download the ChromebookGUI.exe file from [ChromebookGUI/bin/Release/ChromebookGUI.exe (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/ChromebookGUI/bin/Release/ChromebookGUI.exe)
+Note: if you'd like the latest **alpha** build (not verified stable, but *should* work), download the Installer.msi file from [ChromebookGUI/Installer/Release/Installer.msi (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Release/Installer.msi)
 
-#### If you would like an email when this project gets a new release, or you would like to provide a little information about how you found ChromebookGUI, please click [here](https://goo.gl/forms/INpW33oJajuJhyBF2).
+Once installed, the app will let you know when there is an update available. If you download an alpha build, you'll get notifications when a new alpha release is available, and if you download a beta build, you'll only get notifications when new beta builds are available.
+
+### Uninstalling
+
+This app can be uninstalled from your system by going:
+- Windows 10 Version >1704 **only**: Settings (Win+I) -> apps -> ChromebookGUI -> Uninstall.
+- Every other windows (works on 10 too): Either go run (Win+R) and type in "appwiz.cpl" or go to Control Panel -> Programs and Features. Then, look for ChromebookGUI and press Uninstall.
 
 ## Usage
 
@@ -31,8 +37,8 @@ Now, you can click on any of the buttons.
 | Set Location | `gam update cros $deviceId location $location` | Sets the device's location |
 | Set Asset ID | `gam update cros $deviceId assetid $assetId` | Sets the device's Asset ID |
 | Set User | `gam update cros $deviceId user $user` | Set's the device's assigned user |
-| Disable | `gam update cros $deviceId disable` | Disables the device, allowing no one to sign into it. |
-| Reenable | `gam update cros $deviceId reenable` | Reenables a disabled device. |
+| Disable | `gam update cros $deviceId action disable` | Disables the device, allowing no one to sign into it. |
+| Reenable | `gam update cros $deviceId action reenable` | Reenables a disabled device. |
 | Change OU | `gam update cros $deviceId ou $ou` | Changes the OU of a device. |
 | Deprovision | `gam update cros $deviceId $deprovisionReason acknowledge_device_touch_requirement` | Allows you to deprovision a device. |
 | Edit Note | `gam update cros $deviceId note $note` | Allows you to update the note on a device. |

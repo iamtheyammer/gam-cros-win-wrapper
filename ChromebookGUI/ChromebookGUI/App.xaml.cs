@@ -22,7 +22,6 @@ namespace ChromebookGUI
             if (isNewestVersion == "false")
             {
                 GetInput.ShowInfoDialog("Update Available", "An update for this app is currently available.", "You are running " + Software.Type + " " + Software.Version + ".\n" + ((Software.Type != "alpha") ? "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest" : "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/"));
-                Console.WriteLine("Shown dialog.");
                 
             } else if (isNewestVersion == "error")
             {

@@ -34,7 +34,7 @@ namespace ChromebookGUI
         {
             get
             {
-                return "beta";
+                return "alpha";
             }
         }
     }

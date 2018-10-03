@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromebookGUI", "ChromebookGUI\ChromebookGUI.csproj", "{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{EE18268E-3237-410E-A119-3658CBA4FFDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,9 @@ Global
 		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Debug|Any CPU.ActiveCfg = Debug
+		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Release|Any CPU.ActiveCfg = Release
+		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
