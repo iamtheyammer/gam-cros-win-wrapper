@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace ChromebookGUI
 {   
@@ -20,6 +21,8 @@ namespace ChromebookGUI
         public static string AssetId { get; set; }
         public static string Location { get; set; }
         public static string SerialNumber { get; set; }
+
+        public static readonly HttpClient HttpClientObject = new HttpClient();
 
 
         /// <summary>
@@ -58,7 +61,7 @@ namespace ChromebookGUI
         /// <param name="info"></param>
         public static void SetGlobalsFromBasicDeviceInfo(BasicDeviceInfo info)
         {
-            DeviceId = info.DeviceId;
+            DeviceId = (!String.IsNullOrEmpty(info.DeviceId)) ? info.DeviceId : null ;
             Note = (!String.IsNullOrEmpty(info.Notes)) ? info.Notes : null;
             Status = (!String.IsNullOrEmpty(info.Status)) ? info.Status : null;
             SerialNumber = (!String.IsNullOrEmpty(info.SerialNumber)) ? info.SerialNumber : null;

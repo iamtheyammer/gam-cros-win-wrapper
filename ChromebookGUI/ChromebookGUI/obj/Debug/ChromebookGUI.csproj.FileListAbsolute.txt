@@ -36,3 +36,8 @@ C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\Chrom
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\DeprovosionSelect.baml
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\DataGridInput.g.cs
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\DataGridInput.baml
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.CopyComplete
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\InfoDialog.g.cs
+C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\InfoDialog.baml

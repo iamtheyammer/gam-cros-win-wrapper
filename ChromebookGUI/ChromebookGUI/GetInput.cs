@@ -105,5 +105,13 @@ namespace ChromebookGUI
             string inputTextBoxData = inputWindow.inputTextBox.Text;
             return inputWindow.inputTextBox.Text.Split('|').ToList();
         }
+
+        public static void ShowInfoDialog(string title, string subject, string fullText)
+        {
+            InfoDialog dialog = new InfoDialog();
+            dialog.Subject.Text = subject;
+            dialog.FullText.Text = fullText;
+            dialog.ShowDialog();
+        }
     }
 }

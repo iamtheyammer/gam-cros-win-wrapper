@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
@@ -58,9 +59,20 @@ namespace ChromebookGUI
             return FixCSVCommas.FixCommas(GAM.RunGAM(gamCommand));
         }
 
+        public static bool IsDeviceId(string input)
+        {
+            if(Regex.Matches(input, "-").Count == 4)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
         public static BasicDeviceInfo GetDeviceId(String input)
         {
-            if (input.Length == 36) // this is already a device ID
+            if (IsDeviceId(input)) // this is already a device ID
             {
                 return new BasicDeviceInfo
                 {
@@ -109,7 +121,7 @@ namespace ChromebookGUI
                 string deviceId = null;
                 foreach (string item in selection)
                 {
-                    if (item.Length == 36) deviceId = item;
+                    if (IsDeviceId(item)) deviceId = item;
                     break;
                 }
                 if (deviceId == null)

@@ -165,7 +165,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action enable");
+            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action reenable");
             outputField.Text = gamResult += "\nAs long as you don't see an error, this query completed successfully.";
         }
 
