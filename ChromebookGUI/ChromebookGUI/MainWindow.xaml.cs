@@ -98,7 +98,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string location = !String.IsNullOrEmpty(Globals.Location) ? Globals.Location : "No location found. Enter one...";
+            string location = !String.IsNullOrEmpty(Globals.Location) ? Globals.Location : "Enter a location...";
             string newLocation = GetInput.getInput("What would you like to set the location to?", location , !String.IsNullOrEmpty(Globals.SerialNumber) ? "Add/Change Device Location: " + Globals.SerialNumber : "Add/Change Device Location: " + Globals.DeviceId, new Button { IsEnabled = true, Text = "Clear Location" });
             if (newLocation == null | newLocation == location)
             {
@@ -106,7 +106,8 @@ namespace ChromebookGUI
                 return;
             }
             else if (newLocation == "ExtraButtonClicked") newLocation = "";
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location " + newLocation);
+            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location \"" + newLocation + "\"");
+            Globals.Location = newLocation;
             outputField.Text = gamResult + "\nAs long as you don't see an error, the location has been updated.";
         }
         /// <summary>
@@ -121,14 +122,16 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string assetId = !String.IsNullOrEmpty(Globals.AssetId) ? Globals.AssetId : "No Asset ID found. Enter one...";
+            string assetId = !String.IsNullOrEmpty(Globals.AssetId) ? Globals.AssetId : "Enter an Asset ID...";
             string newAssetId = GetInput.getInput("What would you like to set the asset ID to?", assetId, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Enter/Change Device Asset ID: " + Globals.SerialNumber : "Enter/Change Device Asset ID: " + Globals.DeviceId, new Button { IsEnabled = true, Text = "Clear Asset ID" });
-            if(newAssetId == null)
+            if (newAssetId == null)
             {
                 outputField.Text = "You didn't enter anything or you pressed cancel, silly goose!";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " assetid " + newAssetId);
+            else if (newAssetId == "ExtraButtonClicked") newAssetId = "";
+            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " assetid \"" + newAssetId + "\"");
+            Globals.AssetId = newAssetId;
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
@@ -147,6 +150,7 @@ namespace ChromebookGUI
                 return;
             }
             string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " user " + newUser);
+            Globals.User = newUser;
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
