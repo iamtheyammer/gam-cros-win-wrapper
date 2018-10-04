@@ -34,5 +34,11 @@ namespace ChromebookGUI
         {
             this.Close();
         }
+
+        private void ExtraButton_Click(object sender, RoutedEventArgs e)
+        {
+            inputBox.Text = "ExtraButtonClicked";
+            this.Close();
+        }
     }
 }

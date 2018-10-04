@@ -11,15 +11,19 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release+Installer|Any CPU = Release+Installer|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Release+Installer|Any CPU.ActiveCfg = Tool+Installer|Any CPU
+		{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}.Release+Installer|Any CPU.Build.0 = Tool+Installer|Any CPU
 		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Debug|Any CPU.ActiveCfg = Debug
 		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Release|Any CPU.ActiveCfg = Release
-		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Release|Any CPU.Build.0 = Release
+		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Release+Installer|Any CPU.ActiveCfg = Tool+Installer
+		{EE18268E-3237-410E-A119-3658CBA4FFDE}.Release+Installer|Any CPU.Build.0 = Tool+Installer
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

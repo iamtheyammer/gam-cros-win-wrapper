@@ -37,6 +37,7 @@ namespace ChromebookGUI
         /// <param name="e"></param>
         private void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
+            ToggleMainWindowButtons(false);
             outputField.Text = "Loading...";
             if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, serial number or email...")
             {
@@ -59,6 +60,7 @@ namespace ChromebookGUI
             if (!String.IsNullOrEmpty(deviceInfo.Notes)) outputField.Text += "\nNotes: " + deviceInfo.Notes;
             if (!String.IsNullOrEmpty(deviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + deviceInfo.LastSync;
             if (!String.IsNullOrEmpty(deviceInfo.Status)) outputField.Text += "\nStatus: " + deviceInfo.Status;
+            ToggleMainWindowButtons(true);
             //deviceInputField.Text = deviceId;
         }
 
@@ -97,12 +99,13 @@ namespace ChromebookGUI
                 return;
             }
             string location = !String.IsNullOrEmpty(Globals.Location) ? Globals.Location : "No location found. Enter one...";
-            string newLocation = GetInput.getInput("What would you like to set the location to?", location , !String.IsNullOrEmpty(Globals.SerialNumber) ? "Add/Change Device Location: " + Globals.SerialNumber : "Add/Change Device Location: " + Globals.DeviceId);
+            string newLocation = GetInput.getInput("What would you like to set the location to?", location , !String.IsNullOrEmpty(Globals.SerialNumber) ? "Add/Change Device Location: " + Globals.SerialNumber : "Add/Change Device Location: " + Globals.DeviceId, new Button { IsEnabled = true, Text = "Clear Location" });
             if (newLocation == null | newLocation == location)
             {
                 outputField.Text = "You didn't enter anything or pressed cancel.";
                 return;
             }
+            else if (newLocation == "ExtraButtonClicked") newLocation = "";
             string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location " + newLocation);
             outputField.Text = gamResult + "\nAs long as you don't see an error, the location has been updated.";
         }
@@ -119,7 +122,7 @@ namespace ChromebookGUI
                 return;
             }
             string assetId = !String.IsNullOrEmpty(Globals.AssetId) ? Globals.AssetId : "No Asset ID found. Enter one...";
-            string newAssetId = GetInput.getInput("What would you like to set the asset ID to?", assetId, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Enter/Change Device Asset ID: " + Globals.SerialNumber : "Enter/Change Device Asset ID: " + Globals.DeviceId);
+            string newAssetId = GetInput.getInput("What would you like to set the asset ID to?", assetId, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Enter/Change Device Asset ID: " + Globals.SerialNumber : "Enter/Change Device Asset ID: " + Globals.DeviceId, new Button { IsEnabled = true, Text = "Clear Asset ID" });
             if(newAssetId == null)
             {
                 outputField.Text = "You didn't enter anything or you pressed cancel, silly goose!";
@@ -328,6 +331,21 @@ namespace ChromebookGUI
         private void FontSizeDownButton_Click(object sender, RoutedEventArgs e)
         {
             outputField.FontSize -= 2;
+        }
+
+        public void ToggleMainWindowButtons(bool value)
+        {
+            getInfoButton.IsEnabled = value;
+            setLocationButton.IsEnabled = value;
+            setAssetIdButton.IsEnabled = value;
+            setUserButton.IsEnabled = value;
+            disableButton.IsEnabled = value;
+            enableButton.IsEnabled = value;
+            changeOuButton.IsEnabled = value;
+            deprovisionButton.IsEnabled = value;
+            noteButton.IsEnabled = value;
+            copyIdButton.IsEnabled = value;
+
         }
     }
 

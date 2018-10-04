@@ -13,18 +13,26 @@ namespace ChromebookGUI
     {
         /// <summary>
         /// Allows you to get text input via a dialog.
+        /// Your button, if clicked, will return "ExtraButtonClicked".
         /// </summary>
         /// <param name="instructionText">The top header text block shown to the user.</param>
         /// <param name="inputBoxPrefill">What will be prefilled in the input box.</param>
         /// <param name="title">The title of the window.</param>
         /// <returns></returns>
-        public static string getInput(String instructionText, String inputBoxPrefill, String title)
+        public static string getInput(String instructionText, String inputBoxPrefill, String title, Button button)
         {
             InputWindow inputWindow = new InputWindow();
             inputWindow.instructionTextBlock.Text = instructionText;
             inputWindow.inputBox.Text = inputBoxPrefill;
             inputWindow.inputBox.SelectionStart = 0;
             inputWindow.inputBox.SelectionLength = inputBoxPrefill.Length;
+            if (button.IsEnabled == false) {
+                inputWindow.ExtraButton.Opacity = 0;
+                inputWindow.ExtraButton.IsEnabled = false;
+            } else
+            {
+                inputWindow.ExtraButton.Content = button.Text;
+            }
             inputWindow.Title = title;
             inputWindow.ShowDialog();
             inputWindow.Activate();
@@ -36,16 +44,33 @@ namespace ChromebookGUI
                 return inputWindow.inputBox.Text;
             }
         }
-        
+
+        public static string getInput(String instructionText, String inputBoxPrefill, String title)
+        {
+            return getInput(instructionText, inputBoxPrefill, title, new Button { IsEnabled = false });
+        }
+        /// <summary>
+        /// Only has instructionText. Sets inputBoxPrefill to "Enter value here...", and sets the window title to "InputWindow".
+        /// </summary>
+        /// <param name="instructionText"></param>
+        /// <returns></returns>
         public static string getInput(String instructionText)
         {
             return getInput(instructionText, "Enter value here...", "InputWindow");
         }
 
+        /// <summary>
+        /// GetInput.getInput, but without the window title param. Sets it to "InputWindow".
+        /// </summary>
+        /// <param name="instructionText"></param>
+        /// <param name="inputBoxPrefill"></param>
+        /// <returns></returns>
         public static string getInput(String instructionText, String inputBoxPrefill)
         {
             return getInput(instructionText, inputBoxPrefill, "InputWindow");
         }
+
+
 
         /// <summary>
         /// A method for getting the deprovision reason for a deprovision action.
