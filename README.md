@@ -3,7 +3,7 @@
 
 This simple Chromebook management app makes it easy to perform simple Chrome OS Google Admin Console tasks. It's a native app for windows written in C#.
 
-- [Install](#install)
+- [Install](#installation)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Bug reporting](#bug-reporting)
