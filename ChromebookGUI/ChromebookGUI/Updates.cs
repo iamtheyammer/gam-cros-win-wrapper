@@ -39,5 +39,30 @@ namespace ChromebookGUI
                 return "false";
             }
         }
+
+        /// <summary>
+        /// Returns "true" if an update is available, "false" if one is not and "error" if there was an error.
+        /// String because I need more options. If a new update is available or there was an error it already opens a dialog!
+        /// </summary>
+        /// <returns></returns>
+        public static string CheckForUpdates()
+        {
+            string isNewestVersion = Updates.IsNewestVersion();
+            if (isNewestVersion == "false")
+            {
+                GetInput.ShowInfoDialog("Update Available", "An update for this app is currently available.", "You are running " + Software.Type + " " + Software.Version + ".\n" + ((Software.Type != "alpha") ? "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest" : "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/"));
+                return "true";
+            }
+            else if (isNewestVersion == "error")
+            {
+                return "error";
+                // nothing
+            }
+            else
+            {
+                return "false";
+                // nothing
+            }
+        }
     }
 }

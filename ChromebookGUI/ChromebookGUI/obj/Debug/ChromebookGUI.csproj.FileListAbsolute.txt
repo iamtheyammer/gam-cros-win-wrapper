@@ -67,3 +67,29 @@ C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\Chromebook
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.CopyComplete
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.exe
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.pdb
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\ChromebookGUI.exe.config
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\ChromebookGUI.exe
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\ChromebookGUI.pdb
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csprojAssemblyReference.cache
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\DataGridInput.g.cs
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\DeprovosionSelect.g.cs
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\InfoDialog.g.cs
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\InputWindow.g.cs
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\MainWindow.g.cs
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\App.g.cs
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI_MarkupCompile.cache
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI_MarkupCompile.lref
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\DataGridInput.baml
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\DeprovosionSelect.baml
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\InfoDialog.baml
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\InputWindow.baml
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\MainWindow.baml
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.g.resources
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.Properties.Resources.resources
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.GenerateResource.cache
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.CoreCompileInputs.cache
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.CopyComplete
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.exe
+C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.pdb

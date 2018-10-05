@@ -351,6 +351,54 @@ namespace ChromebookGUI
             copyIdButton.IsEnabled = value;
 
         }
+
+        private void FileCloseChromebookGUI_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void FileAboutChromebookGUI_Click(object sender, RoutedEventArgs e)
+        {
+            GetInput.ShowInfoDialog("About ChromebookGUI", "Open source, by iamtheyammer", "This project was made by iamtheyammer on GitHub. It lives at https://git.io/fxYBf, and was made because of my disdain for the speed of Google's Admin Console.\n\nI hope you enjoy it! If you'd like to contribute (this project is written in C# with .NET) please submit a pull request!\n\nThank you for using my software.");
+        }
+
+        private void ImportFromCSV_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ImportFromGAMCommand_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_ResetWindowSize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Normal;
+            Height = 500;
+            Width = 800;
+        }
+
+        private void HelpGoToGithubProject_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper");
+        }
+
+        private void HelpCheckForUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            string updates = Updates.CheckForUpdates();
+            switch(updates)
+            {
+                case "false":
+                    GetInput.ShowInfoDialog("ChromebookGUI Updater", "No updates available", "This product, ChromebookGUI by iamtheyammer, is up to date. You are running " + Software.Type + " " + Software.Version + ".");
+                    return;
+                case "true":
+                    return;
+                case "error":
+                    GetInput.ShowInfoDialog("ChromebookGUI Updater", "Error checking for updates.", "There was an error checking for updates."); // this should never happen!
+                    return;
+            }
+        }
     }
 
 }

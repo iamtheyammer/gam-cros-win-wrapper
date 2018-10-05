@@ -136,6 +136,7 @@ namespace ChromebookGUI
             InfoDialog dialog = new InfoDialog();
             dialog.Subject.Text = subject;
             dialog.FullText.Text = fullText;
+            dialog.Title = title;
             dialog.ShowDialog();
         }
     }
