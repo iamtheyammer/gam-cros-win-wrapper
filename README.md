@@ -57,6 +57,7 @@ Output will be displayed in the large box on the bottom of the window. Use the `
 
 ## Screenshots
 These screenshots hail from the current [**beta**](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest) release.
+
 | Description | Image     |
 | :------------- | :------------- |
 | Main window, displayed after startup.   | ![main window](images/main-screen.png)       |
