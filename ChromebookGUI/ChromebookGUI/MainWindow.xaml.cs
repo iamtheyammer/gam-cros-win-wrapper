@@ -30,6 +30,7 @@ namespace ChromebookGUI
         {
 
         }
+
         /// <summary>
         /// Essentially, run GAM.GetDeviceId() on whatever is entered into the text field.
         /// </summary>
@@ -59,6 +60,8 @@ namespace ChromebookGUI
             if (!String.IsNullOrEmpty(deviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + deviceInfo.SerialNumber;
             if (!String.IsNullOrEmpty(deviceInfo.Notes)) outputField.Text += "\nNotes: " + deviceInfo.Notes;
             if (!String.IsNullOrEmpty(deviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + deviceInfo.LastSync;
+            if (!String.IsNullOrEmpty(deviceInfo.AssetId)) outputField.Text += "\nAsset ID: " + deviceInfo.AssetId;
+            if (!String.IsNullOrEmpty(deviceInfo.Location)) outputField.Text += "\nLocation: " + deviceInfo.Location;
             if (!String.IsNullOrEmpty(deviceInfo.Status)) outputField.Text += "\nStatus: " + deviceInfo.Status;
             ToggleMainWindowButtons(true);
             //deviceInputField.Text = deviceId;
@@ -70,7 +73,7 @@ namespace ChromebookGUI
         }
 
         /// <summary>
-        /// Get info about the device.
+        /// Get info about the device. Does NOT support CSVs.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -79,6 +82,10 @@ namespace ChromebookGUI
             if(Globals.DeviceIdExists() == false)
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
+                return;
+            } else if (Globals.DeviceId == "csv")
+            {
+                GetInput.ShowInfoDialog("Not Supported", "This action is not supported with a CSV", "We don't support using CSVs for info because they put out unreadable output.");
                 return;
             }
             string deviceId = Globals.DeviceId;
@@ -93,7 +100,7 @@ namespace ChromebookGUI
         /// <param name="e"></param>
         private void setLocationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Globals.DeviceIdExists() == false)
+            if (Globals.DeviceIdExists() == false || Globals.DeviceId != "csv")
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
@@ -106,18 +113,27 @@ namespace ChromebookGUI
                 return;
             }
             else if (newLocation == "ExtraButtonClicked") newLocation = "";
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location \"" + newLocation + "\"");
+
+            string gamResult = null;
+            if(Globals.DeviceId == "csv")
+            {
+                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "location \"" + newLocation + "\""));
+            } else
+            {
+                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location \"" + newLocation + "\"");
+            }
             Globals.Location = newLocation;
             outputField.Text = gamResult + "\nAs long as you don't see an error, the location has been updated.";
         }
+        
         /// <summary>
-        /// Set the asset id of the device.
+        /// Set the asset id of the device. If an asset id is in the Globals, it will prefill that in the text box.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void setAssetIdButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Globals.DeviceIdExists() == false)
+            if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
@@ -130,14 +146,21 @@ namespace ChromebookGUI
                 return;
             }
             else if (newAssetId == "ExtraButtonClicked") newAssetId = "";
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " assetid \"" + newAssetId + "\"");
+            string gamResult = null;
+            if(Globals.DeviceId == "csv")
+            {
+                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros ", "assetid \"" + newAssetId + "\""));
+            } else
+            {
+                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " assetid \"" + newAssetId + "\"");
+            }
             Globals.AssetId = newAssetId;
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
         private void setUserButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Globals.DeviceIdExists() == false)
+            if (Globals.DeviceIdExists() == false || Globals.DeviceId != "csv")
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
@@ -149,19 +172,34 @@ namespace ChromebookGUI
                 outputField.Text = "You didn't enter anything or you pressed cancel, silly goose!";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " user " + newUser);
+            string gamResult = null;
+            if(Globals.DeviceId == "csv")
+            {
+                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "user " + newUser));
+            } else
+            {
+                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " user " + newUser);
+            }
             Globals.User = newUser;
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
         private void disableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Globals.DeviceIdExists() == false)
+            if (Globals.DeviceIdExists() == false || Globals.DeviceId != "csv")
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action disable");
+
+            string gamResult = null;
+            if(Globals.DeviceId == "csv")
+            {
+                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action disable"));
+            } else
+            {
+                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action disable");
+            }
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
@@ -172,7 +210,15 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action reenable");
+            string gamResult = null;
+            if (Globals.DeviceId == "csv")
+            {
+                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action reenable"));
+            }
+            else
+            {
+                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action reenable");
+            }
             outputField.Text = gamResult += "\nAs long as you don't see an error, this query completed successfully.";
         }
 
@@ -217,7 +263,16 @@ namespace ChromebookGUI
                 outputField.Text = "Either you didn't enter anything or there was an error. Nothing has been changed.";
                 return;
             }
-            string gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " ou \"" + orgPath + "\"");
+
+            string gamResult = null;
+            if (Globals.DeviceId == "csv")
+            {
+                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "ou \"" + orgPath + "\""));
+            }
+            else
+            {
+                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " ou \"" + orgPath + "\"");
+            }
             outputField.Text = "Done! Your OU has been changed.";
         }
 
@@ -250,8 +305,17 @@ namespace ChromebookGUI
                     depAction = "thisbetterfailbecausesomethingiswrong";
                     return;
             }
-            string gamOutput = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action " + depAction + " acknowledge_device_touch_requirement");
-            outputField.Text = gamOutput += "\nAs long as you don't see an error, this query completed successfully.";
+
+            string gamResult = null;
+            if (Globals.DeviceId == "csv")
+            {
+                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action " + depAction + " acknowledge_device_touch_requirement"));
+            }
+            else
+            {
+                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action " + depAction + " acknowledge_device_touch_requirement");
+            }
+            outputField.Text = gamResult += "\nAs long as you don't see an error, this query completed successfully.";
         }
 
         private void noteButton_Click(object sender, RoutedEventArgs e)
@@ -261,7 +325,7 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
             }
             string note = null;
-            if(String.IsNullOrEmpty(Globals.Note))
+            if(String.IsNullOrEmpty(Globals.Note) && Globals.DeviceId != "csv")
             {
                 List<string> gamResult = GAM.RunGAM("info cros " + Globals.DeviceId + " fields notes");
                 if (gamResult.Count < 2)
@@ -272,9 +336,12 @@ namespace ChromebookGUI
                 {
                     note = gamResult[1].Substring(9);
                 }
-            } else
+            } else if (!String.IsNullOrEmpty(Globals.Note))
             {
                 note = Globals.Note;
+            } else if (Globals.DeviceId == "csv")
+            {
+                note = "Set a note for all devices from this CSV...";
             }
 
             string newNote = GetInput.getInput("Edit/modify note:", note, !String.IsNullOrEmpty(Globals.SerialNumber) ? "Add/Change Device Note: " + Globals.SerialNumber : "Add/Change Device Note: " + Globals.DeviceId);
@@ -284,7 +351,17 @@ namespace ChromebookGUI
                 outputField.Text = "You didn't change the note so I'm leaving it as it is.";
                 return;
             }
-            string finalGamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " notes \"" + newNote + "\"");
+
+            string finalGamResult = null;
+            if (Globals.DeviceId == "csv")
+            {
+                finalGamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "notes \"" + newNote + "\""));
+            }
+            else
+            {
+                finalGamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " notes \"" + newNote + "\"");
+            }
+
             outputField.Text = "As long as there's no error, the note was updated.";
         }
 
@@ -300,12 +377,16 @@ namespace ChromebookGUI
 
         private void copyId_Click (object sender, RoutedEventArgs e)
         {
-            if(Globals.DeviceId != null)
+            if(Globals.DeviceId != null && Globals.DeviceId != "csv")
             {
                 Clipboard.SetText(Globals.DeviceId, TextDataFormat.UnicodeText);
                 outputField.Text += "\n\nCopied to clipboard.";
             }
-            else
+            else if (Globals.DeviceId == "csv")
+            {
+                GetInput.ShowInfoDialog("Not Supported", "This action is not supported from a CSV", "We don't support copying all IDs from a CSV at this time.");
+                return;
+            } else
             {
                 outputField.Text += "\n\nNo device ID currently in memory.";
             }
@@ -352,6 +433,11 @@ namespace ChromebookGUI
 
         }
 
+        private void FilePreferences_Click(object sender, RoutedEventArgs e)
+        {
+            Preferences.OpenPreferencesWindow();
+        }
+
         private void FileCloseChromebookGUI_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -364,12 +450,32 @@ namespace ChromebookGUI
 
         private void ImportFromCSV_Click(object sender, RoutedEventArgs e)
         {
+            if(Preferences.ShowWarningWhenImportingFromCSVFile)
+            {
+                GetInput.ShowInfoDialog("CSV Import Warning", "About importing from CSV",
+                    "When you use this tool to import data from a CSV, you are making many modifications quickly," +
+                    "and that can be hard to undo. Use your best judgement.\n" +
+                    "To import a CSV, make sure that, in the CSV you want to import, the column with Device IDs is named " + 
+                    "\"deviceId\", without the quotes. That will allow ChromebookGUI to run the mass operation.\n" + 
+                    "If you want to silence this warning in the future, go to File -> Preferences and untick the appropriate " + 
+                    "box.\nOne more warning to be careful when using this tool."
+                    );
+            }
+            string filePath = GetInput.GetFileSelection("csv");
+            if (filePath == null)
+            {
+                outputField.Text = "You didn't select a file or pressed cancel. Either way no changes have been made.";
+                return;
+            }
+            Globals.CsvLocation = filePath;
+            Globals.DeviceId = "csv";
+            ToggleMainWindowButtons(true);
 
         }
 
         private void ImportFromGAMCommand_Click(object sender, RoutedEventArgs e)
         {
-
+            // not currently supported, commented out in XAML
         }
 
         private void Window_ResetWindowSize_Click(object sender, RoutedEventArgs e)
@@ -394,11 +500,13 @@ namespace ChromebookGUI
                     return;
                 case "true":
                     return;
-                case "error":
-                    GetInput.ShowInfoDialog("ChromebookGUI Updater", "Error checking for updates.", "There was an error checking for updates."); // this should never happen!
-                    return;
+                //case "error":
+                //    GetInput.ShowInfoDialog("ChromebookGUI Updater", "Error checking for updates.", "There was an error checking for updates."); // this should never happen!
+                //    return;
             }
         }
+
+        
     }
 
 }

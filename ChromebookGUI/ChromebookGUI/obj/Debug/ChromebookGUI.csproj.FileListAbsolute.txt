@@ -93,3 +93,5 @@ C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\Ch
 C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.csproj.CopyComplete
 C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.exe
 C:\Users\IT-Master-Lenovo\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.pdb
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\PreferencesWindow.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\PreferencesWindow.baml

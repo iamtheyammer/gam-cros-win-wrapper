@@ -10,5 +10,6 @@
         <TextBlock x:Name="Subject" HorizontalAlignment="Stretch" Margin="15,10,13.286,177.714" TextWrapping="Wrap" Text="Set this with Subject.Text" VerticalAlignment="Stretch" FontSize="18"/>
         <TextBlock x:Name="FullText" HorizontalAlignment="Stretch" Margin="15,49,13.286,35.714" TextWrapping="Wrap" Text="Set this with FullText.Text" VerticalAlignment="Stretch"/>
         <Button Content="OK" HorizontalAlignment="Left" Margin="404,191,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Name="ExtraButton" Content="ExtraButton" HorizontalAlignment="Left" Margin="15,191,0,0" VerticalAlignment="Top" Width="148" Click="ExtraButton_Click"/>
     </Grid>
 </Window>

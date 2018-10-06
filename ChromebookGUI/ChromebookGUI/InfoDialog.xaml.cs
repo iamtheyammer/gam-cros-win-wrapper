@@ -28,5 +28,11 @@ namespace ChromebookGUI
         {
             this.Close();
         }
+
+        private void ExtraButton_Click(object sender, RoutedEventArgs e)
+        {
+            FullText.Text = "ExtraButtonClicked";
+            this.Close();
+        }
     }
 }

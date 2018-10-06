@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace ChromebookGUI
 {
@@ -50,7 +51,11 @@ namespace ChromebookGUI
             string isNewestVersion = Updates.IsNewestVersion();
             if (isNewestVersion == "false")
             {
-                GetInput.ShowInfoDialog("Update Available", "An update for this app is currently available.", "You are running " + Software.Type + " " + Software.Version + ".\n" + ((Software.Type != "alpha") ? "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest" : "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/"));
+                bool extraButtonPressed = GetInput.ShowInfoDialog("Update Available", "An update for this app is currently available.", "You are running " + Software.Type + " " + Software.Version + ".\n" + ((Software.Type != "alpha") ? "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest" : "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/"), new Button { IsEnabled = true, Text = "Go to GitHub Repo" });
+                if(extraButtonPressed)
+                {
+                    Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper");
+                }
                 return "true";
             }
             else if (isNewestVersion == "error")

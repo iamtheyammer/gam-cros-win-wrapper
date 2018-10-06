@@ -31,6 +31,7 @@ namespace ChromebookGUI
         public string Status { get; set; }
         public string Notes { get; set; }
         public string AssetId { get; set; }
+        public string Location { get; set; }
         public bool Error { get; set; }
         public string ErrorText { get; set; }
     }

@@ -131,13 +131,75 @@ namespace ChromebookGUI
             return inputWindow.inputTextBox.Text.Split('|').ToList();
         }
 
+        /// <summary>
+        /// Returns an absolute path to a file chosen by the user.
+        /// </summary>
+        /// <param name="fileType">File extension without the dot that you want to filter for, ex: "csv"</param>
+        /// <returns></returns>
+        public static string GetFileSelection(String fileType)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = "." + fileType.ToLower();
+            dlg.Filter = fileType.ToUpper() + " Files (*." + fileType.ToLower() + ")|*." + fileType.ToLower();
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            bool? result = dlg.ShowDialog(); // The bool? means it can be null
+
+            // Get the selected file name and return it 
+            if (result == true)
+            {
+                // Return absolute file path 
+                return dlg.FileName;
+            } else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Shows an info dialog without an extra button. (just OK)
+        /// </summary>
+        /// <param name="title">Title of window</param>
+        /// <param name="subject">Header text</param>
+        /// <param name="fullText">Full paragraph text</param>
         public static void ShowInfoDialog(string title, string subject, string fullText)
         {
+            ShowInfoDialog(title, subject, fullText, new Button { IsEnabled = false });
+        }
+        
+        /// <summary>
+        /// Shows an info dialog with an extra button.
+        /// </summary>
+        /// <param name="title">Title of window</param>
+        /// <param name="subject">Header text</param>
+        /// <param name="fullText">Full paragraph text</param>
+        /// <param name="extraButton">A Button object with the optional extra button.</param>
+        /// <returns>A boolean showing whether the extra button was pressed or not.</returns>
+        public static bool ShowInfoDialog(string title, string subject, string fullText, Button extraButton)
+        {
             InfoDialog dialog = new InfoDialog();
+            if(extraButton.IsEnabled)
+            {
+                dialog.ExtraButton.Content = extraButton.Text;
+            } else
+            {
+                dialog.ExtraButton.Opacity = 0;
+                dialog.ExtraButton.IsEnabled = false;
+            }
             dialog.Subject.Text = subject;
             dialog.FullText.Text = fullText;
             dialog.Title = title;
             dialog.ShowDialog();
+            if(dialog.FullText.Text == "ExtraButtonClicked")
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
     }
 }

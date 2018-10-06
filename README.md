@@ -89,6 +89,10 @@ Please open an issue! I want to fix your bugs, I just don't know about them yet.
 ## Contributions
 Always welcome! Submit a pull request!
 
+I bet that [these](https://github.com/iamtheyammer/gam-cros-win-wrapper/tree/master/docs) docs will help you write for this as I've made many more than one class and plenty of methods.
+
+Thanks for your help!
+
 ### A little more information about my versioning and updating system
 When a new version is pushed out, three things must be at least checked.  
 - Software.cs:

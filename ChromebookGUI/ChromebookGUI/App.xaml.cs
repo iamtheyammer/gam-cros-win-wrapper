@@ -20,6 +20,12 @@ namespace ChromebookGUI
             window.Show();
 
             Updates.CheckForUpdates();
+            Preferences.Init();
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Preferences.Save();
         }
     }
 }

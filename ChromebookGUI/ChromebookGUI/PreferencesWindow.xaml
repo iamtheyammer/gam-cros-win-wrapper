@@ -1,0 +1,19 @@
+﻿<Window x:Class="ChromebookGUI.PreferencesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChromebookGUI"
+        mc:Ignorable="d"
+        Title="PreferencesWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="SaveAndCloseButton" Content="Save and Close" HorizontalAlignment="Left" Margin="660,392,0,0" VerticalAlignment="Top" Width="124" Click="SaveAndCloseButton_Click"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="519,392,0,0" VerticalAlignment="Top" Width="124" Click="CancelButton_Click"/>
+        <TextBlock x:Name="PrioritiesTextBlock" HorizontalAlignment="Left" Margin="10,55,0,0" TextWrapping="Wrap" Text="Priorities" VerticalAlignment="Top" Height="25" Width="81" FontSize="18"/>
+        <CheckBox x:Name="SearchForAssetIdsBeforeSerialNumbersCheckBox" ToolTip="When searching for devices, Serial Numbers and Asset IDs use different queries. If you search for Asset IDs more often, tick this box. If you search for Serial Numbers more often, leave it unticked." Content="Search for Asset IDs before Serial Numbers" HorizontalAlignment="Left" Margin="15,91,0,0" VerticalAlignment="Top" Width="254"/>
+        <TextBlock x:Name="InstructionTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Hover over a setting for more information" VerticalAlignment="Top" FontSize="24"/>
+        <TextBlock x:Name="PrioritiesTextBlock_Copy" HorizontalAlignment="Left" Margin="10,135,0,0" TextWrapping="Wrap" Text="Warnings" VerticalAlignment="Top" Height="25" Width="81" FontSize="18"/>
+        <CheckBox x:Name="ShowWarningWhenImportingFromCSVFile" ToolTip="When importing from a CSV file, show the default warning. Untick to silence." Content="Show warning when importing from CSV file" HorizontalAlignment="Left" Margin="15,174,0,0" VerticalAlignment="Top" Width="254"/>
+
+    </Grid>
+</Window>

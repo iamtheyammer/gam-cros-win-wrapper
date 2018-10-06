@@ -22,6 +22,11 @@ namespace ChromebookGUI
         public static string Location { get; set; }
         public static string SerialNumber { get; set; }
 
+        /// <summary>
+        /// If using a CSV, the location of such CSV.
+        /// </summary>
+        public static string CsvLocation { get; set; }
+
         public static readonly HttpClient HttpClientObject = new HttpClient();
 
 
@@ -56,7 +61,7 @@ namespace ChromebookGUI
         }
         
         /// <summary>
-        /// Sets globals from a BasicDeviceInfo object. Only sets the DeviceId, Note, Status and Serial Number. Only the DeviceId is required.
+        /// Sets globals from a BasicDeviceInfo object. Only sets the DeviceId, Note, Status, Serial Number, Asset ID and Location. Only the DeviceId is required.
         /// </summary>
         /// <param name="info"></param>
         public static void SetGlobalsFromBasicDeviceInfo(BasicDeviceInfo info)
@@ -66,6 +71,7 @@ namespace ChromebookGUI
             Status = (!String.IsNullOrEmpty(info.Status)) ? info.Status : null;
             SerialNumber = (!String.IsNullOrEmpty(info.SerialNumber)) ? info.SerialNumber : null;
             AssetId = (!String.IsNullOrEmpty(info.AssetId)) ? info.AssetId : null;
+            Location = (!String.IsNullOrEmpty(info.Location)) ? info.Location : null;
         }
     }
 }

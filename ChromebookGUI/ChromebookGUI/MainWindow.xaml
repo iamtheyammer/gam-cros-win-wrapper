@@ -37,14 +37,14 @@
         <Menu HorizontalAlignment="Stretch" Height="30" VerticalAlignment="Stretch" Width="Auto" Margin="-10,0,-10,225.96">
             <MenuItem Header="File" Height="29" Width="36">
 
-                <MenuItem x:Name="FileHeader_Click" Header="_Preferences..." ></MenuItem>
+                <MenuItem x:Name="FilePreferences" Header="_Preferences..." Click="FilePreferences_Click" ></MenuItem>
                 <MenuItem x:Name="FileCloseChromebookGUI" Header="_Close ChromebookGUI" Click="FileCloseChromebookGUI_Click"></MenuItem>
                 <Separator></Separator>
                 <MenuItem x:Name="FileAboutChromebookGUI" Header="About ChromebookGUI" Click="FileAboutChromebookGUI_Click" ></MenuItem>
             </MenuItem>
             <MenuItem Header="_Import">
                 <MenuItem x:Name="ImportFromCSV" Header="_From CSV..." Click="ImportFromCSV_Click" ></MenuItem>
-                <MenuItem x:Name="ImportFromGAMCommand" Header="_From GAM Command..." Click="ImportFromGAMCommand_Click" ></MenuItem>
+                <!--<MenuItem x:Name="ImportFromGAMCommand" Header="_From GAM Command..." Click="ImportFromGAMCommand_Click" ></MenuItem>-->
             </MenuItem>
             <MenuItem Header="_Window">
                 <MenuItem x:Name="Window_ResetWindowSize" Header="_Reset Window Size" Click="Window_ResetWindowSize_Click" ></MenuItem>

@@ -27,26 +27,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_58BA6D8E33A92E5A65F2F83DCB815B99"
+        "MsmKey" = "8:_ADE3C8190F32B73DCD930423BCB801BA"
         "OwnerKey" = "8:_4E9155F12F1A4834B7C9A04DEF51850A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4E9155F12F1A4834B7C9A04DEF51850A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_ADE3C8190F32B73DCD930423BCB801BA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2585DC2AAC179F38259BDD3D97342536"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_58BA6D8E33A92E5A65F2F83DCB815B99"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4E9155F12F1A4834B7C9A04DEF51850A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -183,6 +183,11 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
+                    "_2585DC2AAC179F38259BDD3D97342536"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -202,13 +207,18 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_58BA6D8E33A92E5A65F2F83DCB815B99"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ADE3C8190F32B73DCD930423BCB801BA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_ADE3C8190F32B73DCD930423BCB801BA"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -284,15 +294,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChromebookGUI"
-        "ProductCode" = "8:{D869EA3F-E986-4E38-9CF0-2BA2C100FB7B}"
-        "PackageCode" = "8:{1B209CEB-6742-49AF-9B76-2C7ED4E27EB3}"
+        "ProductCode" = "8:{907B9D77-200F-4DA2-9DFB-1D61A37066DD}"
+        "PackageCode" = "8:{067FABE5-EF7D-47C4-A71B-849A100B056F}"
         "UpgradeCode" = "8:{89762883-3161-4BEA-AB4E-D70B16F0AA1B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.2.2"
+        "ProductVersion" = "8:0.2.3"
         "Manufacturer" = "8:iamtheyammer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/iamtheyammer/gam-cros-win-wrapper"
