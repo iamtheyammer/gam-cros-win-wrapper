@@ -67,3 +67,5 @@ C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\Chromebook
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.csproj.CopyComplete
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.exe
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.pdb
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\PreferencesWindow.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\PreferencesWindow.baml

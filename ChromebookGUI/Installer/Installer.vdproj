@@ -40,13 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ADE3C8190F32B73DCD930423BCB801BA"
+        "OwnerKey" = "8:_2585DC2AAC179F38259BDD3D97342536"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2585DC2AAC179F38259BDD3D97342536"
+        "OwnerKey" = "8:_ADE3C8190F32B73DCD930423BCB801BA"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -183,11 +183,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_2585DC2AAC179F38259BDD3D97342536"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -214,11 +209,6 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_ADE3C8190F32B73DCD930423BCB801BA"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -327,15 +317,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChromebookGUI"
-        "ProductCode" = "8:{D5BC8A45-03F3-4049-A259-0F160F5DC10E}"
-        "PackageCode" = "8:{0EF435B4-E63A-472E-9B7C-C1F8E7D2EA8A}"
+        "ProductCode" = "8:{CEFA8018-EC7D-4521-9BBE-0A1FA826D4C9}"
+        "PackageCode" = "8:{FDDE8714-2BD7-4465-8D5D-786BAB4C8C4F}"
         "UpgradeCode" = "8:{89762883-3161-4BEA-AB4E-D70B16F0AA1B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.2.4"
+        "ProductVersion" = "8:0.2.5"
         "Manufacturer" = "8:iamtheyammer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/iamtheyammer/gam-cros-win-wrapper"

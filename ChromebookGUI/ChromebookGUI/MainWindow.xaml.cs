@@ -453,12 +453,12 @@ namespace ChromebookGUI
             if(Preferences.ShowWarningWhenImportingFromCSVFile)
             {
                 GetInput.ShowInfoDialog("CSV Import Warning", "About importing from CSV",
-                    "When you use this tool to import data from a CSV, you are making many modifications quickly," +
-                    "and that can be hard to undo. Use your best judgement.\n" +
+                    "When you use this tool to import data from a CSV, you are making many modifications quickly, " +
+                    "which can be hard to undo. \n" +
                     "To import a CSV, make sure that, in the CSV you want to import, the column with Device IDs is named " + 
                     "\"deviceId\", without the quotes. That will allow ChromebookGUI to run the mass operation.\n" + 
                     "If you want to silence this warning in the future, go to File -> Preferences and untick the appropriate " + 
-                    "box.\nOne more warning to be careful when using this tool."
+                    "box."
                     );
             }
             string filePath = GetInput.GetFileSelection("csv");
