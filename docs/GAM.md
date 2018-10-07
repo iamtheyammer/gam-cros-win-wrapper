@@ -10,7 +10,7 @@ Arguably the most important class here. It holds all of the logic that connects 
 ### Outputs
 - `List<string>` containing, line by line, the output from the command you ran
 
-## `RunGAM(String gamCommand)`
+## `RunGAMFormatted(String gamCommand)`
 - Performs the same function as RunGAM, but uses a foreach to return the GAM output, seperated by newline characters (`\n`).
 
 ### Inputs

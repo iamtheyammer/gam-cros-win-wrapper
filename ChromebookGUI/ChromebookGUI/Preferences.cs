@@ -29,19 +29,20 @@ namespace ChromebookGUI
 
             try
             {
-                prefsFile = File.ReadAllText("preferences.json");
+                prefsFile = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json");
             } catch
             {
                 // set default prefs here
                 Preferences.SerialNumberAssetIdPriority = false;
                 Preferences.ShowWarningWhenImportingFromCSVFile = true;
                 return;
-                // no settings file found
+                // no settings file found. one is not made until the user changes something.
             }
 
             Dictionary<string, string> prefs = JsonConvert.DeserializeObject<Dictionary<string, string>>(prefsFile);
 
             // more settings would go here
+            
             SerialNumberAssetIdPriority = prefs["SerialNumberAssetIdPriority"] == "True" ? true : false;
             ShowWarningWhenImportingFromCSVFile = prefs["ShowWarningWhenImportingFromCSVFile"] == "True" ? true : false;
         }
@@ -56,7 +57,7 @@ namespace ChromebookGUI
             prefs["SerialNumberAssetIdPriority"] = SerialNumberAssetIdPriority.ToString();
             prefs["ShowWarningWhenImportingFromCSVFile"] = ShowWarningWhenImportingFromCSVFile.ToString();
 
-            File.WriteAllText("preferences.json", JsonConvert.SerializeObject(prefs));
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json", JsonConvert.SerializeObject(prefs));
         }
 
         public static void OpenPreferencesWindow()

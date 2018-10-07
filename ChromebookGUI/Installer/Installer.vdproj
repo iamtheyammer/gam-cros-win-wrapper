@@ -267,6 +267,39 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_826A69F228C0467B917A12305B2801D1"
+            {
+            "Name" = "8:#1915"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:AppDataFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_EB55B53CBAAD4068AD7D967D803AE3E3"
+                    {
+                    "Name" = "8:iamtheyammer"
+                    "AlwaysCreate" = "11:TRUE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_C371523BAE8043AEAE75D56C84456700"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_7FA01FA8B9514E0596E7F8851D993D6B"
+                            {
+                            "Name" = "8:ChromebookGUI"
+                            "AlwaysCreate" = "11:TRUE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_106CD863EAAB4990A26E10BF5E58C017"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_CCE6301EF9F54DE58F6EF64B606E9F2C"
             {
             "Name" = "8:#1919"
@@ -294,15 +327,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChromebookGUI"
-        "ProductCode" = "8:{907B9D77-200F-4DA2-9DFB-1D61A37066DD}"
-        "PackageCode" = "8:{067FABE5-EF7D-47C4-A71B-849A100B056F}"
+        "ProductCode" = "8:{D5BC8A45-03F3-4049-A259-0F160F5DC10E}"
+        "PackageCode" = "8:{0EF435B4-E63A-472E-9B7C-C1F8E7D2EA8A}"
         "UpgradeCode" = "8:{89762883-3161-4BEA-AB4E-D70B16F0AA1B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.2.3"
+        "ProductVersion" = "8:0.2.4"
         "Manufacturer" = "8:iamtheyammer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/iamtheyammer/gam-cros-win-wrapper"
@@ -844,7 +877,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4E9155F12F1A4834B7C9A04DEF51850A"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\ChromebookGUI\\obj\\Tool+Installer\\ChromebookGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_61EB502A85E94D0EBFB3D04DAA84F14E"
