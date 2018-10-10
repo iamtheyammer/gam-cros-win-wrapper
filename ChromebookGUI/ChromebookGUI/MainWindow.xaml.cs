@@ -100,7 +100,7 @@ namespace ChromebookGUI
         /// <param name="e"></param>
         private void setLocationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Globals.DeviceIdExists() == false || Globals.DeviceId != "csv")
+            if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
@@ -160,7 +160,7 @@ namespace ChromebookGUI
 
         private void setUserButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Globals.DeviceIdExists() == false || Globals.DeviceId != "csv")
+            if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
@@ -186,7 +186,7 @@ namespace ChromebookGUI
 
         private void disableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Globals.DeviceIdExists() == false || Globals.DeviceId != "csv")
+            if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
