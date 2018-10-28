@@ -23,6 +23,14 @@ Installation of **beta** is simple. Just pop on over to the [**beta** releases p
 ### Alpha build (less stable, updates very often, has newest features first)
 If you'd like the latest **alpha** build (not verified stable, but *should* work), download the Installer.msi file from [ChromebookGUI/Installer/Tool+Installer/Installer.msi (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi). It takes about 15-30 days of issue-free alpha to turn the alpha build into a beta build.
 
+### Installation Steps
+
+1. Make sure GAM is working, logged in to the right account, and showing devices. If you run `gam print cros`, you should see a bunch of device IDs. If you see a prompt for scopes, press `a` then `c`, then finish verifying.
+2. Download the installer according to the channel you'd like. (beta or alpha)
+3. Run the installer. Selecting "Just Me" on the install page will place files in the `C:\Program Files (x86)\` directory, but only you will get a desktop and start menu shortcut. Selecting everyone gives everyone those shortcuts, and creates AppData folders for them.
+4. Click on the shortcut on your desktop/in your start menu.
+5. Done!
+
 #### What can the Alpha build do that the beta can't yet?
 - Preferences
 - Bulk import and bulk modifications (from CSV)
@@ -36,13 +44,15 @@ Once installed, the app will let you know when there is an update available. If 
 
 This app can be uninstalled from your system by going:
 - Windows 10 Version >1704 **only**: Settings (Win+I) -> apps -> ChromebookGUI -> Uninstall.
-- Every other windows (works on 10 too): Either go run (Win+R) and type in "appwiz.cpl" or go to Control Panel -> Programs and Features. Then, look for ChromebookGUI and press Uninstall.
+- Every other windows (works on 10 too): Either go run (Win+R) and type in `appwiz.cpl` or go to Control Panel -> Programs and Features. Then, look for ChromebookGUI and press Uninstall.
 
 ## Usage
 
 Using the app is fairly simple, and usability is something I want to work on more.
 
 **The first step is to put a serial number/device ID/email/asset ID into the big box asking for it, then pressing submit.** In the output box, you should see the device ID you're working with.
+
+### I want to mention that sometimes, when you press a button the app will not respond to you. This is a common occurrence as it completes commands. It may even go into "Not Responding". This is normal, especially for large operations.
 
 Now, you can click on any of the buttons.
 
