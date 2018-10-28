@@ -30,6 +30,7 @@ namespace ChromebookGUI
 
             Preferences.SerialNumberAssetIdPriority = (SearchForAssetIdsBeforeSerialNumbersCheckBox.IsChecked == false) ? false : true;
             Preferences.ShowWarningWhenImportingFromCSVFile = (ShowWarningWhenImportingFromCSVFile.IsChecked == false) ? false : true;
+            Preferences.PromptWhenUpdatesAreAvailable = (PromptWhenUpdatesAreAvailableCheckBox.IsChecked == false) ? false : true;
             Preferences.Save();
             this.Close();
         }

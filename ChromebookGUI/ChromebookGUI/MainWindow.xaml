@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChromebookGUI"
         mc:Ignorable="d"
-        Title="Chrome OS GAM GUI" Height="500" Width="800" >
+        Title="ChromebookGUI" Height="500" Width="800" >
     <Grid Margin="10,0,10,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -17,7 +17,7 @@
                 <DropShadowEffect Color="#FF6D6D6D" Opacity="0.5"/>
             </Button.Effect>
         </Button>
-        <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="30" Margin="24,58,0,0" TextWrapping="Wrap" Text="Enter a Device ID, Asset ID, Serial Number or Email..." VerticalAlignment="Top" Width="564" FontSize="18" TextChanged="deviceInputField_TextChanged" GotKeyboardFocus="selectAllTextInBox" GotMouseCapture="selectAllTextInBox" Cursor="IBeam"/>
+        <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="30" Margin="24,58,0,0" TextWrapping="Wrap" Text="Enter a Device ID, Asset ID, Query String, Serial Number or Email..." VerticalAlignment="Top" Width="564" FontSize="18" TextChanged="deviceInputField_TextChanged" GotKeyboardFocus="selectAllTextInBox" GotMouseCapture="selectAllTextInBox" Cursor="IBeam"/>
         <!--If you change the above text make sure you change selectAllTextInBox, that's in MainWindow.xaml.cs-->
         <TextBox x:Name="outputField" HorizontalAlignment="Stretch" Height="Auto" Margin="24,10.429,41.286,31.714" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Width="Auto"/>
         <Button x:Name="getInfoButton" Content="Get Info" HorizontalAlignment="Left" Margin="24,120,0,0" VerticalAlignment="Top" Width="120" Height="32" FontSize="18" Click="getInfoButton_Click"/>
@@ -40,11 +40,11 @@
                 <MenuItem x:Name="FilePreferences" Header="_Preferences..." Click="FilePreferences_Click" ></MenuItem>
                 <MenuItem x:Name="FileCloseChromebookGUI" Header="_Close ChromebookGUI" Click="FileCloseChromebookGUI_Click"></MenuItem>
                 <Separator></Separator>
-                <MenuItem x:Name="FileAboutChromebookGUI" Header="About ChromebookGUI" Click="FileAboutChromebookGUI_Click" ></MenuItem>
+                <MenuItem x:Name="FileAboutChromebookGUI" Header="_About ChromebookGUI" Click="FileAboutChromebookGUI_Click" ></MenuItem>
             </MenuItem>
             <MenuItem Header="_Import">
                 <MenuItem x:Name="ImportFromCSV" Header="_From CSV..." Click="ImportFromCSV_Click" ></MenuItem>
-                <!--<MenuItem x:Name="ImportFromGAMCommand" Header="_From GAM Command..." Click="ImportFromGAMCommand_Click" ></MenuItem>-->
+                <MenuItem x:Name="BulkImportFromGoogleAdminQueryString" Header="_From Google Admin Console Query String (Bulk)..." Click="ImportFromGoogleAdminQueryStringBulk_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Window">
                 <MenuItem x:Name="Window_ResetWindowSize" Header="_Reset Window Size" Click="Window_ResetWindowSize_Click" ></MenuItem>
@@ -52,6 +52,9 @@
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem x:Name="HelpGoToGithubProject" Header="_Go to GitHub Project..." Click="HelpGoToGithubProject_Click" ></MenuItem>
+                <MenuItem x:Name="HelpGuides" Header="_Guides">
+                    <MenuItem x:Name="HelpGuidesSearchingTheOmnibar" Header="Searching the Omnibar" Click="HelpGuidesSearchingTheOmnibar_Click"></MenuItem>
+                </MenuItem>
                 <MenuItem x:Name="HelpCheckForUpdates" Header="_Check for Updates..." Click="HelpCheckForUpdates_Click" ></MenuItem>
             </MenuItem>
         </Menu>

@@ -20,6 +20,12 @@ namespace ChromebookGUI
         public static bool ShowWarningWhenImportingFromCSVFile { get; set; }
 
         /// <summary>
+        /// If true, we'll check for updates when the app is opened.
+        /// If there's an update, the user will see a window telling them to update.
+        /// </summary>
+        public static bool PromptWhenUpdatesAreAvailable { get; set; }
+
+        /// <summary>
         /// This Init function needs to be called once in the code.
         /// It is called in App.xaml.cs, so you shouldn't need to call it again.
         /// </summary>
@@ -30,21 +36,44 @@ namespace ChromebookGUI
             try
             {
                 prefsFile = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json");
+                
             } catch
             {
-                // set default prefs here
-                Preferences.SerialNumberAssetIdPriority = false;
-                Preferences.ShowWarningWhenImportingFromCSVFile = true;
+                SerialNumberAssetIdPriority = false;
+                ShowWarningWhenImportingFromCSVFile = true;
+                PromptWhenUpdatesAreAvailable = true;
                 return;
-                // no settings file found. one is not made until the user changes something.
             }
 
             Dictionary<string, string> prefs = JsonConvert.DeserializeObject<Dictionary<string, string>>(prefsFile);
 
-            // more settings would go here
+            // more settings would go here. default prefs go in the catches.
+            try
+            {
+                SerialNumberAssetIdPriority = prefs["SerialNumberAssetIdPriority"] == "True" ? true : false;
+            } catch
+            {
+                SerialNumberAssetIdPriority = false;
+            }
+
+            try
+            {
+                ShowWarningWhenImportingFromCSVFile = prefs["ShowWarningWhenImportingFromCSVFile"] == "True" ? true : false;
+            } catch
+            {
+                ShowWarningWhenImportingFromCSVFile = true;
+            }
+
+            try
+            {
+                PromptWhenUpdatesAreAvailable = prefs["PromptWhenUpdatesAreAvailable"] == "True" ? true : false;
+            } catch
+            {
+                PromptWhenUpdatesAreAvailable = true;
+            }
             
-            SerialNumberAssetIdPriority = prefs["SerialNumberAssetIdPriority"] == "True" ? true : false;
-            ShowWarningWhenImportingFromCSVFile = prefs["ShowWarningWhenImportingFromCSVFile"] == "True" ? true : false;
+            
+            
         }
 
         /// <summary>
@@ -56,6 +85,7 @@ namespace ChromebookGUI
             // more settings would go here
             prefs["SerialNumberAssetIdPriority"] = SerialNumberAssetIdPriority.ToString();
             prefs["ShowWarningWhenImportingFromCSVFile"] = ShowWarningWhenImportingFromCSVFile.ToString();
+            prefs["PromptWhenUpdatesAreAvailable"] = PromptWhenUpdatesAreAvailable.ToString();
 
             File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json", JsonConvert.SerializeObject(prefs));
         }
@@ -67,6 +97,7 @@ namespace ChromebookGUI
             // must set settings here
             window.SearchForAssetIdsBeforeSerialNumbersCheckBox.IsChecked = SerialNumberAssetIdPriority;
             window.ShowWarningWhenImportingFromCSVFile.IsChecked = ShowWarningWhenImportingFromCSVFile;
+            window.PromptWhenUpdatesAreAvailableCheckBox.IsChecked = PromptWhenUpdatesAreAvailable;
             window.Title = "ChromebookGUI Preferences";
             window.ShowDialog();
         }

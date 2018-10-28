@@ -21,7 +21,13 @@ Before running, make sure that you can run `gam print cros` and from that comman
 Installation of **beta** is simple. Just pop on over to the [**beta** releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the msi. It should run on both x86 and x64 platforms.
 
 ### Alpha build (less stable, updates very often, has newest features first)
-If you'd like the latest **alpha** build (not verified stable, but *should* work), download the Installer.msi file from [ChromebookGUI/Installer/Tool+Installer/Installer.msi (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi)
+If you'd like the latest **alpha** build (not verified stable, but *should* work), download the Installer.msi file from [ChromebookGUI/Installer/Tool+Installer/Installer.msi (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi). It takes about 15-30 days of issue-free alpha to turn the alpha build into a beta build.
+
+#### What can the Alpha build do that the beta can't yet?
+- Preferences
+- Bulk import and bulk modifications (from CSV)
+- Search for a device with a Google Admin query string
+- More awesome features!
 
 ### Auto-updates
 Once installed, the app will let you know when there is an update available. If you download an alpha build, you'll get notifications when a new alpha release is available, and if you download a beta build, you'll only get notifications when new beta builds are available.
@@ -89,7 +95,7 @@ Please open an issue! I want to fix your bugs, I just don't know about them yet.
 ## Contributions
 Always welcome! Submit a pull request!
 
-I bet that [these](https://github.com/iamtheyammer/gam-cros-win-wrapper/tree/master/docs) docs will help you write for this as I've made many more than one class and plenty of methods.
+I bet that [these](https://github.com/iamtheyammer/gam-cros-win-wrapper/tree/master/docs/files) docs will help you write for this as I've made many more than one class and plenty of methods.
 
 Thanks for your help!
 

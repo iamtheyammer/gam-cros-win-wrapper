@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.IO;
 
 namespace ChromebookGUI
 {
@@ -467,15 +468,53 @@ namespace ChromebookGUI
                 outputField.Text = "You didn't select a file or pressed cancel. Either way no changes have been made.";
                 return;
             }
+            Globals.ClearGlobals();
             Globals.CsvLocation = filePath;
             Globals.DeviceId = "csv";
             ToggleMainWindowButtons(true);
 
         }
 
-        private void ImportFromGAMCommand_Click(object sender, RoutedEventArgs e)
+        private void ImportFromGoogleAdminQueryStringBulk_Click(object sender, RoutedEventArgs e)
         {
-            // not currently supported, commented out in XAML
+            string inputBoxPrefill = "example: user:jsmith\nThat imports all devices with the user:jsmith.\nClick the link on the bottom left for more information.";
+            string queryString = GetInput.getInput(
+                "Enter an Admin Console query string.",
+                inputBoxPrefill,
+                "Import from Google Admin query string",
+                new Button()
+                {
+                    IsEnabled = true,
+                    Text = "Open Help Page"
+                }
+            );
+            if(queryString == "ExtraButtonClicked")
+            {
+                Process.Start("https://support.google.com/chrome/a/answer/1698333#search");
+                ImportFromGoogleAdminQueryStringBulk_Click(sender, e);
+                return;
+            } else if (queryString == inputBoxPrefill || queryString == null)
+            {
+                outputField.Text = "No query string entered, silly goose!";
+                return;
+            }
+
+            List<string> gamResult = GAM.RunGAM("print cros query \"" + queryString + "\"");
+            if(gamResult.Count == 0)
+            {
+                outputField.Text = "That's an invalid query string. If you don't think it is, try running this in cmd:\n\ngam print cros query \"" + queryString + "\"";
+                return;
+            } else if (gamResult.Count < 2)
+            {
+                outputField.Text = "No results from that query (" + queryString + ")";
+                return;
+            }
+            File.WriteAllLines(System.IO.Path.GetTempPath() + "ChromebookGUI.csv", gamResult.ToArray());
+            Globals.ClearGlobals();
+            Globals.CsvLocation = System.IO.Path.GetTempPath() + "ChromebookGUI.csv";
+            Globals.DeviceId = "csv";
+            ToggleMainWindowButtons(true);
+            outputField.Text = "Found " + (gamResult.Count - 1)+ " devices using query " + queryString + "."; // subtract 1 because the first is "deviceId"
         }
 
         private void Window_ResetWindowSize_Click(object sender, RoutedEventArgs e)
@@ -506,7 +545,10 @@ namespace ChromebookGUI
             }
         }
 
-        
+        private void HelpGuidesSearchingTheOmnibar_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/docs/instructions/Omnibar.md");
+        }
     }
 
 }

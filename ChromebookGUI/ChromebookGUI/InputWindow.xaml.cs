@@ -24,6 +24,7 @@ namespace ChromebookGUI
             InitializeComponent();
         }
 
+ 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.inputBox.Text = null;
@@ -39,6 +40,12 @@ namespace ChromebookGUI
         {
             inputBox.Text = "ExtraButtonClicked";
             this.Close();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            //this.inputBox.Text = null;
+            //this.Close();
         }
     }
 }

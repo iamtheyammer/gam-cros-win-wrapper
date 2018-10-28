@@ -19,8 +19,13 @@ namespace ChromebookGUI
             window.ToggleMainWindowButtons(false);
             window.Show();
 
-            Updates.CheckForUpdates();
             Preferences.Init();
+
+            if(Preferences.PromptWhenUpdatesAreAvailable == true)
+            {
+                Updates.CheckForUpdates();
+            }
+            
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

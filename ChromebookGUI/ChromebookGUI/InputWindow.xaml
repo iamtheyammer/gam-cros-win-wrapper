@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChromebookGUI"
         mc:Ignorable="d"
-        Title="InputWindow" Height="175" Width="400">
+        Title="InputWindow" Height="175" Width="400"
+        Closed="Window_Closed">
     <Grid Margin="10,0,10,0">
         <TextBlock x:Name="instructionTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You should never see this!" VerticalAlignment="Top" Height="29" Width="354" FontSize="18"/>
         <TextBox x:Name="inputBox" HorizontalAlignment="Left" Height="59" Margin="22,44,0,0" TextWrapping="Wrap" Text="Enter input here..." VerticalAlignment="Top" Width="324"/>

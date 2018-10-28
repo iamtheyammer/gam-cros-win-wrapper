@@ -1,7 +1,7 @@
 # Docs
 
-This folder holds documentation for the classes in this project. Every class gets its own Markdown document, like GAM.md or Preferences.md.
+This folder contains two more folders: instructions and files.
 
-I've only documented classes that I wrote with my own methods so you can use them. I have not documented **here** what things like MainWindow.xaml.cs do, because those have /// summaries. (so do many of the functions I documented here too).
+Head to files/ for information about each class I wrote for this project.
 
-I hope that this helps you contribute!
+instructions/ has guides for different elements in this project.

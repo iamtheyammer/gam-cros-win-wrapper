@@ -14,6 +14,8 @@
         <TextBlock x:Name="InstructionTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Hover over a setting for more information" VerticalAlignment="Top" FontSize="24"/>
         <TextBlock x:Name="PrioritiesTextBlock_Copy" HorizontalAlignment="Left" Margin="10,135,0,0" TextWrapping="Wrap" Text="Warnings" VerticalAlignment="Top" Height="25" Width="81" FontSize="18"/>
         <CheckBox x:Name="ShowWarningWhenImportingFromCSVFile" ToolTip="When importing from a CSV file, show the default warning. Untick to silence." Content="Show warning when importing from CSV file" HorizontalAlignment="Left" Margin="15,174,0,0" VerticalAlignment="Top" Width="254"/>
+        <TextBlock x:Name="PrioritiesTextBlock_Copy1" HorizontalAlignment="Left" Margin="372,55,0,0" TextWrapping="Wrap" Text="Updates" VerticalAlignment="Top" Height="25" Width="81" FontSize="18"/>
+        <CheckBox x:Name="PromptWhenUpdatesAreAvailableCheckBox" Content="Prompt when updates are available (recommended!)"  ToolTip="When updates are available for this app, let me know when the app opens. Turning this off will only check for updates when you go to Help -> Check for updates... " HorizontalAlignment="Left" Margin="388,91,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

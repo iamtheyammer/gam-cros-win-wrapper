@@ -80,7 +80,8 @@ namespace ChromebookGUI
         {
             return FixCSVCommas.FixCommas(GAM.RunGAM(gamCommand));
         }
-        
+       
+
         /// <summary>
         /// Checks if a string is a device ID by seeing if it has 4 dashes in it.
         /// </summary>
@@ -194,8 +195,96 @@ namespace ChromebookGUI
                         DeviceId = deviceId
                     };
                 }
-            }
-            else
+            } else if (input.Contains(":")) {
+                // this is a Google Admin Query String.
+                string user = input.Split('@')[0];
+                if (String.IsNullOrEmpty(user))
+                {
+                    return new BasicDeviceInfo
+                    {
+                        ErrorText = "There was an error processing your email entry: I couldn't find the email.",
+                        Error = true
+                    };
+                }
+                // results:
+                // deviceId,lastSync,notes,serialNumber,status
+                List<string> gamResults = RunGAM("print cros query \"" + input + "\" fields deviceId,lastSync,notes,serialNumber,status,assetid,location");
+                if (gamResults.Count == 0) return new BasicDeviceInfo()
+                {
+                    Error = true,
+                    ErrorText = "Invalid query string.",
+                };
+                List<List<string>> deviceInfos = FixCSVCommas.FixCommas(gamResults);
+                if (deviceInfos[0][0] == "deviceId") deviceInfos.RemoveAt(0);
+                if (deviceInfos.Count == 1) if (deviceInfos[0].Count > 1)
+                    {
+                        return new BasicDeviceInfo()
+                        {
+                            DeviceId = deviceInfos[0][0],
+                            LastSync = deviceInfos[0][1],
+                            Notes = deviceInfos[0][2],
+                            SerialNumber = deviceInfos[0][3],
+                            Status = deviceInfos[0][4],
+                            AssetId = deviceInfos[0][5],
+                            Location = deviceInfos[0][6]
+                        };
+                    }
+                List<BasicDeviceInfo> infoObjects = new List<BasicDeviceInfo>();
+                foreach (List<string> line in deviceInfos)
+                {
+                    infoObjects.Add(new BasicDeviceInfo()
+                    {
+                        DeviceId = line[0],
+                        LastSync = line[1],
+                        SerialNumber = line[3],
+                        Status = line[4],
+                        Notes = line[2],
+                        AssetId = line[5],
+                        Location = line[6]
+                    });
+                }
+                List<string> selection = GetInput.GetDataGridSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", infoObjects);
+                string deviceId = null;
+                foreach (string item in selection)
+                {
+                    if (IsDeviceId(item)) deviceId = item;
+                    break;
+                }
+                if (deviceId == null)
+                {
+                    return new BasicDeviceInfo
+                    {
+                        ErrorText = "There was an error. You didn't pick anything.",
+                        Error = true
+                    };
+                }
+                else
+                {
+                    for (int i = 1; i < deviceInfos.Count; i++)
+                    {
+                        if (deviceId == deviceInfos[i][0])
+                        {
+                            return new BasicDeviceInfo
+                            {
+                                DeviceId = deviceId,
+                                LastSync = deviceInfos[i][1],
+                                Notes = deviceInfos[i][2],
+                                SerialNumber = deviceInfos[i][3],
+                                Status = deviceInfos[i][4],
+                                AssetId = deviceInfos[i][5],
+                                Location = deviceInfos[i][6],
+                                Error = false
+                            };
+                        }
+                    }
+                    // we have not found a match for the device id
+                    return new BasicDeviceInfo
+                    {
+                        DeviceId = deviceId
+                    };
+                }
+            } else
+
             {
                 // must be a serial number. 
                 List<List<string>> response = null;
