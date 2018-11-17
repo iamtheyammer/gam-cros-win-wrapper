@@ -53,7 +53,7 @@
             <MenuItem Header="_Help">
                 <MenuItem x:Name="HelpGoToGithubProject" Header="_Go to GitHub Project..." Click="HelpGoToGithubProject_Click" ></MenuItem>
                 <MenuItem x:Name="HelpGuides" Header="_Guides">
-                    <MenuItem x:Name="HelpGuidesSearchingTheOmnibar" Header="Searching the Omnibar" Click="HelpGuidesSearchingTheOmnibar_Click"></MenuItem>
+                    <MenuItem x:Name="HelpGuidesSearchingTheOmnibar" Header="_Searching the Omnibar" Click="HelpGuidesSearchingTheOmnibar_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem x:Name="HelpCheckForUpdates" Header="_Check for Updates..." Click="HelpCheckForUpdates_Click" ></MenuItem>
             </MenuItem>

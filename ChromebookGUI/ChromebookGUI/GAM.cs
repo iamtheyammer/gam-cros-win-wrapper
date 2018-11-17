@@ -123,208 +123,121 @@ namespace ChromebookGUI
                         Error = true
                     };
                 }
-                // results:
-                // deviceId,lastSync,notes,serialNumber,status
-                List<string> gamResults = RunGAM("print cros query \"user:" + user + "\" fields deviceId,lastSync,notes,serialNumber,status,assetid,location");
-                List<List<string>> deviceInfos = FixCSVCommas.FixCommas(gamResults);
-                if (deviceInfos[0][0] == "deviceId") deviceInfos.RemoveAt(0);
-                if (deviceInfos.Count == 1) if (deviceInfos[0].Count > 1)
-                    {
-                        return new BasicDeviceInfo()
-                        {
-                            DeviceId = deviceInfos[0][0],
-                            LastSync = deviceInfos[0][1],
-                            Notes = deviceInfos[0][2],
-                            SerialNumber = deviceInfos[0][3],
-                            Status = deviceInfos[0][4],
-                            AssetId = deviceInfos[0][5],
-                            Location = deviceInfos[0][6]
-                        };
-                    }
-                List<BasicDeviceInfo> infoObjects = new List<BasicDeviceInfo>();
-                foreach (List<string> line in deviceInfos)
-                {
-                    infoObjects.Add(new BasicDeviceInfo()
-                    {
-                        DeviceId = line[0],
-                        LastSync = line[1],
-                        SerialNumber = line[3],
-                        Status = line[4],
-                        Notes = line[2],
-                        AssetId = line[5],
-                        Location = line[6]
-                    });
-                }
-                List<string> selection = GetInput.GetDataGridSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", infoObjects);
-                string deviceId = null;
-                foreach (string item in selection)
-                {
-                    if (IsDeviceId(item)) deviceId = item;
-                    break;
-                }
-                if (deviceId == null)
-                {
-                    return new BasicDeviceInfo
-                    {
-                        ErrorText = "There was an error. You didn't pick anything.",
-                        Error = true
-                    };
-                }
-                else
-                {
-                    for (int i = 1; i < deviceInfos.Count; i++)
-                    {
-                        if (deviceId == deviceInfos[i][0])
-                        {
-                            return new BasicDeviceInfo
-                            {
-                                DeviceId = deviceId,
-                                LastSync = deviceInfos[i][1],
-                                Notes = deviceInfos[i][2],
-                                SerialNumber = deviceInfos[i][3],
-                                Status = deviceInfos[i][4],
-                                AssetId = deviceInfos[i][5],
-                                Location = deviceInfos[i][6],
-                                Error = false
-                            };
-                        }
-                    }
-                    // we have not found a match for the device id
-                    return new BasicDeviceInfo
-                    {
-                        DeviceId = deviceId
-                    };
-                }
+                return GetDeviceByGAMQuery("user:" + user);
             } else if (input.Contains(":")) {
-                // this is a Google Admin Query String.
-                string user = input.Split('@')[0];
-                if (String.IsNullOrEmpty(user))
-                {
-                    return new BasicDeviceInfo
-                    {
-                        ErrorText = "There was an error processing your email entry: I couldn't find the email.",
-                        Error = true
-                    };
-                }
-                // results:
-                // deviceId,lastSync,notes,serialNumber,status
-                List<string> gamResults = RunGAM("print cros query \"" + input + "\" fields deviceId,lastSync,notes,serialNumber,status,assetid,location");
-                if (gamResults.Count == 0) return new BasicDeviceInfo()
-                {
-                    Error = true,
-                    ErrorText = "Invalid query string.",
-                };
-                List<List<string>> deviceInfos = FixCSVCommas.FixCommas(gamResults);
-                if (deviceInfos[0][0] == "deviceId") deviceInfos.RemoveAt(0);
-                if (deviceInfos.Count == 1) if (deviceInfos[0].Count > 1)
-                    {
-                        return new BasicDeviceInfo()
-                        {
-                            DeviceId = deviceInfos[0][0],
-                            LastSync = deviceInfos[0][1],
-                            Notes = deviceInfos[0][2],
-                            SerialNumber = deviceInfos[0][3],
-                            Status = deviceInfos[0][4],
-                            AssetId = deviceInfos[0][5],
-                            Location = deviceInfos[0][6]
-                        };
-                    }
-                List<BasicDeviceInfo> infoObjects = new List<BasicDeviceInfo>();
-                foreach (List<string> line in deviceInfos)
-                {
-                    infoObjects.Add(new BasicDeviceInfo()
-                    {
-                        DeviceId = line[0],
-                        LastSync = line[1],
-                        SerialNumber = line[3],
-                        Status = line[4],
-                        Notes = line[2],
-                        AssetId = line[5],
-                        Location = line[6]
-                    });
-                }
-                List<string> selection = GetInput.GetDataGridSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", infoObjects);
-                string deviceId = null;
-                foreach (string item in selection)
-                {
-                    if (IsDeviceId(item)) deviceId = item;
-                    break;
-                }
-                if (deviceId == null)
-                {
-                    return new BasicDeviceInfo
-                    {
-                        ErrorText = "There was an error. You didn't pick anything.",
-                        Error = true
-                    };
-                }
-                else
-                {
-                    for (int i = 1; i < deviceInfos.Count; i++)
-                    {
-                        if (deviceId == deviceInfos[i][0])
-                        {
-                            return new BasicDeviceInfo
-                            {
-                                DeviceId = deviceId,
-                                LastSync = deviceInfos[i][1],
-                                Notes = deviceInfos[i][2],
-                                SerialNumber = deviceInfos[i][3],
-                                Status = deviceInfos[i][4],
-                                AssetId = deviceInfos[i][5],
-                                Location = deviceInfos[i][6],
-                                Error = false
-                            };
-                        }
-                    }
-                    // we have not found a match for the device id
-                    return new BasicDeviceInfo
-                    {
-                        DeviceId = deviceId
-                    };
-                }
+                return GetDeviceByGAMQuery(input);
             } else
 
             {
-                // must be a serial number. 
-                List<List<string>> response = null;
+                // must be a serial number/asset id. 
                 
                 // obey the preference here
                 if (Preferences.SerialNumberAssetIdPriority)
                 {
-                    response = FixCSVCommas.FixCommas(RunGAM("print cros query \"asset_id:" + input + "\" fields deviceId,lastSync,notes,serialNumber,status,assetid,location"));
-                    if (response.Count < 2)
-                    {
-                        response = FixCSVCommas.FixCommas(RunGAM("print cros query \"id:'" + input + "'\" fields deviceId,lastSync,notes,serialNumber,status,assetid,location"));
-                    }
+                    BasicDeviceInfo firstTry = GetDeviceByGAMQuery("asset_id:" + input);
+                    if (!firstTry.Error) return firstTry;
+                    return GetDeviceByGAMQuery("id:"+ input);
                 }
                 else
                 {
-                    response = FixCSVCommas.FixCommas(RunGAM("print cros query \"id:" + input + "\" fields deviceId,lastSync,notes,serialNumber,status,assetid,location"));
-                    if (response.Count < 2)
+                    BasicDeviceInfo firstTry = GetDeviceByGAMQuery("id:" + input);
+                    if (!firstTry.Error) return firstTry;
+                    return GetDeviceByGAMQuery("asset_id:" + input);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Takes in a GAM query, and returns a single device. 
+        /// </summary>
+        /// <param name="query">The gam query to search for: like "user:myUser"</param>
+        /// <returns></returns>
+        public static BasicDeviceInfo GetDeviceByGAMQuery(string query)
+        {
+            List<string> gamResults = RunGAM("print cros query \"" + query + "\" fields deviceId,lastSync,serialNumber,status,user");
+            Dictionary<string, int> fieldOrder = new Dictionary<string, int>();
+            if (gamResults[0].StartsWith("deviceId"))
+            {
+                string[] gamFieldOrder = gamResults[0].Split(',');
+                for (int i = 0; i < gamResults[0].Split(',').Length; i++)
+                {
+                    fieldOrder.Add(gamFieldOrder[i], i);
+                }
+                gamResults.RemoveAt(0);
+            }
+            if (gamResults.Count == 0) return new BasicDeviceInfo()
+            {
+                Error = true,
+                ErrorText = "Invalid query string or no results for that query string.",
+            };
+            List<List<string>> deviceInfos = FixCSVCommas.FixCommas(gamResults);
+            if (deviceInfos.Count == 1) if (deviceInfos[0].Count > 1) // using 2 if statements here because I can't check for [0] if it doesn't exist
+                {
+                    return new BasicDeviceInfo()
                     {
-                        response = FixCSVCommas.FixCommas(RunGAM("print cros query \"asset_id:'" + input + "'\" fields deviceId,lastSync,notes,serialNumber,status,assetid,location"));
+                        DeviceId = deviceInfos[0][fieldOrder["deviceId"]],
+                        LastSync = deviceInfos[0][fieldOrder["lastSync"]],
+                        SerialNumber = deviceInfos[0][fieldOrder["serialNumber"]],
+                        Status = deviceInfos[0][fieldOrder["status"]],
+                        User = deviceInfos[0][fieldOrder["annotatedUser"]],
+                        Error = false
+                    };
+                }
+            // there is more than one result
+            Console.WriteLine(gamResults[0]);
+            List<BasicDeviceInfo> infoObjects = new List<BasicDeviceInfo>();
+            for (int i = 0; i < deviceInfos.Count; i++)
+            {
+
+                infoObjects.Add(new BasicDeviceInfo()
+                {
+                    DeviceId = deviceInfos[i][fieldOrder["deviceId"]],
+                    LastSync = deviceInfos[i][fieldOrder["lastSync"]],
+                    SerialNumber = deviceInfos[i][fieldOrder["serialNumber"]],
+                    Status = deviceInfos[i][fieldOrder["status"]],
+                    User = deviceInfos[i][fieldOrder["annotatedUser"]],
+                    Error = false
+                });
+            }
+            List<string> selection = GetInput.GetDataGridSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", infoObjects);
+            string deviceId = null;
+            foreach (string item in selection)
+            {
+                if (IsDeviceId(item)) deviceId = item;
+                break;
+            }
+            if (deviceId == null)
+            {
+                return new BasicDeviceInfo
+                {
+                    ErrorText = "There was an error. You didn't pick anything.",
+                    Error = true
+                };
+            }
+            else
+            {
+                for (int i = 1; i < deviceInfos.Count; i++)
+                {
+                    if (deviceId == deviceInfos[i][0])
+                    {
+                        return new BasicDeviceInfo
+                        {
+                            DeviceId = deviceInfos[i][fieldOrder["deviceId"]],
+                            LastSync = deviceInfos[i][fieldOrder["lastSync"]],
+                            SerialNumber = deviceInfos[i][fieldOrder["serialNumber"]],
+                            Status = deviceInfos[i][fieldOrder["status"]],
+                            User = deviceInfos[i][fieldOrder["annotatedUser"]],
+                            Error = false
+                        };
                     }
                 }
-
-                if (response.Count < 2) return new BasicDeviceInfo
+                // we have not found a match for the device id
+                return new BasicDeviceInfo
                 {
-                    ErrorText = "No results found for that entry (" + input + ").",
-                    Error = true
-                }; // this count thing does NOT start at zero. ugh!
-
-                BasicDeviceInfo deviceInfo = new BasicDeviceInfo()
-                {
-                    DeviceId = response[1][0],
-                    LastSync = response[1][1],
-                    Notes = response[1][2],
-                    SerialNumber = response[1][3],
-                    Status = response[1][4],
-                    AssetId = response[1][5],
-                    Location = response[1][6]
+                    DeviceId = deviceId,
+                    Error = true,
+                    ErrorText = "No devices found for that query. (404)"
                 };
-                Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
-                return deviceInfo;
             }
         }
     }

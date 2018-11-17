@@ -41,7 +41,7 @@ namespace ChromebookGUI
         {
             ToggleMainWindowButtons(false);
             outputField.Text = "Loading...";
-            if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, serial number or email...")
+            if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, serial number, query string or email...")
             {
                 outputField.Text = "You must enter something into the field at the top.";
                 return;
@@ -63,6 +63,7 @@ namespace ChromebookGUI
             if (!String.IsNullOrEmpty(deviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + deviceInfo.LastSync;
             if (!String.IsNullOrEmpty(deviceInfo.AssetId)) outputField.Text += "\nAsset ID: " + deviceInfo.AssetId;
             if (!String.IsNullOrEmpty(deviceInfo.Location)) outputField.Text += "\nLocation: " + deviceInfo.Location;
+            if (!String.IsNullOrEmpty(deviceInfo.User)) outputField.Text += "\nUser: " + deviceInfo.User;
             if (!String.IsNullOrEmpty(deviceInfo.Status)) outputField.Text += "\nStatus: " + deviceInfo.Status;
             ToggleMainWindowButtons(true);
             //deviceInputField.Text = deviceId;
@@ -362,7 +363,7 @@ namespace ChromebookGUI
             {
                 finalGamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " notes \"" + newNote + "\"");
             }
-
+            Globals.Note = newNote;
             outputField.Text = "As long as there's no error, the note was updated.";
         }
 

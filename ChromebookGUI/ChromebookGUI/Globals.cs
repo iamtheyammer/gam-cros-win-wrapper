@@ -71,6 +71,7 @@ namespace ChromebookGUI
             Status = (!String.IsNullOrEmpty(info.Status)) ? info.Status : null;
             SerialNumber = (!String.IsNullOrEmpty(info.SerialNumber)) ? info.SerialNumber : null;
             AssetId = (!String.IsNullOrEmpty(info.AssetId)) ? info.AssetId : null;
+            User = (!String.IsNullOrEmpty(info.User)) ? info.User : null;
             Location = (!String.IsNullOrEmpty(info.Location)) ? info.Location : null;
         }
     }

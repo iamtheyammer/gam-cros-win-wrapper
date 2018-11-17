@@ -11,7 +11,7 @@ namespace ChromebookGUI
 {
     class Updates
     {
-        public static string IsNewestVersion()
+        public static Dictionary<string, string> IsNewestVersion()
         {
             Console.WriteLine("Starting newest version check...");
             HttpClient http = Globals.HttpClientObject;
@@ -21,11 +21,16 @@ namespace ChromebookGUI
             {
                 newestVersionsString.Wait();
                 newestVersions = JsonConvert.DeserializeObject<Dictionary<string, string>>(newestVersionsString.Result);
-            } catch (Exception e)
+            } catch /*(Exception e)*/
             {
                 GetInput.ShowInfoDialog("Internet Issue", "No internet connection", "Could not connect to the internet to check for updates.\nPlease make sure that github.io is accessible on your network.\n\nThe full URL this software is trying to access is:\nhttps://iamtheyammer.github.io/gam-cros-win-wrapper/releases.json");
-                return "error";
+                return new Dictionary<string, string>()
+                {
+                    ["error"] = "true",
+                    ["errorCode"] = "2" // no internet
+                };
             }
+
             if(newestVersions == null)
             {
                 GetInput.ShowInfoDialog("Error", "error checking for updates", "error!");
@@ -34,10 +39,20 @@ namespace ChromebookGUI
             string newestVersion = newestVersions[Software.Type];
             if (newestVersion == currentVersion)
             {
-                return "true";
+                return new Dictionary<string, string>()
+                {
+                    ["isNewestVersion"] = "true"
+                };
             } else
             {
-                return "false";
+                Console.WriteLine(newestVersions[Software.Type]);
+                Console.WriteLine(String.IsNullOrEmpty(newestVersions[Software.Type]));
+                return new Dictionary<string, string>()
+                {
+                    ["isNewestVersion"] = "false",
+                    ["newestVersion"] = !String.IsNullOrEmpty(newestVersions[Software.Type]) ? newestVersions[Software.Type] : "(could not be determined)",
+                    ["changes"] = !String.IsNullOrEmpty(newestVersions[Software.Type + "Changes"]) ? newestVersions[Software.Type + "Changes"] : "(there was an issue getting the changelog)"
+                };
             }
         }
 
@@ -48,17 +63,29 @@ namespace ChromebookGUI
         /// <returns></returns>
         public static string CheckForUpdates()
         {
-            string isNewestVersion = Updates.IsNewestVersion();
-            if (isNewestVersion == "false")
+            Dictionary<string, string> isNewestVersion = Updates.IsNewestVersion();
+            if (isNewestVersion["isNewestVersion"] == "false")
             {
-                bool extraButtonPressed = GetInput.ShowInfoDialog("Update Available", "An update for this app is currently available.", "You are running " + Software.Type + " " + Software.Version + ".\n" + ((Software.Type != "alpha") ? "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest" : "Update at https://github.com/iamtheyammer/gam-cros-win-wrapper/"), new Button { IsEnabled = true, Text = "Go to GitHub Repo" });
+                bool extraButtonPressed = GetInput.ShowInfoDialog(
+                    "Update Available", 
+                    "An update for this app is currently available.", 
+                    "You are running " + Software.Type + " " + Software.Version + " and the newest version is " + isNewestVersion["newestVersion"] + ".\nClick the button on the bottom left to upgrade.\n\nNew in version " + isNewestVersion["newestVersion"] + ":\n" + isNewestVersion["changes"],
+                    new Button { IsEnabled = true, Text = "Download newest build" });
                 if(extraButtonPressed)
                 {
-                    Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper");
+                    switch(Software.Type)
+                    {
+                        case "alpha":
+                            Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi");
+                            break;
+                        default:
+                            Process.Start("https://github.com/iamtheyammer/releases/latest");
+                            break;
+                    }
                 }
                 return "true";
             }
-            else if (isNewestVersion == "error")
+            else if (isNewestVersion["isNewestVersion"] == "error")
             {
                 return "error";
                 // nothing

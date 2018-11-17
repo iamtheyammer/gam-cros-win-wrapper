@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="InfoDialog" Height="250" Width="500">
     <Grid>
-        <TextBlock x:Name="Subject" HorizontalAlignment="Stretch" Margin="15,10,13.286,177.714" TextWrapping="Wrap" Text="Set this with Subject.Text" VerticalAlignment="Stretch" FontSize="18"/>
-        <TextBlock x:Name="FullText" HorizontalAlignment="Stretch" Margin="15,49,13.286,35.714" TextWrapping="Wrap" Text="Set this with FullText.Text" VerticalAlignment="Stretch"/>
+        <TextBlock x:Name="Subject" HorizontalAlignment="Stretch" Margin="15,10,13.286,177.714" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="Set this with Subject.Text" VerticalAlignment="Stretch" FontSize="18"/>
+        <ScrollViewer>
+            <TextBlock x:Name="FullText" HorizontalAlignment="Stretch" Margin="15,49,13.286,35.714" TextWrapping="Wrap" Text="Set this with FullText.Text" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch"/>
+        </ScrollViewer>
         <Button Content="OK" HorizontalAlignment="Left" Margin="404,191,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Button Name="ExtraButton" Content="ExtraButton" HorizontalAlignment="Left" Margin="15,191,0,0" VerticalAlignment="Top" Width="148" Click="ExtraButton_Click"/>
     </Grid>

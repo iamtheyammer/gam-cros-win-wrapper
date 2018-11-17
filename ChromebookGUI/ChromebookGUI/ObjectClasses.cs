@@ -70,8 +70,57 @@ namespace ChromebookGUI
         public string Notes { get; set; }
         public string AssetId { get; set; }
         public string Location { get; set; }
+        public string User { get; set; }
         public bool Error { get; set; }
         public string ErrorText { get; set; }
+
+        /// <summary>
+        /// Converts a BasicDeviceInfo object to a dictionary with the same key names. 
+        /// </summary>
+        /// <param name="input">The BasicDeviceInfo object you'd like back as a dictionary.</param>
+        /// <returns>
+        /// A Dictionary(string, string) with the same data
+        /// </returns>
+        public static Dictionary<string, string> ToDictionary(BasicDeviceInfo input)
+        {
+            Dictionary<string, string> output = new Dictionary<string, string>();
+
+            if (!String.IsNullOrEmpty(input.LastSync)) output.Add("LastSync", input.LastSync);
+            if (!String.IsNullOrEmpty(input.SerialNumber)) output.Add("SerialNumber", input.SerialNumber);
+            if (!String.IsNullOrEmpty(input.Status)) output.Add("Status", input.Status);
+            if (!String.IsNullOrEmpty(input.Notes)) output.Add("Notes", input.Notes);
+            if (!String.IsNullOrEmpty(input.AssetId)) output.Add("AssetId", input.AssetId);
+            if (!String.IsNullOrEmpty(input.Location)) output.Add("Location", input.Location);
+            if (!String.IsNullOrEmpty(input.User)) output.Add("User", input.User);
+            if (!String.IsNullOrEmpty(input.Error ? "true" : "false")) output.Add("Error", input.Error ? "true" : "false");
+            if (!String.IsNullOrEmpty(input.ErrorText)) output.Add("ErrorText", input.ErrorText);
+
+            return output;
+        }
+
+
+        /// <summary>
+        /// Opposite of BasicDeviceInfo.ToDictionary.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static BasicDeviceInfo DictionaryToBasicDeviceInfo(Dictionary<string, string> input)
+        {
+            BasicDeviceInfo output = new BasicDeviceInfo
+            {
+                LastSync = !String.IsNullOrEmpty(input["LastSync"]) ? input["LastSync"] : null,
+                SerialNumber = !String.IsNullOrEmpty(input["SerialNumber"]) ? input["SerialNumber"] : null,
+                Status = !String.IsNullOrEmpty(input["Status"]) ? input["Status"] : null,
+                Notes = !String.IsNullOrEmpty(input["Notes"]) ? input["Notes"] : null,
+                AssetId = !String.IsNullOrEmpty(input["AssetId"]) ? input["AssetId"] : null,
+                Location = !String.IsNullOrEmpty(input["Location"]) ? input["Location"] : null,
+                User = !String.IsNullOrEmpty(input["User"]) ? input["User"] : null,
+                Error = !String.IsNullOrEmpty(input["Error"]) ? (input["Error"] == "true" ? true : false) : false,
+                ErrorText = !String.IsNullOrEmpty(input["ErrorText"]) ? input["ErrorText"] : null
+            };
+
+            return output;
+        }
     }
 
     public class Button
