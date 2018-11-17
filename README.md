@@ -7,21 +7,34 @@ This simple Chromebook management app makes it easy to perform simple Chrome OS 
 - [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Bug reporting](#bug-reporting)
-- [Contributing](#contributing)
+- [Contributing](#contributions)
 
 ![main window screenshot](images/main-screen.png)
 
 ## Installation
 
+
+
 #### This app **requires** GAM, from [here](https://github.com/jay0lee/gam).
 
 Before running, make sure that you can run `gam print cros` and from that command you get a bunch of 36 character ids, like this: `90a79523-658p-686y-bf20-19638646153c`. `gam` must be in your PATH.
 
+Please make sure your current installed version of GAM is compatible with your current version of ChromebookGUI. Visit the [GAM Compatibility Chart](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md), and use `gam version` to check your version.
+
+## Are you updating?
+If not, [skip this](#beta-build-stable-updates-less-often).
+
+Otherwise, please note that, right now, to properly install a new version, you must **uninstall** your previous version, then install the new version. I'm not sure why this is happening, and it's something I'm working on, but please keep it in mind. Need help uninstalling? [Click here](#uninstalling).
+
 ### Beta build (stable, updates less often)
 Installation of **beta** is simple. Just pop on over to the [**beta** releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the msi. It should run on both x86 and x64 platforms.
 
+[Compatible GAM version: 4.6.1, NOT 4.6.5 (latest)](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md)
+
 ### Alpha build (less stable, updates very often, has newest features first)
 If you'd like the latest **alpha** build (not verified stable, but *should* work), download the Installer.msi file from [ChromebookGUI/Installer/Tool+Installer/Installer.msi (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi). It takes about 15-30 days of issue-free alpha to turn the alpha build into a beta build.
+
+Compatible GAM versions: **4.6.5**, 4.6.1
 
 ### Installation Steps
 
@@ -35,6 +48,7 @@ If you'd like the latest **alpha** build (not verified stable, but *should* work
 - Preferences
 - Bulk import and bulk modifications (from CSV)
 - Search for a device with a Google Admin query string
+- Many bug fixes
 - More awesome features!
 
 ### Auto-updates
