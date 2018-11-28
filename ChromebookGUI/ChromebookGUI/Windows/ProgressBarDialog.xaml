@@ -1,0 +1,14 @@
+﻿<Window x:Class="ChromebookGUI.Windows.ProgressBarDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChromebookGUI.Windows"
+        mc:Ignorable="d"
+        Title="ProgressBar" Height="100" Width="300">
+    <Grid>
+        <ProgressBar x:Name="ProgressBarField" HorizontalAlignment="Stretch" Height="30" Margin="10,10,10.286,0" VerticalAlignment="Top" Width="Auto" Minimum="0" Maximum="100" Value="0"/>
+        <TextBlock x:Name="ProgressText" Margin="10,45,10.286,0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Progress text... you shouldn't see this." VerticalAlignment="Top" Width="Auto"/>
+
+    </Grid>
+</Window>

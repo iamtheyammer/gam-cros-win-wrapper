@@ -99,37 +99,54 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataGridInput.xaml.cs">
+    <Compile Include="Main Window Views\TextBoxView.xaml.cs">
+      <DependentUpon>TextBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DataGridInput.xaml.cs">
       <DependentUpon>DataGridInput.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FixCSVCommas.cs" />
-    <Compile Include="InfoDialog.xaml.cs">
+    <Compile Include="Main Window Views\DefaultView.xaml.cs">
+      <DependentUpon>DefaultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\FixCSVCommas.cs" />
+    <Compile Include="Windows\InfoDialog.xaml.cs">
       <DependentUpon>InfoDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ObjectClasses.cs" />
-    <Compile Include="Preferences.cs" />
-    <Compile Include="PreferencesWindow.xaml.cs">
+    <Compile Include="Classes\ObjectClasses.cs" />
+    <Compile Include="Classes\Preferences.cs" />
+    <Compile Include="Windows\PreferencesWindow.xaml.cs">
       <DependentUpon>PreferencesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Software.cs" />
-    <Compile Include="Updates.cs" />
-    <Page Include="DataGridInput.xaml">
+    <Compile Include="Classes\Software.cs" />
+    <Compile Include="Classes\Updates.cs" />
+    <Compile Include="Windows\ProgressBarDialog.xaml.cs">
+      <DependentUpon>ProgressBarDialog.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Main Window Views\TextBoxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DataGridInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DeprovosionSelect.xaml">
+    <Page Include="Main Window Views\DefaultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InfoDialog.xaml">
+    <Page Include="Windows\DeprovosionSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InputWindow.xaml">
+    <Page Include="Windows\InfoDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\InputWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -137,20 +154,24 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DeprovosionSelect.xaml.cs">
+    <Compile Include="Windows\DeprovosionSelect.xaml.cs">
       <DependentUpon>DeprovosionSelect.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GAM.cs" />
-    <Compile Include="GetInput.cs" />
-    <Compile Include="Globals.cs" />
-    <Compile Include="InputWindow.xaml.cs">
+    <Compile Include="Classes\GAM.cs" />
+    <Compile Include="Classes\GetInput.cs" />
+    <Compile Include="Classes\Globals.cs" />
+    <Compile Include="Windows\InputWindow.xaml.cs">
       <DependentUpon>InputWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PreferencesWindow.xaml">
+    <Page Include="Windows\PreferencesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProgressBarDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

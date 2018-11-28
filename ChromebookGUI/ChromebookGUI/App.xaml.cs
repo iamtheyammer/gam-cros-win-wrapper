@@ -15,11 +15,10 @@ namespace ChromebookGUI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow window = new MainWindow();
-            window.ToggleMainWindowButtons(false);
-            window.Show();
-
             Preferences.Init();
+
+            MainWindow window = new MainWindow();
+            window.Show();
 
             if(Preferences.PromptWhenUpdatesAreAvailable == true)
             {
