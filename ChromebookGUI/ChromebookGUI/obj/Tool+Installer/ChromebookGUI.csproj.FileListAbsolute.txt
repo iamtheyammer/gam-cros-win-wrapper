@@ -24,26 +24,14 @@ C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\Chrom
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.csproj.CopyComplete
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.exe
 C:\Users\Sam Mendelson\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.pdb
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\InfoDialog.g.cs
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\ChromebookGUI.exe.config
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\ChromebookGUI.exe
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\ChromebookGUI.pdb
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\Newtonsoft.Json.dll
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\Newtonsoft.Json.xml
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\DataGridInput.g.cs
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\DeprovosionSelect.g.cs
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\InputWindow.g.cs
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\MainWindow.g.cs
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\PreferencesWindow.g.cs
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\App.g.cs
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI_MarkupCompile.cache
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI_MarkupCompile.lref
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\DataGridInput.baml
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\DeprovosionSelect.baml
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\InfoDialog.baml
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\InputWindow.baml
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\MainWindow.baml
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\PreferencesWindow.baml
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.g.resources
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.Properties.Resources.resources
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.csproj.GenerateResource.cache
@@ -52,3 +40,23 @@ C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\Chromebook
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.exe
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.pdb
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.csprojAssemblyReference.cache
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Main Window Views\TextBoxView.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\DataGridInput.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Main Window Views\DefaultView.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\DeprovosionSelect.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\InfoDialog.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\InputWindow.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\MainWindow.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\PreferencesWindow.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\ProgressBarDialog.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Main Window Views\TextBoxView.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\DataGridInput.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Main Window Views\DefaultView.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\DeprovosionSelect.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\InfoDialog.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\InputWindow.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\MainWindow.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\PreferencesWindow.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\ProgressBarDialog.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\YesOrNoWindow.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\Windows\YesOrNoWindow.baml
