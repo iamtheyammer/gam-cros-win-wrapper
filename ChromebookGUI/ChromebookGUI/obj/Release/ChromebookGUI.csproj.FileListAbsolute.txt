@@ -81,3 +81,5 @@ C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\Chromebook
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\MainWindow.baml
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\PreferencesWindow.baml
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\ProgressBarDialog.baml
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\YesOrNoWindow.g.cs
+C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\YesOrNoWindow.baml
