@@ -29,9 +29,9 @@
                 <MenuItem x:Name="ImportFromCSV" Header="_From CSV..." Click="ImportFromCSV_Click" ></MenuItem>
                 <MenuItem x:Name="BulkImportFromGoogleAdminQueryString" Header="_From Google Admin Console Query String (Bulk)..." Click="ImportFromGoogleAdminQueryStringBulk_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_View">
-                <MenuItem x:Name="UseDefaultButtonLayout" Header="_Use Default (Button) Layout" Click="UseDefaultButtonLayout_Click"></MenuItem>
-                <MenuItem x:Name="UseTextBoxLayout" Header="_Use Text Box Layout (default)" Click="UseTextBoxLayout_Click"></MenuItem>
+            <MenuItem Header="_View">  
+                <MenuItem x:Name="UseTextBoxLayout" Header="Switch to the text box layout (default)" Click="UseTextBoxLayout_Click"></MenuItem>
+                <MenuItem x:Name="UseDefaultButtonLayout" Header="Switch to the old (button) layout" Click="UseDefaultButtonLayout_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Window">
                 <MenuItem x:Name="Window_ResetWindowSize" Header="_Reset Window Size" Click="Window_ResetWindowSize_Click" ></MenuItem>

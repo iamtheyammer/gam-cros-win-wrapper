@@ -221,5 +221,37 @@ namespace ChromebookGUI
             progressBarDialog.Show();
             return progressBarDialog;
         }
+
+
+        /// <summary>
+        /// Gets a yes or no input from the user.
+        /// </summary>
+        /// <param name="title">The title of the window</param>
+        /// <param name="instructionText">The text to instruct the user about what they're choosing.</param>
+        /// <param name="extraButtonText">Text for the extra button.</param>
+        /// <returns>A string with either "yes", "no" or "extraButtonClicked".</returns>
+        public static string GetYesOrNo(string title, string headline, string instructionBoxText, string extraButtonText)
+        {
+            YesOrNoWindow window = new YesOrNoWindow();
+            window.Title = title;
+            if (extraButtonText.Length < 1) window.ExtraButton.Opacity = 0;
+            window.instructionTextBlock.Text = headline;
+            window.InfoBox.Text = instructionBoxText;
+            window.ExtraButton.Content = extraButtonText;
+            window.ShowDialog();
+            return window.instructionTextBlock.Text;
+        }
+
+
+        /// <summary>
+        /// Does not have an extra button.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="instructionText"></param>
+        /// <returns></returns>
+        public static string GetYesOrNo(string title, string headline, string instructionText)
+        {
+            return GetYesOrNo(title, headline, instructionText, "");
+        }
     }
 }

@@ -25,15 +25,15 @@
         <RadioButton x:Name="StatusDisabledRadio" Content="Disabled" HorizontalAlignment="Left" Margin="507,111,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         <RadioButton x:Name="StatusActiveRadio" Content="Active" HorizontalAlignment="Left" Margin="581,111,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         <RadioButton x:Name="StatusDeprovisionedRadio" Content="Deprovisioned" HorizontalAlignment="Left" Margin="637,111,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="507,150,0,0" TextWrapping="Wrap" Text="Organizational Unit" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="OrganizationalUnitField" Text="Enter an OU or Browse..." HorizontalAlignment="Left" Height="23" Margin="507,175,0,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top" Width="166" FontSize="14"/>
-        <Button x:Name="OrganizationalUnitBrowseButton" Click="OrganizationalUnitBrowseButton_Click" Content="Browse..." HorizontalAlignment="Left" Margin="687,177,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="507,147,0,0" TextWrapping="Wrap" Text="Organizational Unit" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="OrganizationalUnitField" Text="Enter an OU or Browse..." HorizontalAlignment="Left" Height="25" Margin="507,173,0,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top" Width="166" FontSize="14"/>
+        <Button x:Name="OrganizationalUnitBrowseButton" Click="OrganizationalUnitBrowseButton_Click" Content="Browse..." HorizontalAlignment="Left" Margin="686,173,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Height="25"/>
         <TextBlock HorizontalAlignment="Left" Margin="24,147,0,0" TextWrapping="Wrap" Text="Note" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="NoteField" Text="Set a note..." HorizontalAlignment="Left" Height="25" Margin="24,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" FontSize="14" IsEnabled="False"/>
-        <Button x:Name="GetInfoButton" Click="getInfoButton_Click" Content="Get Info" HorizontalAlignment="Left" Margin="24,214,0,0" VerticalAlignment="Top" Width="113"  IsEnabled="False"/>
-        <Button x:Name="CopyDeviceIdButton" Click="copyId_Click" Content="Copy Device ID" HorizontalAlignment="Left" Margin="150,214,0,0" VerticalAlignment="Top" Width="113"  IsEnabled="False"/>
+        <Button x:Name="GetInfoButton" Click="getInfoButton_Click" Content="Get Info" HorizontalAlignment="Left" Margin="24,213,0,0" VerticalAlignment="Top" Width="113"  IsEnabled="False"/>
+        <Button x:Name="CopyDeviceIdButton" Click="copyId_Click" Content="Copy Device ID" HorizontalAlignment="Left" Margin="142,213,0,0" VerticalAlignment="Top" Width="113"  IsEnabled="False"/>
         <Button x:Name="ApplyChangesButton" Click="ApplyChangesButton_Click" Content="Apply Changes" HorizontalAlignment="Left" Margin="626,209,0,0" VerticalAlignment="Top" Width="136" FontSize="16" Background="#FF00A300" Foreground="White" IsEnabled="False"/>
-        <TextBox x:Name="outputField" HorizontalAlignment="Left" Height="145" Margin="24,286,0,0" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Top" Width="738"/>
+        <TextBox x:Name="outputField" HorizontalAlignment="Stretch" Height="Auto" Margin="24,286,33.286,10.143" TextWrapping="Wrap" Text="Output will appear here." VerticalAlignment="Stretch"/>
         <Button Content="Copy output to clipboard" HorizontalAlignment="Left" Margin="24,261,0,0" VerticalAlignment="Top" Width="156" RenderTransformOrigin="0.5,0.5" Click="copyToClipboard_Click" Height="20"/>
         <Button x:Name="FontSizeUpButton" Content="Font Size +" HorizontalAlignment="Left" Margin="687,261,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="FontSizeUpButton_Click" Height="20"/>
         <Button x:Name="FontSizeDownButton" Content="Font Size -" HorizontalAlignment="Left" Margin="607,261,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="FontSizeDownButton_Click" Height="20"/>

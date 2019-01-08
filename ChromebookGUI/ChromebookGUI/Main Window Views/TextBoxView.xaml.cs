@@ -22,7 +22,7 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
+        public async void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
             ToggleMainWindowButtons(false);
             ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Getting Device Info", 5, "Searching for devices...");
@@ -240,28 +240,86 @@ namespace ChromebookGUI
             string gamCommand = "update cros " + Globals.DeviceId + " ";
             string outputText = "";
 
-            if (LocationField.Text != Globals.Location && LocationField.Text.Length > 0)
+            if (LocationField.Text != Globals.Location)
             {
-                gamCommand += "location " + LocationField.Text + " ";
+                if (LocationField.Text.Length < 1)
+                {
+                    switch (GetInput.GetYesOrNo("Empty Location?", "Clear the field?", "Click yes if you want to empty the Location field. Click no to cancel."))
+                    {
+                        case "yes":
+                            break;
+                        case "no":
+                            outputField.Text = "Cancelling because you didn't want to empty a field.";
+                            progressBar.Close();
+                            return;
+                        default:
+                            progressBar.Close();
+                            return;
+                    }
+                }
+                gamCommand += "location \"" + LocationField.Text + "\" ";
                 Globals.Location = LocationField.Text;
                 outputText += "Location, ";
             }
-            if (AssetIdField.Text != Globals.AssetId && AssetIdField.Text.Length > 0)
+            if (AssetIdField.Text != Globals.AssetId)
             {
-                gamCommand += "asset_id " + AssetIdField.Text + " ";
+                if (AssetIdField.Text.Length < 1) {
+                    switch(GetInput.GetYesOrNo("Empty Asset ID?", "Clear the field?", "Click yes if you want to empty the Asset ID field. Click no to cancel.")) {
+                        case "yes":
+                            break;
+                        case "no":
+                            outputField.Text = "Cancelling because you didn't want to empty a field.";
+                            progressBar.Close();
+                            return;
+                        default:
+                            progressBar.Close();
+                            return;
+                    }
+                }
+                gamCommand += "asset_id \"" + AssetIdField.Text + "\" ";
                 Globals.AssetId = LocationField.Text;
                 outputText += "Asset ID, ";
 
             }
-            if (UserField.Text != Globals.User && UserField.Text.Length > 0)
+            if (UserField.Text != Globals.User)
             {
-                gamCommand += "user " + UserField.Text + " ";
+                if (UserField.Text.Length < 1)
+                {
+                    switch (GetInput.GetYesOrNo("Empty User?", "Clear the field?", "Click yes if you want to empty the User field. Click no to cancel."))
+                    {
+                        case "yes":
+                            break;
+                        case "no":
+                            outputField.Text = "Cancelling because you didn't want to empty a field.";
+                            progressBar.Close();
+                            return;
+                        default:
+                            progressBar.Close();
+                            return;
+                    }
+                }
+                gamCommand += "user \"" + UserField.Text + "\" ";
                 Globals.User = UserField.Text;
                 outputText += "User, ";
             }
-            if (NoteField.Text != Globals.Note && NoteField.Text.Length > 0)
+            if (NoteField.Text != Globals.Note)
             {
-                gamCommand += "note \"" + NoteField.Text.Replace("\"", "\\\"") + "\" "; // will output a note like this: "He told me \"Hello!\" yesterday."
+                if (NoteField.Text.Length < 1)
+                {
+                    switch (GetInput.GetYesOrNo("Empty Note?", "Clear the field?", "Click yes if you want to empty the Note field. Click no to cancel."))
+                    {
+                        case "yes":
+                            break;
+                        case "no":
+                            outputField.Text = "Cancelling because you didn't want to empty a field.";
+                            progressBar.Close();
+                            return;
+                        default:
+                            progressBar.Close();
+                            return;
+                    }
+                }
+                gamCommand += "notes \"" + NoteField.Text.Replace("\"", "\\\"") + "\" "; // will output a note like this: "He told me \"Hello!\" yesterday."
                 Globals.Note = NoteField.Text;
                 outputText += "Note, ";
             }
@@ -312,7 +370,7 @@ namespace ChromebookGUI
                 outputText += "Orgizational Unit ";
             }
 
-            if (gamCommand != "update cros " + Globals.DeviceId + " ")
+            if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
             {
                 string gamOutput = GAM.RunGAMFormatted(gamCommand);
                 Console.WriteLine(gamOutput);

@@ -26,14 +26,28 @@ namespace ChromebookGUI
         private void RenderTextBoxView()
         {
             TextBoxView textBoxView = new TextBoxView();
+            string currentOmnibarText = "";
+            if (!string.IsNullOrEmpty(Globals.DeviceId)) currentOmnibarText = currentView.deviceInputField.Text;
             currentView = textBoxView;
+            if (!string.IsNullOrEmpty(Globals.DeviceId))
+            {
+                currentView.deviceInputField.Text = currentOmnibarText;
+                currentView.SubmitDeviceId_Click(new object(), new RoutedEventArgs());
+            }
             ViewFrame.Navigate(currentView);
         }
 
         private void RenderDefaultView()
         {
             DefaultView defaultView = new DefaultView();
+            string currentOmnibarText = "";
+            if (!string.IsNullOrEmpty(Globals.DeviceId)) currentOmnibarText = currentView.deviceInputField.Text;
             currentView = defaultView;
+            if (!string.IsNullOrEmpty(Globals.DeviceId))
+            {
+                currentView.deviceInputField.Text = currentOmnibarText;
+                currentView.ToggleMainWindowButtons(true);
+            }
             ViewFrame.Navigate(defaultView);
         }
 

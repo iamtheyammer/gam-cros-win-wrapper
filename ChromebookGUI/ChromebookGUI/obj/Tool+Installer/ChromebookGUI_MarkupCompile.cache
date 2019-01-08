@@ -10,11 +10,11 @@ none
 false
 TRACE
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\App.xaml
-7-165901055
+9968326843
 
-191845973919
+21-114650321
 162113845627
-DataGridInput.xaml;DefaultView.xaml;DeprovosionSelect.xaml;InfoDialog.xaml;InputWindow.xaml;MainWindow.xaml;PreferencesWindow.xaml;
+Main Window Views\TextBoxView.xaml;Windows\DataGridInput.xaml;Main Window Views\DefaultView.xaml;Windows\DeprovosionSelect.xaml;Windows\InfoDialog.xaml;Windows\InputWindow.xaml;Windows\MainWindow.xaml;Windows\PreferencesWindow.xaml;Windows\ProgressBarDialog.xaml;
 
-True
+False
 
