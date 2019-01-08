@@ -29,7 +29,7 @@ Otherwise, please note that, right now, to properly install a new version, you m
 ### Beta build (stable, updates less often)
 Installation of **beta** is simple. Just pop on over to the [**beta** releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the msi. It should run on both x86 and x64 platforms.
 
-[Compatible GAM version: 4.6.1, NOT 4.6.5 (latest)](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md)
+[Compatible GAM version: 4.6.1, NOT 4.6.5 (latest)](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md). Use the Alpha for current GAM compatibility.
 
 ### Alpha build (less stable, updates very often, has newest features first)
 If you'd like the latest **alpha** build (not verified stable, but *should* work), download the Installer.msi file from [ChromebookGUI/Installer/Tool+Installer/Installer.msi (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi). It takes about 15-30 days of issue-free alpha to turn the alpha build into a beta build.
@@ -45,6 +45,7 @@ Compatible GAM versions: **4.6.5**, 4.6.1
 5. Done!
 
 #### What can the Alpha build do that the beta can't yet?
+- **Handle a brand new interface**: we've changed the look and feel a bit for some awesome speed upgrades!
 - Preferences
 - Bulk import and bulk modifications (from CSV)
 - Search for a device with a Google Admin query string
@@ -113,7 +114,8 @@ These screenshots hail from the current [**beta**](https://github.com/iamtheyamm
 Please open an issue! I want to fix your bugs, I just don't know about them yet. Please include a screenshot with your report.
 
 ## In the future (To-Do)
-- Add a menu bar with some simple settings
+[-] Add a menu bar with some simple settings
+[-] Add a better GUI
 - Come up with a name -- I'm using ChromebookGUI right now. (please help me with this!)
 
 ## Contributions
