@@ -24,7 +24,7 @@ namespace ChromebookGUI
         /// <param name="e"></param>
         public async void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
-            ToggleMainWindowButtons(false);
+            IsLoading = true;
             ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Getting Device Info", 5, "Searching for devices...");
             if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, asset id, serial number, query string or email...")
             {
@@ -34,7 +34,8 @@ namespace ChromebookGUI
             }
 
             //outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
-            BasicDeviceInfo deviceInfo = GAM.GetDeviceId(deviceInputField.Text);
+            string input = deviceInputField.Text;
+            BasicDeviceInfo deviceInfo = await Task.Run(() => GAM.GetDeviceId(input));
             Globals.ClearGlobals(); // clear the globals before adding new ones
             Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
             if (deviceInfo.Error)
@@ -43,19 +44,19 @@ namespace ChromebookGUI
                 progressBar.Close();
                 return;
             }
-            await progressBar.UpdateBarAndText(30, "Getting more device info...");
+            progressBar.UpdateBarAndText(30, "Getting more device info...");
             
 
-            BasicDeviceInfo fullDeviceInfo = GAM.GetAllDeviceInfo(deviceInfo.DeviceId);
+            BasicDeviceInfo fullDeviceInfo = await Task.Run(() => GAM.GetAllDeviceInfo(deviceInfo.DeviceId));
             fullDeviceInfo.LastSync = !string.IsNullOrEmpty(deviceInfo.LastSync) ? deviceInfo.LastSync : null;
             fullDeviceInfo.DeviceId = deviceInfo.DeviceId;
             fullDeviceInfo.SerialNumber = !string.IsNullOrEmpty(deviceInfo.SerialNumber) ? deviceInfo.SerialNumber : null;
             fullDeviceInfo.Status = !string.IsNullOrEmpty(deviceInfo.Status) ? deviceInfo.Status : null;
             fullDeviceInfo.User = !string.IsNullOrEmpty(deviceInfo.User) ? deviceInfo.User : null;
-            await progressBar.UpdateBarAndText(40, "Saving variables...");
+            progressBar.UpdateBarAndText(40, "Saving variables...");
 
             Globals.SetGlobalsFromBasicDeviceInfo(fullDeviceInfo);
-            await progressBar.UpdateBarAndText(55, "Populating fields...");
+            progressBar.UpdateBarAndText(55, "Populating fields...");
             if (!String.IsNullOrEmpty(fullDeviceInfo.Notes)) NoteField.Text = fullDeviceInfo.Notes; else NoteField.Text = "";
             if (!String.IsNullOrEmpty(fullDeviceInfo.AssetId)) AssetIdField.Text = fullDeviceInfo.AssetId; else AssetIdField.Text = "";
             if (!String.IsNullOrEmpty(fullDeviceInfo.Location)) LocationField.Text = fullDeviceInfo.Location; else LocationField.Text = "";
@@ -89,13 +90,13 @@ namespace ChromebookGUI
                 }
             }
 
-            await progressBar.UpdateBarAndText(85, "Filling in output box...");
+            progressBar.UpdateBarAndText(85, "Filling in output box...");
             outputField.Text = "Found device. ID: " + fullDeviceInfo.DeviceId + ".";
             if (!String.IsNullOrEmpty(fullDeviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + fullDeviceInfo.SerialNumber;
             if (!String.IsNullOrEmpty(fullDeviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + fullDeviceInfo.LastSync;
 
-            await progressBar.UpdateBarAndText(100, "Done!");
-            ToggleMainWindowButtons(true);
+            progressBar.UpdateBarAndText(100, "Done!");
+            IsLoading = false;
             progressBar.Close();
             //deviceInputField.Text = deviceId;
         }
@@ -110,8 +111,9 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void getInfoButton_Click(object sender, RoutedEventArgs e)
+        private async void getInfoButton_Click(object sender, RoutedEventArgs e)
         {
+            IsLoading = true;
             if (Globals.DeviceIdExists() == false)
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
@@ -124,7 +126,8 @@ namespace ChromebookGUI
             }
             string deviceId = Globals.DeviceId;
             //if (deviceId == null || deviceId.Length < 1) ;
-            outputField.Text = GAM.RunGAMFormatted("info cros " + Globals.DeviceId + " allfields");
+            outputField.Text = await Task.Run(() => GAM.RunGAMFormatted("info cros " + Globals.DeviceId + " allfields"));
+            IsLoading = false;
         }
 
 
@@ -236,13 +239,13 @@ namespace ChromebookGUI
         {
             // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
             ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Updating Device", 50, "Updating device info...");
-            await progressBar.UpdateBarAndText(50, "Updating device info...");
+            progressBar.UpdateBarAndText(50, "Updating device info...");
             string gamCommand = "update cros " + Globals.DeviceId + " ";
             string outputText = "";
 
             if (LocationField.Text != Globals.Location)
             {
-                if (LocationField.Text.Length < 1)
+                if (LocationField.Text.Length < 1 && String.IsNullOrEmpty(Globals.Location))
                 {
                     switch (GetInput.GetYesOrNo("Empty Location?", "Clear the field?", "Click yes if you want to empty the Location field. Click no to cancel."))
                     {
@@ -263,7 +266,7 @@ namespace ChromebookGUI
             }
             if (AssetIdField.Text != Globals.AssetId)
             {
-                if (AssetIdField.Text.Length < 1) {
+                if (AssetIdField.Text.Length < 1 && String.IsNullOrEmpty(Globals.AssetId)) {
                     switch(GetInput.GetYesOrNo("Empty Asset ID?", "Clear the field?", "Click yes if you want to empty the Asset ID field. Click no to cancel.")) {
                         case "yes":
                             break;
@@ -283,7 +286,7 @@ namespace ChromebookGUI
             }
             if (UserField.Text != Globals.User)
             {
-                if (UserField.Text.Length < 1)
+                if (UserField.Text.Length < 1 && String.IsNullOrEmpty(Globals.User))
                 {
                     switch (GetInput.GetYesOrNo("Empty User?", "Clear the field?", "Click yes if you want to empty the User field. Click no to cancel."))
                     {
@@ -304,7 +307,7 @@ namespace ChromebookGUI
             }
             if (NoteField.Text != Globals.Note)
             {
-                if (NoteField.Text.Length < 1)
+                if (NoteField.Text.Length < 1 && String.IsNullOrEmpty(Globals.Note))
                 {
                     switch (GetInput.GetYesOrNo("Empty Note?", "Clear the field?", "Click yes if you want to empty the Note field. Click no to cancel."))
                     {
@@ -370,18 +373,44 @@ namespace ChromebookGUI
                 outputText += "Orgizational Unit ";
             }
 
+            if (OrganizationalUnitField.Text.Length < 1 || (OrganizationalUnitField.Text.Length == 1 && OrganizationalUnitField.Text[0] != '/'))
+            {
+                GetInput.ShowInfoDialog("No empty org unit path.", "Your org unit path can't be blank.", "You can't have a blank org unit path, silly!");
+                return;
+            }
+
             if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
             {
-                string gamOutput = GAM.RunGAMFormatted(gamCommand);
+                string gamOutput = await Task.Run(() => GAM.RunGAMFormatted(gamCommand));
                 Console.WriteLine(gamOutput);
             }
-            await progressBar.UpdateBarAndText(99, "Finishing up...");
+            progressBar.UpdateBarAndText(99, "Finishing up...");
             if (outputText.Length > 1) outputField.Text = outputText += "was updated.";
             progressBar.Close();
             // build a GAM command from that information
             // run it
             // update globals
             // show success in output field
+        }
+
+        private bool _isLoading;
+        private bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+
+            set
+            {
+                ToggleMainWindowButtons(!value);
+                if (value == true)
+                {
+                    outputField.Text = "Loading...";
+                }
+                _isLoading = value;
+                return;
+            }
         }
 
     }

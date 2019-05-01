@@ -83,3 +83,39 @@ C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\Chromebook
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\ProgressBarDialog.baml
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\YesOrNoWindow.g.cs
 C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\YesOrNoWindow.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Release\ChromebookGUI.exe.config
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Release\ChromebookGUI.exe
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Release\ChromebookGUI.pdb
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Release\Newtonsoft.Json.dll
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Release\Newtonsoft.Json.xml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.csprojAssemblyReference.cache
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Main Window Views\TextBoxView.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\DataGridInput.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Main Window Views\DefaultView.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\DeprovosionSelect.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\InfoDialog.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\InputWindow.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\MainWindow.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\PreferencesWindow.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\ProgressBarDialog.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\YesOrNoWindow.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\App.g.cs
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI_MarkupCompile.cache
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI_MarkupCompile.lref
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Main Window Views\TextBoxView.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\DataGridInput.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Main Window Views\DefaultView.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\DeprovosionSelect.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\InfoDialog.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\InputWindow.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\MainWindow.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\PreferencesWindow.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\ProgressBarDialog.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\Windows\YesOrNoWindow.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.g.resources
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.Properties.Resources.resources
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.csproj.GenerateResource.cache
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.csproj.CoreCompileInputs.cache
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.csproj.CopyComplete
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.exe
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Release\ChromebookGUI.pdb

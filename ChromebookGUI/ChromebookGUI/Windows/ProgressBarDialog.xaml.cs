@@ -24,15 +24,10 @@ namespace ChromebookGUI.Windows
             InitializeComponent();
         }
          
-        public async Task UpdateBarAndText(int value, string text)
+        public void UpdateBarAndText(int value, string text)
         {
-            await Dispatcher.BeginInvoke((Action) (() =>
-            {
-                ProgressBarField.Value = value;
-                ProgressText.Text = text;
-            }));
-            //ProgressBarField.Value = value;
-            //ProgressText.Text = text;
+            ProgressBarField.Value = value;
+            ProgressText.Text = text;
         }
 
         public void UpdateBar(int value)

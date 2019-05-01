@@ -26,20 +26,24 @@ If not, [skip this](#beta-build-stable-updates-less-often).
 
 Otherwise, please note that, right now, to properly install a new version, you must **uninstall** your previous version, then install the new version. I'm not sure why this is happening, and it's something I'm working on, but please keep it in mind. Need help uninstalling? [Click here](#uninstalling).
 
+### Release build (best for most people)
+
+TBD
+
 ### Beta build (stable, updates less often)
 Installation of **beta** is simple. Just pop on over to the [**beta** releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the msi. It should run on both x86 and x64 platforms.
 
-[Compatible GAM version: 4.6.1, NOT 4.6.5 (latest)](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md)
+[Compatible GAM version: 4.6.1, NOT latest](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md)
 
 ### Alpha build (less stable, updates very often, has newest features first)
 If you'd like the latest **alpha** build (not verified stable, but *should* work), download the Installer.msi file from [ChromebookGUI/Installer/Tool+Installer/Installer.msi (or click here!)](https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi). It takes about 15-30 days of issue-free alpha to turn the alpha build into a beta build.
 
-Compatible GAM versions: **4.6.5**, 4.6.1
+Compatible GAM versions: **4.8.x**, 4.6.5
 
 ### Installation Steps
 
 1. Make sure GAM is working, logged in to the right account, and showing devices. If you run `gam print cros`, you should see a bunch of device IDs. If you see a prompt for scopes, press `a` then `c`, then finish verifying.
-2. Download the installer according to the channel you'd like. (beta or alpha)
+2. Download the installer according to the channel you'd like. (release, beta, alpha)
 3. Run the installer. Selecting "Just Me" on the install page will place files in the `C:\Program Files (x86)\` directory, but only you will get a desktop and start menu shortcut. Selecting everyone gives everyone those shortcuts, and creates AppData folders for them.
 4. Click on the shortcut on your desktop/in your start menu.
 5. Done!
@@ -49,6 +53,8 @@ Compatible GAM versions: **4.6.5**, 4.6.1
 - Bulk import and bulk modifications (from CSV)
 - Search for a device with a Google Admin query string
 - Many bug fixes
+- New layout
+- Fully async (no more no responding!)
 - More awesome features!
 
 ### Auto-updates
@@ -66,8 +72,6 @@ Using the app is fairly simple, and usability is something I want to work on mor
 
 **The first step is to put a serial number/device ID/email/asset ID into the big box asking for it, then pressing submit.** In the output box, you should see the device ID you're working with.
 
-### I want to mention that sometimes, when you press a button the app will not respond to you. This is a common occurrence as it completes commands. It may even go into "Not Responding". This is normal, especially for large operations.
-
 Now, you can click on any of the buttons.
 
 | Item Title      | Equivalent GAM command | Description |
@@ -75,7 +79,7 @@ Now, you can click on any of the buttons.
 | Get info       | `gam info cros $deviceId` | Gets about all there is to know about the device. |
 | Set Location | `gam update cros $deviceId location $location` | Sets the device's location |
 | Set Asset ID | `gam update cros $deviceId assetid $assetId` | Sets the device's Asset ID |
-| Set User | `gam update cros $deviceId user $user` | Set's the device's assigned user |
+| Set User | `gam update cros $deviceId user $user` | Sets the device's assigned user |
 | Disable | `gam update cros $deviceId action disable` | Disables the device, allowing no one to sign into it. |
 | Reenable | `gam update cros $deviceId action reenable` | Reenables a disabled device. |
 | Change OU | `gam update cros $deviceId ou $ou` | Changes the OU of a device. |
@@ -130,7 +134,7 @@ When a new version is pushed out, three things must be at least checked.
   - Software.Version
 - Installer:
   - Properties -> Version (**must** match Software.Version)
-- docs/releases.json:
+- gh-pages branch, releases.json:
   - Change the JSON to match your Software.Version (again, **must** match)
 When these things are changed,
 1. Old versions of software are prompted to upgrade (caused by changing Software.Version and docs/releases.json)
