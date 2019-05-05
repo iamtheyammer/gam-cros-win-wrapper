@@ -40,13 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2585DC2AAC179F38259BDD3D97342536"
+        "OwnerKey" = "8:_8E37A379558F9A99C7C9BDE787C71AD7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8E37A379558F9A99C7C9BDE787C71AD7"
+        "OwnerKey" = "8:_2585DC2AAC179F38259BDD3D97342536"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -317,15 +317,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChromebookGUI"
-        "ProductCode" = "8:{F7A1F6C3-3E44-4E42-B34D-CEC2AC2A1FCC}"
-        "PackageCode" = "8:{1BA9BFAD-8C25-44A8-BCDD-13712AF43A39}"
+        "ProductCode" = "8:{E51263F1-D367-49A1-B93F-1B5429361D83}"
+        "PackageCode" = "8:{A9796ABE-D59B-4479-B639-CE0281307868}"
         "UpgradeCode" = "8:{89762883-3161-4BEA-AB4E-D70B16F0AA1B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.4"
+        "ProductVersion" = "8:1.0.5"
         "Manufacturer" = "8:iamtheyammer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/iamtheyammer/gam-cros-win-wrapper"
@@ -867,7 +867,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4E9155F12F1A4834B7C9A04DEF51850A"
             {
-            "SourcePath" = "8:..\\ChromebookGUI\\obj\\Tool+Installer\\ChromebookGUI.exe"
+            "SourcePath" = "8:..\\ChromebookGUI\\obj\\Release\\ChromebookGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_61EB502A85E94D0EBFB3D04DAA84F14E"
