@@ -132,6 +132,40 @@ namespace ChromebookGUI
             return inputWindow.inputTextBox.Text.Split('|').ToList();
         }
 
+        public static BasicDeviceInfo GetDeviceSelection(String instructionText, String instructionTextBoxText, String title, List<BasicDeviceInfo> inputData)
+        {
+            List<string> selection = GetDataGridSelection(instructionText, instructionTextBoxText, title, inputData);
+            string deviceId = null;
+            foreach (string field in selection)
+            {
+                if(GAM.IsDeviceId(field))
+                {
+                    deviceId = field;
+                    break;
+                }
+            }
+            if(deviceId == null)
+            {
+                return new BasicDeviceInfo()
+                {
+                    Error = true,
+                    ErrorText = "No selection made."
+                };
+            }
+            foreach(BasicDeviceInfo device in inputData)
+            {
+                if(device.DeviceId == deviceId)
+                {
+                    return device;
+                }
+            }
+            return new BasicDeviceInfo()
+            {
+                Error = true,
+                ErrorText = "Unknown error."
+            };
+        }
+
         /// <summary>
         /// Returns an absolute path to a file chosen by the user.
         /// </summary>

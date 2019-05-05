@@ -100,7 +100,6 @@ namespace ChromebookGUI
             return output;
         }
 
-
         /// <summary>
         /// Opposite of BasicDeviceInfo.ToDictionary.
         /// </summary>
@@ -123,6 +122,15 @@ namespace ChromebookGUI
             };
 
             return output;
+        }
+
+        public static BasicDeviceInfo HandleGetDeviceId(List<BasicDeviceInfo> possibleDevices)
+        {
+            if (possibleDevices.Count == 1)
+            {
+                return possibleDevices[0];
+            }
+            return GetInput.GetDeviceSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", possibleDevices);
         }
     }
 

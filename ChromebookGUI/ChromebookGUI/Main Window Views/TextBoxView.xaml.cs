@@ -35,7 +35,8 @@ namespace ChromebookGUI
 
             //outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
             string input = deviceInputField.Text;
-            BasicDeviceInfo deviceInfo = await Task.Run(() => GAM.GetDeviceId(input));
+            List<BasicDeviceInfo> possibleDevices = await Task.Run(() => GAM.GetDeviceId(input));
+            BasicDeviceInfo deviceInfo = BasicDeviceInfo.HandleGetDeviceId(possibleDevices);
             Globals.ClearGlobals(); // clear the globals before adding new ones
             Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
             if (deviceInfo.Error)
