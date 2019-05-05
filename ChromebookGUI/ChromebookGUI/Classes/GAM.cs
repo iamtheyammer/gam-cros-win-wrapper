@@ -80,16 +80,18 @@ namespace ChromebookGUI
         {
             return FixCSVCommas.FixCommas(GAM.RunGAM(gamCommand));
         }
-       
+
 
         /// <summary>
-        /// Checks if a string is a device ID by seeing if it has 4 dashes in it.
+        /// Checks if a string is a device ID by seeing if it matches a regex.
+        /// https://www.regexpal.com/?fam=109206
         /// </summary>
         /// <param name="input">The string you wish to check.</param>
         /// <returns></returns>
         public static bool IsDeviceId(string input)
         {
-            if(Regex.Matches(input, "-").Count == 4)
+            MatchCollection matches = Regex.Matches(input, "[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{11,13}");
+            if(matches.Count == 1 && matches[0].Length == input.Length)
             {
                 return true;
             } else
@@ -188,8 +190,10 @@ namespace ChromebookGUI
                             DeviceId = deviceInfos[0][fieldOrder["deviceId"]],
                             LastSync = deviceInfos[0][fieldOrder["lastSync"]],
                             SerialNumber = deviceInfos[0][fieldOrder["serialNumber"]],
+                            AssetId = deviceInfos[0][fieldOrder["annotatedAssetId"]],
                             Status = deviceInfos[0][fieldOrder["status"]],
                             User = deviceInfos[0][fieldOrder["annotatedUser"]],
+                            Notes = deviceInfos[0][fieldOrder["notes"]],
                             Error = false
                         }
                     };
@@ -205,8 +209,10 @@ namespace ChromebookGUI
                     DeviceId = deviceInfos[i][fieldOrder["deviceId"]],
                     LastSync = deviceInfos[i][fieldOrder["lastSync"]],
                     SerialNumber = deviceInfos[i][fieldOrder["serialNumber"]],
+                    AssetId = deviceInfos[i][fieldOrder["annotatedAssetId"]],
                     Status = deviceInfos[i][fieldOrder["status"]],
                     User = deviceInfos[i][fieldOrder["annotatedUser"]],
+                    Notes = deviceInfos[i][fieldOrder["notes"]],
                     Error = false
                 });
             }
