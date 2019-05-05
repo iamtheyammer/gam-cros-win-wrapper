@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="ChromebookGUI" Height="500" Width="800" 
         Loaded="Window_Loaded">
+    <Window.CommandBindings>
+        <CommandBinding Command="Search" Executed="Search_Executed"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="Search" />
+    </Window.InputBindings>
     <Grid Margin="10,0,10,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" MinHeight="254.857" />

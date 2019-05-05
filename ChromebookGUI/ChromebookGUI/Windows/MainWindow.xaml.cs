@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ChromebookGUI
 {
@@ -51,7 +53,6 @@ namespace ChromebookGUI
             ViewFrame.Navigate(defaultView);
         }
 
-
         private void FilePreferences_Click(object sender, RoutedEventArgs e)
         {
             Preferences.OpenPreferencesWindow();
@@ -93,8 +94,9 @@ namespace ChromebookGUI
 
         }
 
-        private void ImportFromGoogleAdminQueryStringBulk_Click(object sender, RoutedEventArgs e)
+        private async void ImportFromGoogleAdminQueryStringBulk_Click(object sender, RoutedEventArgs e)
         {
+            currentView.IsLoading = true;
             string inputBoxPrefill = "example: user:jsmith\nThat imports all devices with the user:jsmith.\nClick the link on the bottom left for more information.";
             string queryString = GetInput.getInput(
                 "Enter an Admin Console query string.",
@@ -114,24 +116,27 @@ namespace ChromebookGUI
             } else if (queryString == inputBoxPrefill || queryString == null)
             {
                 GetInput.ShowInfoDialog("ChromebookGUI: No input", "No Input", "No query string entered, silly goose!");
+                currentView.IsLoading = false;
                 return;
             }
 
-            List<string> gamResult = GAM.RunGAM("print cros query \"" + queryString + "\"");
+            List<string> gamResult = await Task.Run(() => GAM.RunGAM("print cros query \"" + queryString + "\""));
             if(gamResult.Count == 0)
             {
                 GetInput.ShowInfoDialog("ChromebookGUI: Invalid Query String", "Invalid Query String", "That's an invalid query string. If you don't think it is, try running this in cmd:\n\ngam print cros query \"" + queryString + "\"");
+                currentView.IsLoading = false;
                 return;
             } else if (gamResult.Count < 2)
             {
                 GetInput.ShowInfoDialog("ChromebookGUI: No Results", "No Results from Query String", "No results from that query (" + queryString + ")");
+                currentView.IsLoading = false;
                 return;
             }
             File.WriteAllLines(System.IO.Path.GetTempPath() + "ChromebookGUI.csv", gamResult.ToArray());
             Globals.ClearGlobals();
             Globals.CsvLocation = System.IO.Path.GetTempPath() + "ChromebookGUI.csv";
             Globals.DeviceId = "csv";
-            currentView.ToggleMainWindowButtons(true);
+            currentView.IsLoading = false;
             GetInput.ShowInfoDialog("ChromebookGUI: Success", "Successful Query", "Found " + (gamResult.Count - 1) + " devices using query " + queryString + "."); // subtract 1 because the first is "deviceId"
         }
 
@@ -176,6 +181,11 @@ namespace ChromebookGUI
         private void UseTextBoxLayout_Click(object sender, RoutedEventArgs e)
         {
             RenderTextBoxView();
+        }
+
+        private void Search_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            currentView.ClearAndFocusInputBar();
         }
     }
 

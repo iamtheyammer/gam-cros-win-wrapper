@@ -238,6 +238,7 @@ namespace ChromebookGUI
 
         private async void ApplyChangesButton_Click(object sender, RoutedEventArgs e)
         {
+            IsLoading = true;
             // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
             ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Updating Device", 50, "Updating device info...");
             progressBar.UpdateBarAndText(50, "Updating device info...");
@@ -329,13 +330,15 @@ namespace ChromebookGUI
             }
             if (StatusDisabledRadio.IsChecked == true && Globals.Status != "DISABLED")
             {
-                gamCommand += "action disable ";
+                progressBar.UpdateBarAndText(55, "Disabling...");
+                await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action disable"));
                 Globals.Status = "DISABLED";
                 outputText += "Status, ";
             }
             if (StatusActiveRadio.IsChecked == true && Globals.Status != "ACTIVE")
             {
-                gamCommand += "action reenable ";
+                progressBar.UpdateBarAndText(55, "Enabling...");
+                await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action reenable"));
                 Globals.Status = "ACTIVE";
                 outputText += "Status, ";
             }
@@ -346,13 +349,16 @@ namespace ChromebookGUI
                 switch (depReason)
                 {
                     case 1:
-                        gamCommand += "action deprovision_same_model_replace acknowledge_device_touch_requirement "; // same
+                        progressBar.UpdateBarAndText(55, "Deprovisioning...");
+                        await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_same_model_replace acknowledge_device_touch_requirement"));
                         break;
                     case 2:
-                        gamCommand += "action deprovision_different_model_replace acknowledge_device_touch_requirement ";
+                        progressBar.UpdateBarAndText(55, "Deprovisioning...");
+                        await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_different_model_replace acknowledge_device_touch_requirement"));
                         break; // different
                     case 3: // retire
-                        gamCommand += "action deprovision_retiring_device acknowledge_device_touch_requirement ";
+                        progressBar.UpdateBarAndText(55, "Deprovisioning...");
+                        await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_retiring_device acknowledge_device_touch_requirement"));
                         break;
                     default:
                         outputField.Text = "No deprovision reason was selected so that choice was not saved.\n";
@@ -380,12 +386,14 @@ namespace ChromebookGUI
                 return;
             }
 
+            progressBar.UpdateBarAndText(75, "Updating info...");
             if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
             {
                 string gamOutput = await Task.Run(() => GAM.RunGAMFormatted(gamCommand));
                 Console.WriteLine(gamOutput);
             }
             progressBar.UpdateBarAndText(99, "Finishing up...");
+            IsLoading = false;
             if (outputText.Length > 1) outputField.Text = outputText += "was updated.";
             progressBar.Close();
             // build a GAM command from that information
@@ -395,7 +403,7 @@ namespace ChromebookGUI
         }
 
         private bool _isLoading;
-        private bool IsLoading
+        public bool IsLoading
         {
             get
             {
@@ -408,10 +416,19 @@ namespace ChromebookGUI
                 if (value == true)
                 {
                     outputField.Text = "Loading...";
+                } else
+                {
+                    outputField.Text = "";
                 }
                 _isLoading = value;
                 return;
             }
+        }
+
+        public void ClearAndFocusInputBar()
+        {
+            deviceInputField.Focus();
+            deviceInputField.Text = "";
         }
 
     }

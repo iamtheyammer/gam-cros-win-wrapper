@@ -460,7 +460,7 @@ namespace ChromebookGUI
         }
 
         private bool _isLoading;
-        private bool IsLoading {
+        public bool IsLoading {
             get
             {
                 return _isLoading;
@@ -472,6 +472,9 @@ namespace ChromebookGUI
                 if(value == true)
                 {
                     outputField.Text = "Loading...";
+                } else
+                {
+                    outputField.Text = "";
                 }
                 _isLoading = value;
                 return;
@@ -496,6 +499,12 @@ namespace ChromebookGUI
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        public void ClearAndFocusInputBar()
+        {
+            deviceInputField.Focus();
+            deviceInputField.Text = "";
         }
     }
 }
