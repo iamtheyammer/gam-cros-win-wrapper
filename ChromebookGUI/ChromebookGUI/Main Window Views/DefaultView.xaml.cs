@@ -474,7 +474,6 @@ namespace ChromebookGUI
                     outputField.Text = "Loading...";
                 } else
                 {
-                    outputField.Text = "";
                 }
                 _isLoading = value;
                 return;
