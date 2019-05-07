@@ -28,6 +28,7 @@ namespace ChromebookGUI.Classes
             }
             catch
             {
+                List = new List<string>();
                 return;
             }
         }

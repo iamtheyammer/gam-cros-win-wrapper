@@ -187,13 +187,13 @@ namespace ChromebookGUI
                     return new List<BasicDeviceInfo>()
                     {
                         new BasicDeviceInfo(){
-                            DeviceId = deviceInfos[0][fieldOrder["deviceId"]],
-                            LastSync = deviceInfos[0][fieldOrder["lastSync"]],
-                            SerialNumber = deviceInfos[0][fieldOrder["serialNumber"]],
-                            AssetId = deviceInfos[0][fieldOrder["annotatedAssetId"]],
-                            Status = deviceInfos[0][fieldOrder["status"]],
-                            User = deviceInfos[0][fieldOrder["annotatedUser"]],
-                            Notes = deviceInfos[0][fieldOrder["notes"]],
+                            DeviceId = fieldOrder.ContainsKey("deviceId") ? deviceInfos[0][fieldOrder["deviceId"]] : null,
+                            LastSync = fieldOrder.ContainsKey("lastSync") ? deviceInfos[0][fieldOrder["lastSync"]] : null,
+                            SerialNumber = fieldOrder.ContainsKey("serialNumber") ? deviceInfos[0][fieldOrder["serialNumber"]] : null,
+                            AssetId = fieldOrder.ContainsKey("annotatedAssetId") ? deviceInfos[0][fieldOrder["annotatedAssetId"]] : null,
+                            Status = fieldOrder.ContainsKey("status") ? deviceInfos[0][fieldOrder["status"]] : null,
+                            User = fieldOrder.ContainsKey("annotatedUser") ? deviceInfos[0][fieldOrder["annotatedUser"]] : null,
+                            Notes = fieldOrder.ContainsKey("notes") ? deviceInfos[0][fieldOrder["notes"]] : null,
                             Error = false
                         }
                     };

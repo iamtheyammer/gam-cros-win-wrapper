@@ -210,7 +210,10 @@ namespace ChromebookGUI
 
         private void FontSizeDownButton_Click(object sender, RoutedEventArgs e)
         {
-            outputField.FontSize -= 2;
+            if ((outputField.FontSize - 2) > 0)
+            {
+                outputField.FontSize -= 2;
+            }
         }
 
         public void ToggleMainWindowButtons(bool value)
