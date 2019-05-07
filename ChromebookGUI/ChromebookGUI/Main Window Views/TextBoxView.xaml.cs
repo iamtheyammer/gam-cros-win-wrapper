@@ -288,7 +288,7 @@ namespace ChromebookGUI
 
             if (LocationField.Text != Globals.Location)
             {
-                if (!String.IsNullOrEmpty(LocationField.Text) && !String.IsNullOrEmpty(Globals.Location))
+                if (ShouldEmptyField(LocationField.Text, Globals.Location))
                 {
                     switch (GetInput.GetYesOrNo("Empty Location?", "Clear the field?", "Click yes if you want to empty the Location field. Click no to cancel."))
                     {
@@ -310,7 +310,7 @@ namespace ChromebookGUI
             }
             if (AssetIdField.Text != Globals.AssetId)
             {
-                if (!String.IsNullOrEmpty(AssetIdField.Text) && !String.IsNullOrEmpty(Globals.AssetId)) {
+                if (ShouldEmptyField(AssetIdField.Text, Globals.AssetId)) {
                     switch(GetInput.GetYesOrNo("Empty Asset ID?", "Clear the field?", "Click yes if you want to empty the Asset ID field. Click no to cancel.")) {
                         case "yes":
                             break;
@@ -331,7 +331,7 @@ namespace ChromebookGUI
             }
             if (UserField.Text != Globals.User)
             {
-                if (!String.IsNullOrEmpty(UserField.Text) && !String.IsNullOrEmpty(Globals.User))
+                if (ShouldEmptyField(UserField.Text, Globals.User))
                 {
                     switch (GetInput.GetYesOrNo("Empty User?", "Clear the field?", "Click yes if you want to empty the User field. Click no to cancel."))
                     {
@@ -352,7 +352,7 @@ namespace ChromebookGUI
             }
             if (NoteField.Text != Globals.Note)
             {
-                if (!String.IsNullOrEmpty(NoteField.Text) && !String.IsNullOrEmpty(Globals.Note))
+                if (ShouldEmptyField(NoteField.Text, Globals.Note))
                 {
                     switch (GetInput.GetYesOrNo("Empty Note?", "Clear the field?", "Click yes if you want to empty the Note field. Click no to cancel."))
                     {
@@ -444,6 +444,14 @@ namespace ChromebookGUI
             // run it
             // update globals
             // show success in output field
+        }
+
+        private bool ShouldEmptyField(string modifiedText, string originalText)
+        {
+            return (
+                (modifiedText != originalText) &&
+                (string.IsNullOrEmpty(modifiedText) && !string.IsNullOrEmpty(originalText))
+                );
         }
 
         private bool _isLoading;
