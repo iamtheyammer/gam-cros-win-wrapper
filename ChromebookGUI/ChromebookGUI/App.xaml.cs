@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChromebookGUI.Classes;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -16,6 +17,7 @@ namespace ChromebookGUI
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Preferences.Init();
+            Task.Run(() => AutoComplete.Init());
 
             MainWindow window = new MainWindow();
             window.Show();
@@ -30,6 +32,7 @@ namespace ChromebookGUI
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             Preferences.Save();
+            AutoComplete.Save();
         }
     }
 }

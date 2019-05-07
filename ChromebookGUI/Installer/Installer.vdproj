@@ -317,15 +317,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChromebookGUI"
-        "ProductCode" = "8:{E51263F1-D367-49A1-B93F-1B5429361D83}"
-        "PackageCode" = "8:{A9796ABE-D59B-4479-B639-CE0281307868}"
+        "ProductCode" = "8:{3509F3B8-9D37-49D3-90F7-7E7F09D5AE91}"
+        "PackageCode" = "8:{CBC2ADDA-567E-43A9-A26C-C88D97BB2770}"
         "UpgradeCode" = "8:{89762883-3161-4BEA-AB4E-D70B16F0AA1B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.5"
+        "ProductVersion" = "8:1.0.7"
         "Manufacturer" = "8:iamtheyammer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/iamtheyammer/gam-cros-win-wrapper"
@@ -342,7 +342,7 @@
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
-        "RunPostBuildEvent" = "3:0"
+        "RunPostBuildEvent" = "3:1"
         }
         "Registry"
         {
@@ -867,12 +867,12 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4E9155F12F1A4834B7C9A04DEF51850A"
             {
-            "SourcePath" = "8:..\\ChromebookGUI\\obj\\Release\\ChromebookGUI.exe"
+            "SourcePath" = "8:..\\ChromebookGUI\\obj\\Debug\\ChromebookGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_61EB502A85E94D0EBFB3D04DAA84F14E"
             "Condition" = "8:"
-            "Transitive" = "11:TRUE"
+            "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"

@@ -1,9 +1,12 @@
-﻿using ChromebookGUI.Windows;
+﻿using ChromebookGUI.Classes;
+using ChromebookGUI.Windows;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ChromebookGUI
 {
@@ -17,6 +20,26 @@ namespace ChromebookGUI
             InitializeComponent();
         }
 
+        private void DeviceInputField_KeyUp(object sender, KeyEventArgs e)
+        {
+            AutoComplete.OnKeyUp(sender, e, deviceInputFieldStack, deviceInputField);
+        }
+
+        private void DeviceInputField_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Key.Down:
+                    AutoComplete.FocusNextCompletion(deviceInputFieldStack, deviceInputField);
+                    return;
+                //case Key.Up:
+                //    AutoComplete.FocusPreviousCompletion(deviceInputFieldStack);
+                //    return;
+                default:
+                    return;
+            }
+        }
+
         /// <summary>
         /// Essentially, run GAM.GetDeviceId() on whatever is entered into the text field.
         /// </summary>
@@ -25,6 +48,7 @@ namespace ChromebookGUI
         public async void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
             IsLoading = true;
+            AutoComplete.Close(deviceInputFieldStack);
             ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Getting Device Info", 5, "Searching for devices...");
             if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, asset id, serial number, query string or email...")
             {
@@ -96,6 +120,8 @@ namespace ChromebookGUI
             if (!String.IsNullOrEmpty(fullDeviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + fullDeviceInfo.SerialNumber;
             if (!String.IsNullOrEmpty(fullDeviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + fullDeviceInfo.LastSync;
 
+            progressBar.UpdateBarAndText(95, "Adding search to autocomplete...");
+            AutoComplete.AddItemToList(input);
             progressBar.UpdateBarAndText(100, "Done!");
             IsLoading = false;
             progressBar.Close();
@@ -201,9 +227,24 @@ namespace ChromebookGUI
             GetInfoButton.IsEnabled = value;
         }
 
-        private void OrganizationalUnitBrowseButton_Click(object sender, RoutedEventArgs e)
+        private async void OrganizationalUnitBrowseButton_Click(object sender, RoutedEventArgs e)
         {
-            OrganizationalUnitField.Text = OrgUnit.GetOrgUnitFromSelector();
+            string currentOutput = outputField.Text;
+            IsLoading = true;
+            string orgUnit = OrgUnit.HandleAwaitableGetOrgUnitFromSelector(await Task.Run(() => OrgUnit.AwaitableGetOrgUnitFromSelector()));
+            IsLoading = false;
+            if(String.IsNullOrEmpty(orgUnit))
+            {
+                GetInput.ShowInfoDialog("No org unit selected",
+                    "No org unit selected",
+                    "For best results, please select an org unit.");
+                outputField.Text = currentOutput;
+                return;
+            } else
+            {
+                OrganizationalUnitField.Text = orgUnit;
+            }
+            outputField.Text = currentOutput;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -247,7 +288,7 @@ namespace ChromebookGUI
 
             if (LocationField.Text != Globals.Location)
             {
-                if (LocationField.Text.Length < 1 && String.IsNullOrEmpty(Globals.Location))
+                if (!String.IsNullOrEmpty(LocationField.Text) && !String.IsNullOrEmpty(Globals.Location))
                 {
                     switch (GetInput.GetYesOrNo("Empty Location?", "Clear the field?", "Click yes if you want to empty the Location field. Click no to cancel."))
                     {
@@ -256,6 +297,7 @@ namespace ChromebookGUI
                         case "no":
                             outputField.Text = "Cancelling because you didn't want to empty a field.";
                             progressBar.Close();
+                            IsLoading = false;
                             return;
                         default:
                             progressBar.Close();
@@ -268,13 +310,14 @@ namespace ChromebookGUI
             }
             if (AssetIdField.Text != Globals.AssetId)
             {
-                if (AssetIdField.Text.Length < 1 && String.IsNullOrEmpty(Globals.AssetId)) {
+                if (!String.IsNullOrEmpty(AssetIdField.Text) && !String.IsNullOrEmpty(Globals.AssetId)) {
                     switch(GetInput.GetYesOrNo("Empty Asset ID?", "Clear the field?", "Click yes if you want to empty the Asset ID field. Click no to cancel.")) {
                         case "yes":
                             break;
                         case "no":
                             outputField.Text = "Cancelling because you didn't want to empty a field.";
                             progressBar.Close();
+                            IsLoading = false;
                             return;
                         default:
                             progressBar.Close();
@@ -288,7 +331,7 @@ namespace ChromebookGUI
             }
             if (UserField.Text != Globals.User)
             {
-                if (UserField.Text.Length < 1 && String.IsNullOrEmpty(Globals.User))
+                if (!String.IsNullOrEmpty(UserField.Text) && !String.IsNullOrEmpty(Globals.User))
                 {
                     switch (GetInput.GetYesOrNo("Empty User?", "Clear the field?", "Click yes if you want to empty the User field. Click no to cancel."))
                     {
@@ -309,7 +352,7 @@ namespace ChromebookGUI
             }
             if (NoteField.Text != Globals.Note)
             {
-                if (NoteField.Text.Length < 1 && String.IsNullOrEmpty(Globals.Note))
+                if (!String.IsNullOrEmpty(NoteField.Text) && !String.IsNullOrEmpty(Globals.Note))
                 {
                     switch (GetInput.GetYesOrNo("Empty Note?", "Clear the field?", "Click yes if you want to empty the Note field. Click no to cancel."))
                     {
@@ -318,6 +361,7 @@ namespace ChromebookGUI
                         case "no":
                             outputField.Text = "Cancelling because you didn't want to empty a field.";
                             progressBar.Close();
+                            IsLoading = false;
                             return;
                         default:
                             progressBar.Close();
@@ -430,5 +474,9 @@ namespace ChromebookGUI
             deviceInputField.Text = "";
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            AutoComplete.Close(deviceInputFieldStack);
+        }
     }
 }

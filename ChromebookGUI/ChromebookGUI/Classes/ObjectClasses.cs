@@ -20,6 +20,7 @@ namespace ChromebookGUI
         public string OrgUnitDescription { get; set; }
 
         /// <summary>
+        /// DEPRECATED. Please use AwaitableGetOrgUnitFromSelector, then HandleAwaitableOrgUnitFromSelector.
         /// Easily get an org path. Handles all of the logic of opening the data selector window and finding which is the path.
         /// </summary>
         /// <returns>A string containing the full path to the organizational unit.</returns>
@@ -52,6 +53,62 @@ namespace ChromebookGUI
             if (orgPath == null | orgSelection.Contains("Click on an row to select it, or paste the full path here and press submit..."))
             {
                 return "Either you didn't enter anything or there was an error. Nothing has been changed.";
+            }
+
+            return orgPath;
+        }
+
+        /// <summary>
+        /// An awaitable version of OrgUnit.GetOrgUnitFromSelector.
+        /// Make sure to handle output with OrgUnit.HandleAwaitableGetOrgUnitFromSelector.
+        /// </summary>
+        /// <returns></returns>
+        public static List<OrgUnit> AwaitableGetOrgUnitFromSelector()
+        {
+            List<List<string>> fixedOrgs = GAM.RunGAMCommasFixed("print orgs allfields");
+
+            List<OrgUnit> orgUnits = new List<OrgUnit>();
+            foreach (List<string> org in fixedOrgs)
+            {
+                if (org[0] == "orgUnitPath") continue;
+
+                orgUnits.Add(new OrgUnit()
+                {
+                    OrgUnitPath = !String.IsNullOrEmpty(org[0]) ? org[0] : null,
+                    OrgUnitName = !String.IsNullOrEmpty(org[2]) ? (org[2].StartsWith("id:") ? "(no description provided)" : org[2]) : null,
+                    OrgUnitDescription = !String.IsNullOrEmpty(org[3]) ? (org[3].StartsWith("id:") ? "(no description provided)" : org[3]) : null
+                });
+            }
+            if (orgUnits.Count < 2)
+            {
+                return new List<OrgUnit>();
+            } else
+            {
+                return orgUnits;
+            }
+        }
+
+        /// <summary>
+        /// Handles OrgUnit.AwaitableGetOrgUnitFromSelector.
+        /// Returns an empty string if the user didn't pick anything.
+        /// </summary>
+        /// <param name="orgUnits">Data returned from OrgUnit.GetOrgUnitFromSelector</param>
+        /// <returns></returns>
+        public static string HandleAwaitableGetOrgUnitFromSelector(List<OrgUnit> orgUnits)
+        {
+            List<string> orgSelection = GetInput.GetDataGridSelection("Pick an org!", "Click on an row to select it, or paste the full path here and press submit...", "Organizational Unit Selector", orgUnits);
+            string orgPath = null;
+            foreach (string item in orgSelection)
+            {
+                if (item.Contains("/"))
+                {
+                    orgPath = item;
+                    break;
+                }
+            }
+            if (orgPath == null || orgSelection.Contains("Click on an row to select it, or paste the full path here and press submit..."))
+            {
+                return "";
             }
 
             return orgPath;

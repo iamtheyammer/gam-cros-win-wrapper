@@ -259,37 +259,7 @@ namespace ChromebookGUI
             outputField.Text = "You should see the org selector in a second...";
             //return;
             IsLoading = true;
-            List<string> allOrgs = await Task.Run(() => GAM.RunGAM("print orgs allfields"));
-            List<List<string>> fixedOrgs = FixCSVCommas.FixCommas(allOrgs);
-
-            List<OrgUnit> orgUnits = new List<OrgUnit>();
-            foreach (List<string> org in fixedOrgs)
-            {
-                if (org[0] == "orgUnitPath") continue;
-
-                orgUnits.Add(new OrgUnit()
-                {
-                    OrgUnitPath = !String.IsNullOrEmpty(org[0]) ? org[0] : null,
-                    OrgUnitName = !String.IsNullOrEmpty(org[2]) ? (org[2].StartsWith("id:") ? "(no description provided)" : org[2]) : null,
-                    OrgUnitDescription = !String.IsNullOrEmpty(org[3]) ? (org[3].StartsWith("id:") ? "(no description provided)" : org[3]) : null
-                });
-            }
-            if (orgUnits.Count < 2)
-            {
-                outputField.Text = "There was an error getting your org units. You don't seem to have any.";
-                return;
-            }
-            List<string> orgSelection = GetInput.GetDataGridSelection("Pick an org!", "Click on an row to select it, or paste the full path here and press submit...", "Organizational Unit Selector", orgUnits);
-            string orgPath = null;
-            foreach (string item in orgSelection)
-            {
-                if (item.Contains("/")) orgPath = item;
-            }
-            if (orgPath == null | orgSelection.Contains("Click on an row to select it, or paste the full path here and press submit..."))
-            {
-                outputField.Text = "Either you didn't enter anything or there was an error. Nothing has been changed.";
-                return;
-            }
+            string orgPath = OrgUnit.HandleAwaitableGetOrgUnitFromSelector(await Task.Run(() => OrgUnit.AwaitableGetOrgUnitFromSelector()));
 
             string gamResult = null;
             if (Globals.DeviceId == "csv")
