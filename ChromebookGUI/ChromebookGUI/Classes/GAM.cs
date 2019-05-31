@@ -270,5 +270,20 @@ namespace ChromebookGUI
 
             return output;
         }
+
+        public static string GetUserEmail()
+        {
+            List<string> userInfo = RunGAM("info user");
+            string emailLine = null;
+            foreach(string line in userInfo)
+            {
+                if(line.StartsWith("User: ")) {
+                    emailLine = line;
+                    break;
+                }
+            }
+            if (string.IsNullOrEmpty(emailLine)) return "Error getting email.";
+            return emailLine.Split(' ')[1];
+        }
     }
 }

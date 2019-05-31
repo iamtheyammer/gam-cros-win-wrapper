@@ -189,6 +189,8 @@ namespace ChromebookGUI
             }
             return GetInput.GetDeviceSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", possibleDevices);
         }
+
+
     }
 
     public class Button

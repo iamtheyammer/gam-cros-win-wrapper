@@ -22,6 +22,7 @@ namespace ChromebookGUI
 
         private void DeviceInputField_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Escape) return;
             AutoComplete.OnKeyUp(sender, e, deviceInputFieldStack, deviceInputField);
         }
 
@@ -31,6 +32,9 @@ namespace ChromebookGUI
             {
                 case Key.Down:
                     AutoComplete.FocusNextCompletion(deviceInputFieldStack, deviceInputField);
+                    return;
+                case Key.Escape:
+                    AutoComplete.Close(deviceInputFieldStack);
                     return;
                 //case Key.Up:
                 //    AutoComplete.FocusPreviousCompletion(deviceInputFieldStack);

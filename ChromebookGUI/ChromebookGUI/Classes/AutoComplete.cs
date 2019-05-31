@@ -15,16 +15,19 @@ namespace ChromebookGUI.Classes
     /// </summary>
     class AutoComplete
     {
-        private static readonly string basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\autocomplete.txt";
+        private static readonly string autoCompleteFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\autocomplete.txt";
         private static List<string> List { get; set; }
 
+        /// <summary>
+        /// Initializes AutoComplete by reading the autocomplete.txt file to AutoComplete.List.
+        /// </summary>
         public static void Init()
         {
             
 
             try
             {
-                List = File.ReadAllLines(basePath).ToList();
+                List = File.ReadAllLines(autoCompleteFilePath).ToList();
             }
             catch
             {
@@ -33,17 +36,18 @@ namespace ChromebookGUI.Classes
             }
         }
 
+        /// <summary>
+        /// Commits AutoComplete.List to the autocomplete.txt file.
+        /// </summary>
         public static void Save()
         {
-            
-            File.WriteAllLines(basePath, List);
+            File.WriteAllLines(autoCompleteFilePath, List);
         }
 
-        public static List<string> GetList()
-        {
-            return List;
-        }
-
+        /// <summary>
+        /// Adds an item to AutoComplete.List if it does not already exist.
+        /// </summary>
+        /// <param name="item"></param>
         public static void AddItemToList(string item)
         {
             if (!List.Contains(item)) List.Add(item);
@@ -53,7 +57,7 @@ namespace ChromebookGUI.Classes
         /// <summary>
         /// Closes the AutoComplete panel.
         /// </summary>
-        /// <param name="stackPanel"></param>
+        /// <param name="stackPanel">The StackPanel holding completions.</param>
         public static void Close(StackPanel stackPanel)
         {
             Border border = (stackPanel.Parent as ScrollViewer).Parent as Border;

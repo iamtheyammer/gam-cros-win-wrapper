@@ -78,6 +78,9 @@ namespace ChromebookGUI.Classes
                     case Key.Up:
                         AutoComplete.FocusPreviousCompletion(stackPanel, textBox);
                         return;
+                    case Key.Escape:
+                        AutoComplete.Close(stackPanel);
+                        return;
                     default:
                         return;
                 }
