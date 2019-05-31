@@ -37,7 +37,7 @@ namespace ChromebookGUI
         /// <returns></returns>
         public static bool DeviceIdExists()
         {
-            return DeviceId == null;
+            return !string.IsNullOrEmpty(DeviceId);
         }
 
         /// <summary>
