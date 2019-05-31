@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ChromebookGUI
 {
@@ -35,6 +36,8 @@ namespace ChromebookGUI
                 inputWindow.ExtraButton.Content = button.Text;
             }
             inputWindow.Title = title;
+            inputWindow.Owner = Application.Current.MainWindow;
+            inputWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             inputWindow.ShowDialog();
             inputWindow.Activate();
             if (inputWindow.inputBox.Text == inputBoxPrefill || inputWindow.inputBox.Text.Length < 1)
@@ -81,6 +84,8 @@ namespace ChromebookGUI
         {
             DeprovisionSelect window = new DeprovisionSelect();
             window.Title = "Deprovision Reason";
+            window.Owner = Application.Current.MainWindow;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
             window.Activate();
 
@@ -115,6 +120,8 @@ namespace ChromebookGUI
             inputWindow.radioGrid.ItemsSource = inputData;
             inputWindow.inputTextBox.Text = instructionTextBoxText;
             inputWindow.Title = title;
+            inputWindow.Owner = Application.Current.MainWindow;
+            inputWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             inputWindow.ShowDialog();
             string inputTextBoxData = inputWindow.inputTextBox.Text;
             return inputWindow.inputTextBox.Text.Split('|').ToList();
@@ -127,9 +134,45 @@ namespace ChromebookGUI
             inputWindow.radioGrid.ItemsSource = inputData;
             inputWindow.inputTextBox.Text = instructionTextBoxText;
             inputWindow.Title = title;
+            inputWindow.Owner = Application.Current.MainWindow;
+            inputWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             inputWindow.ShowDialog();
             string inputTextBoxData = inputWindow.inputTextBox.Text;
             return inputWindow.inputTextBox.Text.Split('|').ToList();
+        }
+
+        public static BasicDeviceInfo GetDeviceSelection(String instructionText, String instructionTextBoxText, String title, List<BasicDeviceInfo> inputData)
+        {
+            List<string> selection = GetDataGridSelection(instructionText, instructionTextBoxText, title, inputData);
+            string deviceId = null;
+            foreach (string field in selection)
+            {
+                if(GAM.IsDeviceId(field))
+                {
+                    deviceId = field;
+                    break;
+                }
+            }
+            if(deviceId == null)
+            {
+                return new BasicDeviceInfo()
+                {
+                    Error = true,
+                    ErrorText = "No selection made."
+                };
+            }
+            foreach(BasicDeviceInfo device in inputData)
+            {
+                if(device.DeviceId == deviceId)
+                {
+                    return device;
+                }
+            }
+            return new BasicDeviceInfo()
+            {
+                Error = true,
+                ErrorText = "Unknown error."
+            };
         }
 
         /// <summary>
@@ -193,6 +236,8 @@ namespace ChromebookGUI
             dialog.Subject.Text = subject;
             dialog.FullText.Text = fullText;
             dialog.Title = title;
+            dialog.Owner = Application.Current.MainWindow;
+            dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             dialog.ShowDialog();
             if(dialog.FullText.Text == "ExtraButtonClicked")
             {
@@ -218,6 +263,8 @@ namespace ChromebookGUI
             };
             progressBarDialog.ProgressBarField.Value = initialProgressBarValue;
             progressBarDialog.ProgressText.Text = initialProgressText;
+            progressBarDialog.Owner = Application.Current.MainWindow;
+            progressBarDialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             progressBarDialog.Show();
             return progressBarDialog;
         }
@@ -238,6 +285,8 @@ namespace ChromebookGUI
             window.instructionTextBlock.Text = headline;
             window.InfoBox.Text = instructionBoxText;
             window.ExtraButton.Content = extraButtonText;
+            window.Owner = Application.Current.MainWindow;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
             return window.instructionTextBlock.Text;
         }

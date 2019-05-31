@@ -20,7 +20,7 @@ namespace ChromebookGUI
         {
             get
             {
-                return "1.0.0";
+                return "1.0.10";
             }
         }
 
@@ -34,7 +34,7 @@ namespace ChromebookGUI
         {
             get
             {
-                return "alpha";
+                return "release";
             }
         }
     }

@@ -34,6 +34,7 @@ namespace ChromebookGUI
                     string line = removeCommas[i];
                     if (!line.Contains("\"")) continue; // if it does not contain a quote, continue
                     removeCommas[i] = removeCommas[i].Replace("\"", String.Empty);
+                    if (removeCommas.Count <= i + 1) continue;
                     removeCommas[i + 1] = removeCommas[i + 1].Replace("\"", String.Empty);
                     removeCommas[i] = removeCommas[i] + "," + removeCommas[i + 1];
                     removeCommas.RemoveAt(i + 1);

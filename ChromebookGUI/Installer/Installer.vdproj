@@ -27,7 +27,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_ADE3C8190F32B73DCD930423BCB801BA"
+        "MsmKey" = "8:_8E37A379558F9A99C7C9BDE787C71AD7"
         "OwnerKey" = "8:_4E9155F12F1A4834B7C9A04DEF51850A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,7 +46,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ADE3C8190F32B73DCD930423BCB801BA"
+        "OwnerKey" = "8:_8E37A379558F9A99C7C9BDE787C71AD7"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -202,7 +202,7 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ADE3C8190F32B73DCD930423BCB801BA"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8E37A379558F9A99C7C9BDE787C71AD7"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
@@ -317,15 +317,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChromebookGUI"
-        "ProductCode" = "8:{062B5A7D-FD75-4679-8A2F-3A0D0B999254}"
-        "PackageCode" = "8:{2BD7F8E0-C829-4E6C-B99D-6949F316EF64}"
+        "ProductCode" = "8:{8896AB81-DE7C-4729-8503-D78AD232D5FC}"
+        "PackageCode" = "8:{7C4C98B3-19A2-44F0-8146-53D37AF6A168}"
         "UpgradeCode" = "8:{89762883-3161-4BEA-AB4E-D70B16F0AA1B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.10"
         "Manufacturer" = "8:iamtheyammer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/iamtheyammer/gam-cros-win-wrapper"
@@ -342,7 +342,7 @@
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
-        "RunPostBuildEvent" = "3:0"
+        "RunPostBuildEvent" = "3:1"
         }
         "Registry"
         {
@@ -867,7 +867,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4E9155F12F1A4834B7C9A04DEF51850A"
             {
-            "SourcePath" = "8:..\\ChromebookGUI\\obj\\Release\\ChromebookGUI.exe"
+            "SourcePath" = "8:..\\ChromebookGUI\\obj\\Debug\\ChromebookGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_61EB502A85E94D0EBFB3D04DAA84F14E"
@@ -887,34 +887,6 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_78977FB6CF0C4F07A8A707F8CCE330EF"
-            {
-            "SourcePath" = "8:"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_61EB502A85E94D0EBFB3D04DAA84F14E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:ReferenceCopyLocalPaths"
             "OutputProjectGuid" = "8:{9B7751BB-8B5E-40B6-95B4-6F0BE072B83D}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"

@@ -31,10 +31,9 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
+        private async void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
             ToggleMainWindowButtons(false);
-            outputField.Text = "Loading...";
             if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, serial number, query string or email...")
             {
                 outputField.Text = "You must enter something into the field at the top.";
@@ -42,7 +41,10 @@ namespace ChromebookGUI
             }
 
             //outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
-            BasicDeviceInfo deviceInfo = GAM.GetDeviceId(deviceInputField.Text);
+            IsLoading = true;
+            string input = deviceInputField.Text;
+            List<BasicDeviceInfo> possibleDevices = await Task.Run(() => GAM.GetDeviceId(input));
+            BasicDeviceInfo deviceInfo = BasicDeviceInfo.HandleGetDeviceId(possibleDevices);
             Globals.ClearGlobals(); // clear the globals before adding new ones
             Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
             if (deviceInfo.Error)
@@ -59,7 +61,7 @@ namespace ChromebookGUI
             if (!String.IsNullOrEmpty(deviceInfo.Location)) outputField.Text += "\nLocation: " + deviceInfo.Location;
             if (!String.IsNullOrEmpty(deviceInfo.User)) outputField.Text += "\nUser: " + deviceInfo.User;
             if (!String.IsNullOrEmpty(deviceInfo.Status)) outputField.Text += "\nStatus: " + deviceInfo.Status;
-            ToggleMainWindowButtons(true);
+            IsLoading = false;
             //deviceInputField.Text = deviceId;
         }
 
@@ -73,7 +75,7 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void getInfoButton_Click(object sender, RoutedEventArgs e)
+        private async void getInfoButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false)
             {
@@ -87,7 +89,11 @@ namespace ChromebookGUI
             }
             string deviceId = Globals.DeviceId;
             //if (deviceId == null || deviceId.Length < 1) ;
-            outputField.Text = GAM.RunGAMFormatted("info cros " + Globals.DeviceId + " allfields");
+            IsLoading = true;
+            string info = await Task.Run(() => GAM.RunGAMFormatted("info cros " + Globals.DeviceId + " allfields"));
+            outputField.Text = info;
+            IsLoading = false;
+            //outputField.Text = GAM.RunGAMFormatted("info cros " + Globals.DeviceId + " allfields");
         }
 
         /// <summary>
@@ -95,7 +101,7 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void setLocationButton_Click(object sender, RoutedEventArgs e)
+        private async void setLocationButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
@@ -114,11 +120,15 @@ namespace ChromebookGUI
             string gamResult = null;
             if (Globals.DeviceId == "csv")
             {
-                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "location \"" + newLocation + "\""));
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "location \"" + newLocation + "\"")));
+                IsLoading = false;
             }
             else
             {
-                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location \"" + newLocation + "\"");
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " location \"" + newLocation + "\""));
+                IsLoading = false;
             }
             Globals.Location = newLocation;
             outputField.Text = gamResult + "\nAs long as you don't see an error, the location has been updated.";
@@ -129,7 +139,7 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void setAssetIdButton_Click(object sender, RoutedEventArgs e)
+        private async void setAssetIdButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
@@ -147,17 +157,21 @@ namespace ChromebookGUI
             string gamResult = null;
             if (Globals.DeviceId == "csv")
             {
-                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros ", "assetid \"" + newAssetId + "\""));
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros ", "assetid \"" + newAssetId + "\"")));
+                IsLoading = false;
             }
             else
             {
-                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " assetid \"" + newAssetId + "\"");
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " assetid \"" + newAssetId + "\""));
+                IsLoading = false;
             }
             Globals.AssetId = newAssetId;
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
-        private void setUserButton_Click(object sender, RoutedEventArgs e)
+        private async void setUserButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
@@ -174,17 +188,21 @@ namespace ChromebookGUI
             string gamResult = null;
             if (Globals.DeviceId == "csv")
             {
-                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "user " + newUser));
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "user " + newUser)));
+                IsLoading = false;
             }
             else
             {
-                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " user " + newUser);
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " user " + newUser));
+                IsLoading = false;
             }
             Globals.User = newUser;
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
-        private void disableButton_Click(object sender, RoutedEventArgs e)
+        private async void disableButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false && Globals.DeviceId != "csv")
             {
@@ -195,16 +213,20 @@ namespace ChromebookGUI
             string gamResult = null;
             if (Globals.DeviceId == "csv")
             {
-                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action disable"));
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action disable")));
+                IsLoading = false;
             }
             else
             {
-                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action disable");
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action disable"));
+                IsLoading = false;
             }
             outputField.Text = gamResult + "\nAs long as you don't see an error, this query completed successfully.";
         }
 
-        private void enableButton_Click(object sender, RoutedEventArgs e)
+        private async void enableButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false)
             {
@@ -214,16 +236,20 @@ namespace ChromebookGUI
             string gamResult = null;
             if (Globals.DeviceId == "csv")
             {
-                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action reenable"));
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action reenable")));
+                IsLoading = false;
             }
             else
             {
-                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action reenable");
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action reenable"));
+                IsLoading = false;
             }
             outputField.Text = gamResult += "\nAs long as you don't see an error, this query completed successfully.";
         }
 
-        private void changeOuButton_Click(object sender, RoutedEventArgs e)
+        private async void changeOuButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false)
             {
@@ -232,52 +258,23 @@ namespace ChromebookGUI
             }
             outputField.Text = "You should see the org selector in a second...";
             //return;
-
-            List<string> allOrgs = GAM.RunGAM("print orgs allfields");
-            List<List<string>> fixedOrgs = FixCSVCommas.FixCommas(allOrgs);
-
-            List<OrgUnit> orgUnits = new List<OrgUnit>();
-            foreach (List<string> org in fixedOrgs)
-            {
-                if (org[0] == "orgUnitPath") continue;
-
-                orgUnits.Add(new OrgUnit()
-                {
-                    OrgUnitPath = !String.IsNullOrEmpty(org[0]) ? org[0] : null,
-                    OrgUnitName = !String.IsNullOrEmpty(org[2]) ? (org[2].StartsWith("id:") ? "(no description provided)" : org[2]) : null,
-                    OrgUnitDescription = !String.IsNullOrEmpty(org[3]) ? (org[3].StartsWith("id:") ? "(no description provided)" : org[3]) : null
-                });
-            }
-            if (orgUnits.Count < 2)
-            {
-                outputField.Text = "There was an error getting your org units. You don't seem to have any.";
-                return;
-            }
-            List<string> orgSelection = GetInput.GetDataGridSelection("Pick an org!", "Click on an row to select it, or paste the full path here and press submit...", "Organizational Unit Selector", orgUnits);
-            string orgPath = null;
-            foreach (string item in orgSelection)
-            {
-                if (item.Contains("/")) orgPath = item;
-            }
-            if (orgPath == null | orgSelection.Contains("Click on an row to select it, or paste the full path here and press submit..."))
-            {
-                outputField.Text = "Either you didn't enter anything or there was an error. Nothing has been changed.";
-                return;
-            }
+            IsLoading = true;
+            string orgPath = OrgUnit.HandleAwaitableGetOrgUnitFromSelector(await Task.Run(() => OrgUnit.AwaitableGetOrgUnitFromSelector()));
 
             string gamResult = null;
             if (Globals.DeviceId == "csv")
             {
-                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "ou \"" + orgPath + "\""));
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "ou \"" + orgPath + "\"")));
             }
             else
             {
-                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " ou \"" + orgPath + "\"");
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " ou \"" + orgPath + "\""));
             }
+            IsLoading = false;
             outputField.Text = "Done! Your OU has been changed.";
         }
 
-        private void deprovisionButton_Click(object sender, RoutedEventArgs e)
+        private async void deprovisionButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false)
             {
@@ -311,25 +308,31 @@ namespace ChromebookGUI
             string gamResult = null;
             if (Globals.DeviceId == "csv")
             {
-                gamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action " + depAction + " acknowledge_device_touch_requirement"));
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "action " + depAction + " acknowledge_device_touch_requirement")));
+                IsLoading = false;
             }
             else
             {
-                gamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action " + depAction + " acknowledge_device_touch_requirement");
+                IsLoading = true;
+                gamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " action " + depAction + " acknowledge_device_touch_requirement"));
+                IsLoading = false;
             }
             outputField.Text = gamResult += "\nAs long as you don't see an error, this query completed successfully.";
         }
 
-        private void noteButton_Click(object sender, RoutedEventArgs e)
+        private async void noteButton_Click(object sender, RoutedEventArgs e)
         {
             if (Globals.DeviceIdExists() == false)
             {
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
             }
             string note = null;
+            IsLoading = true;
             if (String.IsNullOrEmpty(Globals.Note) && Globals.DeviceId != "csv")
             {
-                List<string> gamResult = GAM.RunGAM("info cros " + Globals.DeviceId + " fields notes");
+
+                List<string> gamResult = await Task.Run(() => GAM.RunGAM("info cros " + Globals.DeviceId + " fields notes"));
                 if (gamResult.Count < 2)
                 {
                     note = "No note found. Enter a new one here...";
@@ -356,15 +359,16 @@ namespace ChromebookGUI
                 return;
             }
 
-            string finalGamResult = null;
+            string finalGamResult;
             if (Globals.DeviceId == "csv")
             {
-                finalGamResult = GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "notes \"" + newNote + "\""));
+                finalGamResult = await Task.Run(() => GAM.RunGAMFormatted(GAM.GetGAMCSVCommand(Globals.CsvLocation, "update cros", "notes \"" + newNote + "\"")));
             }
             else
             {
-                finalGamResult = GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " notes \"" + newNote + "\"");
+                finalGamResult = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " notes \"" + newNote + "\""));
             }
+            IsLoading = false;
             Globals.Note = newNote;
             outputField.Text = "As long as there's no error, the note was updated.";
         }
@@ -421,7 +425,29 @@ namespace ChromebookGUI
 
         private void FontSizeDownButton_Click(object sender, RoutedEventArgs e)
         {
+            if (outputField.FontSize - 2 < 1) return;
             outputField.FontSize -= 2;
+        }
+
+        private bool _isLoading;
+        public bool IsLoading {
+            get
+            {
+                return _isLoading;
+            }
+
+            set
+            {
+                ToggleMainWindowButtons(!value);
+                if(value == true)
+                {
+                    outputField.Text = "Loading...";
+                } else
+                {
+                }
+                _isLoading = value;
+                return;
+            }
         }
 
         public void ToggleMainWindowButtons(bool value)
@@ -436,12 +462,18 @@ namespace ChromebookGUI
             deprovisionButton.IsEnabled = value;
             noteButton.IsEnabled = value;
             copyIdButton.IsEnabled = value;
-
+            outputField.IsEnabled = value;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        public void ClearAndFocusInputBar()
+        {
+            deviceInputField.Focus();
+            deviceInputField.Text = "";
         }
     }
 }

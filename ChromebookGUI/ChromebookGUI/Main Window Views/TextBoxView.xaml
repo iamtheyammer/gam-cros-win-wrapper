@@ -6,15 +6,22 @@
       xmlns:local="clr-namespace:ChromebookGUI"
       mc:Ignorable="d" 
       d:DesignHeight="441" d:DesignWidth="794"
-      Title="DefaultView">
+      Title="DefaultView"
+      Loaded="Page_Loaded">
 
     <Grid>
-        <Button x:Name="submitDeviceId" IsDefault="True" Content="Submit" HorizontalAlignment="Left" Margin="637,32,0,0" VerticalAlignment="Top" Width="124" Click="SubmitDeviceId_Click" Height="32" FontSize="18" Background="#FF2D89EF" BorderBrush="{x:Null}" Foreground="White">
+        <Button x:Name="submitDeviceId" IsDefault="True" Content="Submit" 
+                HorizontalAlignment="Left" Margin="637,32,0,0" VerticalAlignment="Top" Width="124" Click="SubmitDeviceId_Click" Height="32" FontSize="18" Background="#FF2D89EF" BorderBrush="{x:Null}" Foreground="White">
             <Button.Effect>
                 <DropShadowEffect Color="#FF6D6D6D" Opacity="0.5"/>
             </Button.Effect>
         </Button>
-        <TextBox x:Name="deviceInputField" HorizontalAlignment="Left" Height="32" Margin="24,31,0,0" TextWrapping="Wrap" Text="Enter a Device ID, Asset ID, Query String, Serial Number or Email..." VerticalAlignment="Top" Width="586" FontSize="18" GotKeyboardFocus="selectAllTextInBox" GotMouseCapture="selectAllTextInBox" Cursor="IBeam"/>
+        <TextBox x:Name="deviceInputField" PreviewKeyUp="DeviceInputField_PreviewKeyUp"
+                 KeyUp="DeviceInputField_KeyUp" HorizontalAlignment="Left" Height="32" Margin="24,31,0,0" 
+                 TextWrapping="Wrap" Text="Enter a Device ID, Asset ID, Query String, Serial Number or Email..." 
+                 VerticalAlignment="Top" Width="586" FontSize="18" GotKeyboardFocus="selectAllTextInBox" 
+                 GotMouseCapture="selectAllTextInBox" Cursor="IBeam"/>
+
         <TextBlock HorizontalAlignment="Left" Margin="24,80,0,0" TextWrapping="Wrap" Text="Location" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="LocationField" Text="Set the Location..." HorizontalAlignment="Left" Height="23" Margin="24,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontSize="14" IsEnabled="False"/>
         <TextBlock HorizontalAlignment="Left" Margin="179,81,0,0" TextWrapping="Wrap" Text="Asset ID" VerticalAlignment="Top" FontSize="16"/>
@@ -38,7 +45,13 @@
         <Button x:Name="FontSizeUpButton" Content="Font Size +" HorizontalAlignment="Left" Margin="687,261,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="FontSizeUpButton_Click" Height="20"/>
         <Button x:Name="FontSizeDownButton" Content="Font Size -" HorizontalAlignment="Left" Margin="607,261,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="FontSizeDownButton_Click" Height="20"/>
         <Button Click="RevertChangesButton_Click" x:Name="RevertChangesButton" Content="Revert Changes" HorizontalAlignment="Left" Margin="485,209,0,0" VerticalAlignment="Top" Width="136" FontSize="16" Background="#FFB91D47" Foreground="White" IsEnabled="False"/>
-
+        <!--The below item looks like it's wrong but it's not- launch the app-->
+        <Border BorderBrush="Black" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"
+                BorderThickness="0.5" x:Name="AutoCompleteBorder" Width="586" Height="181" Margin="24,63,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Opacity="100" Margin="1,0,-1,0" >
+                <StackPanel Name="deviceInputFieldStack"></StackPanel>
+            </ScrollViewer>
+        </Border>
         <!--If you change the above text make sure you change selectAllTextInBox, that's in MainWindow.xaml.cs-->
     </Grid>
 </Page>

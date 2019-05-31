@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace ChromebookGUI
 {   
@@ -36,13 +37,7 @@ namespace ChromebookGUI
         /// <returns></returns>
         public static bool DeviceIdExists()
         {
-            if(DeviceId == null)
-            {
-                return false;
-            } else
-            {
-                return true;
-            }
+            return DeviceId == null;
         }
 
         /// <summary>
@@ -74,6 +69,27 @@ namespace ChromebookGUI
             User = (!String.IsNullOrEmpty(info.User)) ? info.User : null;
             OrgUnitPath = (!String.IsNullOrEmpty(info.OrgUnitPath)) ? info.OrgUnitPath : null;
             Location = (!String.IsNullOrEmpty(info.Location)) ? info.Location : null;
+        }
+
+        /// <summary>
+        /// Returns a string of JSON.stringify(Globals), essentially.
+        /// If a value is null, the key will still exist.
+        /// </summary>
+        /// <returns></returns>
+        public static string ToJsonString()
+        {
+            Dictionary<string, string> toSerialize = new Dictionary<string, string>()
+            {
+                ["deviceId"] = DeviceId,
+                ["note"] = Note,
+                ["status"] = Status,
+                ["assetId"] = AssetId,
+                ["serialNumber"] = SerialNumber,
+                ["orgUnitPath"] = OrgUnitPath,
+                ["user"] = User,
+                ["location"] = Location,
+            };
+            return JsonConvert.SerializeObject(toSerialize);
         }
     }
 }

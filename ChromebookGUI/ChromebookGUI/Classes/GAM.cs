@@ -80,16 +80,18 @@ namespace ChromebookGUI
         {
             return FixCSVCommas.FixCommas(GAM.RunGAM(gamCommand));
         }
-       
+
 
         /// <summary>
-        /// Checks if a string is a device ID by seeing if it has 4 dashes in it.
+        /// Checks if a string is a device ID by seeing if it matches a regex.
+        /// https://www.regexpal.com/?fam=109206
         /// </summary>
         /// <param name="input">The string you wish to check.</param>
         /// <returns></returns>
         public static bool IsDeviceId(string input)
         {
-            if(Regex.Matches(input, "-").Count == 4)
+            MatchCollection matches = Regex.Matches(input, "[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{11,13}");
+            if(matches.Count == 1 && matches[0].Length == input.Length)
             {
                 return true;
             } else
@@ -99,17 +101,21 @@ namespace ChromebookGUI
         }
 
         /// <summary>
-        /// Gets a Device ID, from a variety of sources (email, serial number, asset id, email)
+        /// Gets a Device ID, from a variety of sources (email, serial number, asset id, email). 
+        /// Almost all of the time, you'll want to handle output from this with BasicDeviceInfo.HandleGetDeviceId.
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static BasicDeviceInfo GetDeviceId(String input)
+        public static List<BasicDeviceInfo> GetDeviceId(string input)
         {
             if (IsDeviceId(input)) // this is already a device ID
             {
-                return new BasicDeviceInfo
+                return new List<BasicDeviceInfo>
                 {
-                    DeviceId = input
+                    new BasicDeviceInfo()
+                    {
+                        DeviceId = input
+                    }
                 };
             }
             else if (input.Contains("@"))
@@ -117,10 +123,13 @@ namespace ChromebookGUI
                 string user = input.Split('@')[0];
                 if (String.IsNullOrEmpty(user))
                 {
-                    return new BasicDeviceInfo
+                    return new List<BasicDeviceInfo>
                     {
-                        ErrorText = "There was an error processing your email entry: I couldn't find the email.",
-                        Error = true
+                        new BasicDeviceInfo()
+                        {
+                            ErrorText = "There was an error processing your email entry: I couldn't find the email.",
+                            Error = true
+                        } 
                     };
                 }
                 return GetDeviceByGAMQuery("user:" + user);
@@ -134,14 +143,14 @@ namespace ChromebookGUI
                 // obey the preference here
                 if (Preferences.SerialNumberAssetIdPriority)
                 {
-                    BasicDeviceInfo firstTry = GetDeviceByGAMQuery("asset_id:" + input);
-                    if (!firstTry.Error) return firstTry;
+                    List<BasicDeviceInfo> firstTry = GetDeviceByGAMQuery("asset_id:" + input);
+                    if (!firstTry[0].Error) return firstTry;
                     return GetDeviceByGAMQuery("id:"+ input);
                 }
                 else
                 {
-                    BasicDeviceInfo firstTry = GetDeviceByGAMQuery("id:" + input);
-                    if (!firstTry.Error) return firstTry;
+                    List<BasicDeviceInfo> firstTry = GetDeviceByGAMQuery("id:" + input);
+                    if (!firstTry[0].Error) return firstTry;
                     return GetDeviceByGAMQuery("asset_id:" + input);
                 }
             }
@@ -152,7 +161,7 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="query">The gam query to search for: like "user:myUser"</param>
         /// <returns></returns>
-        public static BasicDeviceInfo GetDeviceByGAMQuery(string query)
+        public static List<BasicDeviceInfo> GetDeviceByGAMQuery(string query)
         {
             List<string> gamResults = RunGAM("print cros query \"" + query + "\" fields deviceId,lastSync,serialNumber,status,user,location,assetId,notes");
             Dictionary<string, int> fieldOrder = new Dictionary<string, int>();
@@ -165,22 +174,28 @@ namespace ChromebookGUI
                 }
                 gamResults.RemoveAt(0);
             }
-            if (gamResults.Count == 0) return new BasicDeviceInfo()
+            if (gamResults.Count == 0) return new List<BasicDeviceInfo>()
             {
-                Error = true,
-                ErrorText = "Invalid query string or no results for that query string.",
+                new BasicDeviceInfo(){
+                    Error = true,
+                    ErrorText = "Invalid query string or no results for that query string."
+                }
             };
             List<List<string>> deviceInfos = FixCSVCommas.FixCommas(gamResults);
             if (deviceInfos.Count == 1) if (deviceInfos[0].Count > 1) // using 2 if statements here because I can't check for [0] if it doesn't exist
                 {
-                    return new BasicDeviceInfo()
+                    return new List<BasicDeviceInfo>()
                     {
-                        DeviceId = deviceInfos[0][fieldOrder["deviceId"]],
-                        LastSync = deviceInfos[0][fieldOrder["lastSync"]],
-                        SerialNumber = deviceInfos[0][fieldOrder["serialNumber"]],
-                        Status = deviceInfos[0][fieldOrder["status"]],
-                        User = deviceInfos[0][fieldOrder["annotatedUser"]],
-                        Error = false
+                        new BasicDeviceInfo(){
+                            DeviceId = fieldOrder.ContainsKey("deviceId") ? deviceInfos[0][fieldOrder["deviceId"]] : null,
+                            LastSync = fieldOrder.ContainsKey("lastSync") ? deviceInfos[0][fieldOrder["lastSync"]] : null,
+                            SerialNumber = fieldOrder.ContainsKey("serialNumber") ? deviceInfos[0][fieldOrder["serialNumber"]] : null,
+                            AssetId = fieldOrder.ContainsKey("annotatedAssetId") ? deviceInfos[0][fieldOrder["annotatedAssetId"]] : null,
+                            Status = fieldOrder.ContainsKey("status") ? deviceInfos[0][fieldOrder["status"]] : null,
+                            User = fieldOrder.ContainsKey("annotatedUser") ? deviceInfos[0][fieldOrder["annotatedUser"]] : null,
+                            Notes = fieldOrder.ContainsKey("notes") ? deviceInfos[0][fieldOrder["notes"]] : null,
+                            Error = false
+                        }
                     };
                 }
             // there is more than one result
@@ -194,51 +209,14 @@ namespace ChromebookGUI
                     DeviceId = deviceInfos[i][fieldOrder["deviceId"]],
                     LastSync = deviceInfos[i][fieldOrder["lastSync"]],
                     SerialNumber = deviceInfos[i][fieldOrder["serialNumber"]],
+                    AssetId = deviceInfos[i][fieldOrder["annotatedAssetId"]],
                     Status = deviceInfos[i][fieldOrder["status"]],
                     User = deviceInfos[i][fieldOrder["annotatedUser"]],
+                    Notes = deviceInfos[i][fieldOrder["notes"]],
                     Error = false
                 });
             }
-            List<string> selection = GetInput.GetDataGridSelection("Which device would you like to select?", "Click on a row or enter a Device ID or Serial Number.", "Device Selector", infoObjects);
-            string deviceId = null;
-            foreach (string item in selection)
-            {
-                if (IsDeviceId(item)) deviceId = item;
-                break;
-            }
-            if (deviceId == null)
-            {
-                return new BasicDeviceInfo
-                {
-                    ErrorText = "There was an error. You didn't pick anything.",
-                    Error = true
-                };
-            }
-            else
-            {
-                for (int i = 1; i < deviceInfos.Count; i++)
-                {
-                    if (deviceId == deviceInfos[i][0])
-                    {
-                        return new BasicDeviceInfo
-                        {
-                            DeviceId = deviceInfos[i][fieldOrder["deviceId"]],
-                            LastSync = deviceInfos[i][fieldOrder["lastSync"]],
-                            SerialNumber = deviceInfos[i][fieldOrder["serialNumber"]],
-                            Status = deviceInfos[i][fieldOrder["status"]],
-                            User = deviceInfos[i][fieldOrder["annotatedUser"]],
-                            Error = false
-                        };
-                    }
-                }
-                // we have not found a match for the device id
-                return new BasicDeviceInfo
-                {
-                    DeviceId = deviceId,
-                    Error = true,
-                    ErrorText = "No devices found for that query. (404)"
-                };
-            }
+            return infoObjects;
         }
 
         public static BasicDeviceInfo GetAllDeviceInfo(string deviceId)
@@ -291,6 +269,21 @@ namespace ChromebookGUI
             }
 
             return output;
+        }
+
+        public static string GetUserEmail()
+        {
+            List<string> userInfo = RunGAM("info user");
+            string emailLine = null;
+            foreach(string line in userInfo)
+            {
+                if(line.StartsWith("User: ")) {
+                    emailLine = line;
+                    break;
+                }
+            }
+            if (string.IsNullOrEmpty(emailLine)) return "Error getting email.";
+            return emailLine.Split(' ')[1];
         }
     }
 }
