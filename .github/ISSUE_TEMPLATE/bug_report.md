@@ -27,7 +27,10 @@ Steps to reproduce the behavior:
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Event Viewer Log**
+**Enhanced Telemetry**
+If enhanced telemetry is on, just note the time of the error.
+
+If enhanced telemetry is off, please follow these steps:
 Follow these steps to collect the crash report from your Event Viewer.
 
 1. Run (win+r) eventvwr OR search for Event Viewer
