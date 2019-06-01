@@ -18,6 +18,8 @@
         <CheckBox x:Name="PromptWhenUpdatesAreAvailableCheckBox" Content="Prompt when updates are available (recommended!)"  ToolTip="When updates are available for this app, let me know when the app opens. Turning this off will only check for updates when you go to Help -> Check for updates... " HorizontalAlignment="Left" Margin="388,91,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="ViewsTextBlock" HorizontalAlignment="Left" Margin="11,194,0,0" TextWrapping="Wrap" Text="Views" VerticalAlignment="Top" Height="25" Width="81" FontSize="18"/>
         <CheckBox x:Name="UseTextBoxLayoutInsteadOfButtonLayoutCheckBox" ToolTip="There are 2 layouts in ChromebookGUI: the classic Button layout and the Text Box layout. Use this to set your default view. You can go to the View menu to change on the fly." Content="Use the Text Box layout instead of the Button layout" HorizontalAlignment="Left" Margin="15,224,0,0" VerticalAlignment="Top" Width="297"/>
+        <TextBlock x:Name="TelemetryTextBlock" HorizontalAlignment="Left" Margin="372,124,0,0" TextWrapping="Wrap" Text="Telemetry" VerticalAlignment="Top" Height="25" Width="81" FontSize="18"/>
+        <CheckBox x:Name="AllowEnhancedTelemetryCheckbox" Content="Send crash data to developers (please!)"  ToolTip="The data sent to developers includes personal information, including your email. It may also include information about queries and current devices. It is only available to contributors to the GitHub project. It makes debugging much easier. (You must restart ChromebookGUI for this to take effect)." HorizontalAlignment="Left" Margin="388,160,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

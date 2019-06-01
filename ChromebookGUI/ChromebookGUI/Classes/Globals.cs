@@ -28,6 +28,12 @@ namespace ChromebookGUI
         /// </summary>
         public static string CsvLocation { get; set; }
 
+        /// <summary>
+        /// The email for the current GAM user.
+        /// Get with Globals.GetAndSaveUserEmail();
+        /// </summary>
+        private static string AdminEmail { get; set; }
+
         public static readonly HttpClient HttpClientObject = new HttpClient();
 
 
@@ -90,6 +96,19 @@ namespace ChromebookGUI
                 ["location"] = Location,
             };
             return JsonConvert.SerializeObject(toSerialize);
+        }
+
+        /// <summary>
+        /// Gets the user's email if we don't have it already.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetAndSaveUserEmail()
+        {
+            if(String.IsNullOrEmpty(AdminEmail) == true)
+            {
+                AdminEmail = GAM.GetUserEmail();
+            }
+            return AdminEmail;
         }
     }
 }

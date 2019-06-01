@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace ChromebookGUI
 {
@@ -31,6 +32,21 @@ namespace ChromebookGUI
         public static bool UseTextBoxLayoutInsteadOfButtonLayout { get; set; }
 
         /// <summary>
+        /// Allows us to send rich error data back to Sentry (includes PII)
+        /// </summary>
+        public static bool AllowEnhancedTelemetry { get; set; }
+
+        /// <summary>
+        /// Indicates whether we need a telemetry consent from the user.
+        /// </summary>
+        public static bool NeedsTelemetryConsent { get; set; }
+
+        /// <summary>
+        /// Path to the preferences file
+        /// </summary>
+        private static readonly string prefsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json";
+
+        /// <summary>
         /// This Init function needs to be called once in the code.
         /// It is called in App.xaml.cs, so you shouldn't need to call it again.
         /// </summary>
@@ -40,53 +56,63 @@ namespace ChromebookGUI
 
             try
             {
-                prefsFile = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json");
-                
+                prefsFile = File.ReadAllText(prefsFilePath);
+
             } catch
             {
                 SerialNumberAssetIdPriority = false;
                 ShowWarningWhenImportingFromCSVFile = true;
                 PromptWhenUpdatesAreAvailable = true;
                 UseTextBoxLayoutInsteadOfButtonLayout = true;
+                AllowEnhancedTelemetry = false;
+                NeedsTelemetryConsent = true;
                 return;
             }
 
             Dictionary<string, string> prefs = JsonConvert.DeserializeObject<Dictionary<string, string>>(prefsFile);
 
             // more settings would go here. default prefs go in the catches.
-            try
+            if (prefs.ContainsKey("SerialNumberAssetIdPriority"))
             {
                 SerialNumberAssetIdPriority = prefs["SerialNumberAssetIdPriority"] == "True" ? true : false;
-            } catch
+            } else
             {
                 SerialNumberAssetIdPriority = false;
             }
 
-            try
+            if(prefs.ContainsKey("ShowWarningWhenImportingFromCSVFile"))
             {
                 ShowWarningWhenImportingFromCSVFile = prefs["ShowWarningWhenImportingFromCSVFile"] == "True" ? true : false;
-            } catch
+            } else
             {
                 ShowWarningWhenImportingFromCSVFile = true;
             }
 
-            try
+            if(prefs.ContainsKey("PromptWhenUpdatesAreAvailable"))
             {
                 PromptWhenUpdatesAreAvailable = prefs["PromptWhenUpdatesAreAvailable"] == "True" ? true : false;
-            } catch
+            } else
             {
                 PromptWhenUpdatesAreAvailable = true;
             }
-            
-            try
+
+            if (prefs.ContainsKey("UseTextBoxLayoutInsteadOfButtonLayout"))
             {
                 UseTextBoxLayoutInsteadOfButtonLayout = prefs["UseTextBoxLayoutInsteadOfButtonLayout"] == "True" ? true : false;
-            } catch
+            }
+            else
             {
                 UseTextBoxLayoutInsteadOfButtonLayout = true;
             }
-            
-            
+
+            if(prefs.ContainsKey("AllowEnhancedTelemetry"))
+            {
+                AllowEnhancedTelemetry = prefs["AllowEnhancedTelemetry"] == "True" ? true : false;
+                NeedsTelemetryConsent = false;
+            } else
+            {
+                NeedsTelemetryConsent = true;
+            }
         }
 
         /// <summary>
@@ -100,10 +126,11 @@ namespace ChromebookGUI
                 ["SerialNumberAssetIdPriority"] = SerialNumberAssetIdPriority.ToString(),
                 ["ShowWarningWhenImportingFromCSVFile"] = ShowWarningWhenImportingFromCSVFile.ToString(),
                 ["PromptWhenUpdatesAreAvailable"] = PromptWhenUpdatesAreAvailable.ToString(),
-                ["UseTextBoxLayoutInsteadOfButtonLayout"] = UseTextBoxLayoutInsteadOfButtonLayout.ToString()
+                ["UseTextBoxLayoutInsteadOfButtonLayout"] = UseTextBoxLayoutInsteadOfButtonLayout.ToString(),
+                ["AllowEnhancedTelemetry"] = AllowEnhancedTelemetry.ToString()
             };
 
-            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json", JsonConvert.SerializeObject(prefs));
+            File.WriteAllText(prefsFilePath, JsonConvert.SerializeObject(prefs));
         }
 
         public static void OpenPreferencesWindow()
@@ -116,8 +143,38 @@ namespace ChromebookGUI
             window.PromptWhenUpdatesAreAvailableCheckBox.IsChecked = PromptWhenUpdatesAreAvailable;
             Console.WriteLine(UseTextBoxLayoutInsteadOfButtonLayout);
             window.UseTextBoxLayoutInsteadOfButtonLayoutCheckBox.IsChecked = UseTextBoxLayoutInsteadOfButtonLayout;
+            window.AllowEnhancedTelemetryCheckbox.IsChecked = AllowEnhancedTelemetry;
             window.Title = "ChromebookGUI Preferences";
             window.ShowDialog();
+        }
+
+        public static void GetTelemetryConsent()
+        {
+            bool stop = false;
+            while (stop == false)
+            {
+                string decision = GetInput.GetYesOrNo(
+                "Enhanced Telemetry Consent",
+                "Can we send extra crash data?",
+                "It would be really helpful if you would allow us to send data like your email, your current device and other info back to the developers. See the privacy policy for more information.",
+                "Open Privacy Policy...",
+                false
+                );
+                switch (decision)
+                {
+                    case "yes":
+                        AllowEnhancedTelemetry = true;
+                        stop = true;
+                        break;
+                    case "no":
+                        AllowEnhancedTelemetry = false;
+                        stop = true;
+                        break;
+                    case "extraButtonClicked":
+                        Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/PrivacyPolicy.md");
+                        break;
+                }
+            }
         }
     }
 }

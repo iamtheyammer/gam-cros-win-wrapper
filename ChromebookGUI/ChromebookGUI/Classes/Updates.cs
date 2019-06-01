@@ -73,15 +73,7 @@ namespace ChromebookGUI
                     new Button { IsEnabled = true, Text = "Download newest build" });
                 if(extraButtonPressed)
                 {
-                    switch(Software.Type)
-                    {
-                        case "alpha":
-                            Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/raw/master/ChromebookGUI/Installer/Tool+Installer/Installer.msi");
-                            break;
-                        default:
-                            Process.Start("https://github.com/iamtheyammer/releases/latest");
-                            break;
-                    }
+                    Process.Start("https://github.com/iamtheyammer/releases/latest");
                 }
                 return "true";
             }

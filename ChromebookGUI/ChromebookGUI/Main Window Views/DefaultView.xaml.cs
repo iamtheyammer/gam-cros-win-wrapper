@@ -408,13 +408,9 @@ namespace ChromebookGUI
 
         private void selectAllTextInBox(object sender, object e)
         {
-            if (deviceInputField.Text == "Enter a Device ID, Asset ID, Serial Number or Email...")
+            if (deviceInputField.Text == "Enter a Device ID, Asset ID, Query String, Serial Number or Email...")
             {
                 deviceInputField.Text = String.Empty;
-            }
-            else
-            {
-                deviceInputField.SelectAll();
             }
         }
 

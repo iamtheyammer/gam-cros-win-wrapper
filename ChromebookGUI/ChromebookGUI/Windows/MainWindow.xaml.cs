@@ -23,6 +23,14 @@ namespace ChromebookGUI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (Preferences.UseTextBoxLayoutInsteadOfButtonLayout == true) RenderTextBoxView(); else RenderDefaultView();
+            if(Preferences.NeedsTelemetryConsent == true)
+            {
+                Preferences.GetTelemetryConsent();
+            }
+            if(Preferences.AllowEnhancedTelemetry == true)
+            {
+                Classes.Debug.AddDefaultEnhancedTelemetryToScope();
+            }
         }
 
         private void RenderTextBoxView()

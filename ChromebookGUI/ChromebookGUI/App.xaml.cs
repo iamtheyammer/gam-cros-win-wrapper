@@ -1,10 +1,6 @@
 ﻿using ChromebookGUI.Classes;
 using Sentry;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -21,8 +17,12 @@ namespace ChromebookGUI
             {
                 o.Dsn = new Dsn("https://dd9a6666551c4d91b31209f52d7bd7ba@sentry.io/1457501");
                 o.Release = Software.Version;
-                o.Debug = true;
+                if (Debug.IsDebugMode()) o.Debug = true; 
                 o.BeforeSend = ((arg) => { Console.WriteLine("Sending..."); return arg; });
+            });
+            SentrySdk.ConfigureScope((scope) =>
+            {
+                scope.SetTag("software-type", Software.Type);
             });
 
             try
@@ -41,25 +41,15 @@ namespace ChromebookGUI
             }
             catch (Exception err)
             {
-                if (ChromebookGUI.Classes.Debug.IsDebugMode() == true) return;
-                string decision = GetInput.GetYesOrNo("An error occured", "An error has occured.",
-                    "Would it be OK with you if we sent details about your current device and your email to the developer? " +
-                    "It really helps fix bugs, and we will never share the info.");
-                if (decision == "yes")
+                if (Debug.IsDebugMode() == true)
                 {
-                    SentrySdk.ConfigureScope(scope =>
-                    {
-                        scope.SetExtra("globals", Globals.ToJsonString());
-                        scope.User = new Sentry.Protocol.User
-                        {
-                            Email = GAM.GetUserEmail()
-                        };
-                    });
+                    throw;
                 }
-                SentrySdk.CaptureException(err);
+                Debug.CaptureException(err);
+
             }
 
-            
+
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -67,25 +57,15 @@ namespace ChromebookGUI
             Preferences.Save();
             AutoComplete.Save();
         }
-         
+
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            if (Debug.IsDebugMode() == true) return;
-            string decision = GetInput.GetYesOrNo("An error occured", "An error has occured.",
-                "Would it be OK with you if we sent details about your current device and your email to the developer? " +
-                "It really helps fix bugs, and we will never share the info.");
-            if (decision == "yes")
+            if (Debug.IsDebugMode() == true)
             {
-                SentrySdk.ConfigureScope(scope =>
-                {
-                    scope.SetExtra("globals", Globals.ToJsonString());
-                    scope.User = new Sentry.Protocol.User
-                    {
-                        Email = GAM.GetUserEmail()
-                    };
-                });
+                e.Handled = false;
+                throw (e.Exception);
             }
-            SentrySdk.CaptureException(e.Exception);
+            Debug.CaptureException(e.Exception);
         }
     }
 }

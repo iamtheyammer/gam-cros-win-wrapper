@@ -32,11 +32,11 @@ Please make sure your current installed version of GAM is compatible with your c
 ### Release build (best for most people)
 
 This is the most stable, tested version of ChromebookGUI. If you're not terribly
-technical (or just don't want to deal with bugs), this is right for you.
+technical (or just don't want to deal with as many bugs), this is right for you.
 
 Hop on over to the [releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest) page to download.
 
-### Beta build (stable, updates less often)
+### Beta build (fairly stable)
 
 Beta is a little less tested than Release. If you want new features but a usable
 (probably) experience, beta is for you.
@@ -45,7 +45,7 @@ Installation of **beta** is simple. Just pop on over to the [**beta** releases p
 
 [Compatible GAM version: latest (4.82)](GAMCompatibility.md)
 
-### Alpha build (less stable, updates very often, has newest features first)
+### Alpha build (less stable)
 
 Want newest features first? Alpha is for you. If you download an alpha build,
 please note that it may crash and bugs ~~may~~ occur.

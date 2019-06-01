@@ -19,11 +19,6 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Versions**
-
-- Windows Version (open winver): ____
-- ChromebookGUI version (Help -> Check for updates...): _____
-
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 

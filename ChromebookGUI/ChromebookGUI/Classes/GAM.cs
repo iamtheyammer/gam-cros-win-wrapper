@@ -10,6 +10,7 @@ namespace ChromebookGUI
 {
     public class GAM
     {
+
         public static List<string> RunGAM(String gamCommand)
         {
             // this function lets us run gam, which is pretty important
@@ -42,6 +43,9 @@ namespace ChromebookGUI
             }
             proc.Close();
             return output;
+
+            // this function has no try catch because everything using it should
+            // have its own
         }
 
         /// <summary>
@@ -108,6 +112,13 @@ namespace ChromebookGUI
         /// <returns></returns>
         public static List<BasicDeviceInfo> GetDeviceId(string input)
         {
+            try
+            {
+
+            } catch
+            {
+                 
+            }
             if (IsDeviceId(input)) // this is already a device ID
             {
                 return new List<BasicDeviceInfo>
@@ -284,6 +295,7 @@ namespace ChromebookGUI
             }
             if (string.IsNullOrEmpty(emailLine)) return "Error getting email.";
             return emailLine.Split(' ')[1];
+            
         }
     }
 }

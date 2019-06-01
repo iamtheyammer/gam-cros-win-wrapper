@@ -277,7 +277,7 @@ namespace ChromebookGUI
         /// <param name="instructionText">The text to instruct the user about what they're choosing.</param>
         /// <param name="extraButtonText">Text for the extra button.</param>
         /// <returns>A string with either "yes", "no" or "extraButtonClicked".</returns>
-        public static string GetYesOrNo(string title, string headline, string instructionBoxText, string extraButtonText)
+        public static string GetYesOrNo(string title, string headline, string instructionBoxText, string extraButtonText, bool hasOwner)
         {
             YesOrNoWindow window = new YesOrNoWindow();
             window.Title = title;
@@ -285,10 +285,26 @@ namespace ChromebookGUI
             window.instructionTextBlock.Text = headline;
             window.InfoBox.Text = instructionBoxText;
             window.ExtraButton.Content = extraButtonText;
-            window.Owner = Application.Current.MainWindow;
+            if(hasOwner == true)
+            {
+                window.Owner = Application.Current.MainWindow;
+            }
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
             return window.instructionTextBlock.Text;
+        }
+
+        /// <summary>
+        /// GetYesOrNo with hasOwner set to true.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="headline"></param>
+        /// <param name="instructionBoxText"></param>
+        /// <param name="extraButtonText"></param>
+        /// <returns></returns>
+        public static string GetYesOrNo(string title, string headline, string instructionBoxText, string extraButtonText)
+        {
+            return GetYesOrNo(title, headline, instructionBoxText, extraButtonText, true);
         }
 
 

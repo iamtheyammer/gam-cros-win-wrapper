@@ -6,10 +6,10 @@ The ChromebookGUI version runs along the top and the GAM version runs along the 
 
 Don't worry about using a version between tests. The newest version of ChromebookGUI should almost always be paired with the newest version of GAM.
 
- |x | <0.2.7 | 0.2.8 | 1.0.10
-| :-- | :-- | :--|
-| 4.61 | Fully compatible (intended version) | Fully compatible
-| 4.6.5 | **Not recommended** | Some formatting issues; some items will be mislabeled, but core functionality should work | Fully compatible (intended version) |
+|x | <0.2.7 | 0.2.8 | 1.0.x
+| :-- | :-- | :-- | :-- |
+| 4.61 | Fully compatible (intended version) | Fully compatible | Untested |
+| 4.6.5 | **Not recommended** | Some formatting issues; some items will be mislabeled, but core functionality should work | Untested |
 | 4.8.2 | n/a | ^ | Fully compatible | Fully compatible (intended version) |
 
 

@@ -1,5 +1,6 @@
 ﻿using ChromebookGUI.Classes;
 using ChromebookGUI.Windows;
+using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,8 +23,21 @@ namespace ChromebookGUI
 
         private void DeviceInputField_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape) return;
-            AutoComplete.OnKeyUp(sender, e, deviceInputFieldStack, deviceInputField);
+            try
+            {
+                if (e.Key == Key.Escape) return;
+                AutoComplete.OnKeyUp(sender, e, deviceInputFieldStack, deviceInputField);
+            } catch (Exception err)
+            {
+                Debug.CaptureRichException(err, new Dictionary<string, object>
+                {
+                    ["pressed-key"] = e.Key.ToString(),
+                    ["omnibar-value"] = deviceInputField.Text
+                    
+                });
+                Debug.ShowErrorMessage();
+            }
+            
         }
 
         private void DeviceInputField_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -51,85 +65,91 @@ namespace ChromebookGUI
         /// <param name="e"></param>
         public async void SubmitDeviceId_Click(object sender, RoutedEventArgs e)
         {
-            IsLoading = true;
-            AutoComplete.Close(deviceInputFieldStack);
-            ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Getting Device Info", 5, "Searching for devices...");
-            if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, asset id, serial number, query string or email...")
+            try
             {
-                outputField.Text = "You must enter something into the field at the top.";
-                progressBar.Close();
-                return;
-            }
+                IsLoading = true;
+                AutoComplete.Close(deviceInputFieldStack);
+                ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Getting Device Info", 5, "Searching for devices...");
+                if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, asset id, serial number, query string or email...")
+                {
+                    outputField.Text = "You must enter something into the field at the top.";
+                    progressBar.Close();
+                    return;
+                }
 
-            //outputField.Text = GAM.GetDeviceId(deviceInputField.Text);
-            string input = deviceInputField.Text;
-            List<BasicDeviceInfo> possibleDevices = await Task.Run(() => GAM.GetDeviceId(input));
-            BasicDeviceInfo deviceInfo = BasicDeviceInfo.HandleGetDeviceId(possibleDevices);
-            Globals.ClearGlobals(); // clear the globals before adding new ones
-            Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
-            if (deviceInfo.Error)
-            {
-                outputField.Text = deviceInfo.ErrorText;
-                progressBar.Close();
-                return;
-            }
-            progressBar.UpdateBarAndText(30, "Getting more device info...");
+                string input = deviceInputField.Text;
+                List<BasicDeviceInfo> possibleDevices = await Task.Run(() => GAM.GetDeviceId(input));
+                BasicDeviceInfo deviceInfo = BasicDeviceInfo.HandleGetDeviceId(possibleDevices);
+                Globals.ClearGlobals(); // clear the globals before adding new ones
+                Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
+                if (deviceInfo.Error)
+                {
+                    outputField.Text = deviceInfo.ErrorText;
+                    progressBar.Close();
+                    return;
+                }
+                progressBar.UpdateBarAndText(30, "Getting more device info...");
             
 
-            BasicDeviceInfo fullDeviceInfo = await Task.Run(() => GAM.GetAllDeviceInfo(deviceInfo.DeviceId));
-            fullDeviceInfo.LastSync = !string.IsNullOrEmpty(deviceInfo.LastSync) ? deviceInfo.LastSync : null;
-            fullDeviceInfo.DeviceId = deviceInfo.DeviceId;
-            fullDeviceInfo.SerialNumber = !string.IsNullOrEmpty(deviceInfo.SerialNumber) ? deviceInfo.SerialNumber : null;
-            fullDeviceInfo.Status = !string.IsNullOrEmpty(deviceInfo.Status) ? deviceInfo.Status : null;
-            fullDeviceInfo.User = !string.IsNullOrEmpty(deviceInfo.User) ? deviceInfo.User : null;
-            progressBar.UpdateBarAndText(40, "Saving variables...");
+                BasicDeviceInfo fullDeviceInfo = await Task.Run(() => GAM.GetAllDeviceInfo(deviceInfo.DeviceId));
+                fullDeviceInfo.LastSync = !string.IsNullOrEmpty(deviceInfo.LastSync) ? deviceInfo.LastSync : null;
+                fullDeviceInfo.DeviceId = deviceInfo.DeviceId;
+                fullDeviceInfo.SerialNumber = !string.IsNullOrEmpty(deviceInfo.SerialNumber) ? deviceInfo.SerialNumber : null;
+                fullDeviceInfo.Status = !string.IsNullOrEmpty(deviceInfo.Status) ? deviceInfo.Status : null;
+                fullDeviceInfo.User = !string.IsNullOrEmpty(deviceInfo.User) ? deviceInfo.User : null;
+                progressBar.UpdateBarAndText(40, "Saving variables...");
 
-            Globals.SetGlobalsFromBasicDeviceInfo(fullDeviceInfo);
-            progressBar.UpdateBarAndText(55, "Populating fields...");
-            if (!String.IsNullOrEmpty(fullDeviceInfo.Notes)) NoteField.Text = fullDeviceInfo.Notes; else NoteField.Text = "";
-            if (!String.IsNullOrEmpty(fullDeviceInfo.AssetId)) AssetIdField.Text = fullDeviceInfo.AssetId; else AssetIdField.Text = "";
-            if (!String.IsNullOrEmpty(fullDeviceInfo.Location)) LocationField.Text = fullDeviceInfo.Location; else LocationField.Text = "";
-            if (!String.IsNullOrEmpty(fullDeviceInfo.User)) UserField.Text = fullDeviceInfo.User; else UserField.Text = "";
-            if (!String.IsNullOrEmpty(fullDeviceInfo.OrgUnitPath)) OrganizationalUnitField.Text = fullDeviceInfo.OrgUnitPath; else OrganizationalUnitField.Text = "";
+                Globals.SetGlobalsFromBasicDeviceInfo(fullDeviceInfo);
+                progressBar.UpdateBarAndText(55, "Populating fields...");
+                if (!String.IsNullOrEmpty(fullDeviceInfo.Notes)) NoteField.Text = fullDeviceInfo.Notes; else NoteField.Text = "";
+                if (!String.IsNullOrEmpty(fullDeviceInfo.AssetId)) AssetIdField.Text = fullDeviceInfo.AssetId; else AssetIdField.Text = "";
+                if (!String.IsNullOrEmpty(fullDeviceInfo.Location)) LocationField.Text = fullDeviceInfo.Location; else LocationField.Text = "";
+                if (!String.IsNullOrEmpty(fullDeviceInfo.User)) UserField.Text = fullDeviceInfo.User; else UserField.Text = "";
+                if (!String.IsNullOrEmpty(fullDeviceInfo.OrgUnitPath)) OrganizationalUnitField.Text = fullDeviceInfo.OrgUnitPath; else OrganizationalUnitField.Text = "";
 
-            if (!String.IsNullOrEmpty(fullDeviceInfo.Status))
-            {
-                switch(fullDeviceInfo.Status)
+                if (!String.IsNullOrEmpty(fullDeviceInfo.Status))
                 {
-                    case "ACTIVE":
-                        StatusActiveRadio.IsChecked = true;
-                        StatusDisabledRadio.IsEnabled = true;
-                        StatusActiveRadio.IsEnabled = true;
-                        StatusDeprovisionedRadio.IsEnabled = true;
-                        break;
-                    case "DISABLED":
-                        StatusDisabledRadio.IsChecked = true;
-                        StatusDisabledRadio.IsEnabled = true;
-                        StatusActiveRadio.IsEnabled = true;
-                        StatusDeprovisionedRadio.IsEnabled = true;
-                        break;
-                    case "DEPROVISIONED":
-                        StatusDeprovisionedRadio.IsChecked = true;
-                        StatusDeprovisionedRadio.IsEnabled = false;
-                        StatusActiveRadio.IsChecked = false;
-                        StatusActiveRadio.IsEnabled = false;
-                        StatusDisabledRadio.IsChecked = false;
-                        StatusDisabledRadio.IsEnabled = false;
-                        break;
+                    switch(fullDeviceInfo.Status)
+                    {
+                        case "ACTIVE":
+                            StatusActiveRadio.IsChecked = true;
+                            StatusDisabledRadio.IsEnabled = true;
+                            StatusActiveRadio.IsEnabled = true;
+                            StatusDeprovisionedRadio.IsEnabled = true;
+                            break;
+                        case "DISABLED":
+                            StatusDisabledRadio.IsChecked = true;
+                            StatusDisabledRadio.IsEnabled = true;
+                            StatusActiveRadio.IsEnabled = true;
+                            StatusDeprovisionedRadio.IsEnabled = true;
+                            break;
+                        case "DEPROVISIONED":
+                            StatusDeprovisionedRadio.IsChecked = true;
+                            StatusDeprovisionedRadio.IsEnabled = false;
+                            StatusActiveRadio.IsChecked = false;
+                            StatusActiveRadio.IsEnabled = false;
+                            StatusDisabledRadio.IsChecked = false;
+                            StatusDisabledRadio.IsEnabled = false;
+                            break;
+                    }
                 }
+
+                progressBar.UpdateBarAndText(85, "Filling in output box...");
+                outputField.Text = "Found device. ID: " + fullDeviceInfo.DeviceId + ".";
+                if (!String.IsNullOrEmpty(fullDeviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + fullDeviceInfo.SerialNumber;
+                if (!String.IsNullOrEmpty(fullDeviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + fullDeviceInfo.LastSync;
+
+                progressBar.UpdateBarAndText(95, "Adding search to autocomplete...");
+                AutoComplete.AddItemToList(input);
+                progressBar.UpdateBarAndText(100, "Done!");
+                IsLoading = false;
+                progressBar.Close();
+                //deviceInputField.Text = deviceId;
+            } catch (Exception err)
+            {
+                Debug.CaptureRichException(err, CollectFieldsForRichException());
+                Debug.ShowErrorMessage();
             }
-
-            progressBar.UpdateBarAndText(85, "Filling in output box...");
-            outputField.Text = "Found device. ID: " + fullDeviceInfo.DeviceId + ".";
-            if (!String.IsNullOrEmpty(fullDeviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + fullDeviceInfo.SerialNumber;
-            if (!String.IsNullOrEmpty(fullDeviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + fullDeviceInfo.LastSync;
-
-            progressBar.UpdateBarAndText(95, "Adding search to autocomplete...");
-            AutoComplete.AddItemToList(input);
-            progressBar.UpdateBarAndText(100, "Done!");
-            IsLoading = false;
-            progressBar.Close();
-            //deviceInputField.Text = deviceId;
         }
 
         private void outputField_TextChanged(object sender, TextChangedEventArgs e)
@@ -150,7 +170,8 @@ namespace ChromebookGUI
                 outputField.Text = "No device ID currently in memory. Press " + submitDeviceId.Content + " then try again.";
                 return;
             }
-            else if (Globals.DeviceId == "csv")
+
+            if (Globals.DeviceId == "csv")
             {
                 GetInput.ShowInfoDialog("Not Supported", "This action is not supported with a CSV", "We don't support using CSVs for info because they put out unreadable output.");
                 return;
@@ -197,13 +218,9 @@ namespace ChromebookGUI
 
         private void selectAllTextInBox(object sender, object e)
         {
-            if (deviceInputField.Text == "Enter a Device ID, Asset ID, Serial Number or Email...")
+            if (deviceInputField.Text == "Enter a Device ID, Asset ID, Query String, Serial Number or Email...")
             {
                 deviceInputField.Text = String.Empty;
-            }
-            else
-            {
-                deviceInputField.SelectAll();
             }
         }
 
@@ -238,9 +255,9 @@ namespace ChromebookGUI
         {
             string currentOutput = outputField.Text;
             IsLoading = true;
-            string orgUnit = OrgUnit.HandleAwaitableGetOrgUnitFromSelector(await Task.Run(() => OrgUnit.AwaitableGetOrgUnitFromSelector()));
+            string orgUnit = OrgUnit.HandleAwaitableGetOrgUnitFromSelector(await Task.Run(OrgUnit.AwaitableGetOrgUnitFromSelector));
             IsLoading = false;
-            if(String.IsNullOrEmpty(orgUnit))
+            if(string.IsNullOrEmpty(orgUnit))
             {
                 GetInput.ShowInfoDialog("No org unit selected",
                     "No org unit selected",
@@ -253,204 +270,221 @@ namespace ChromebookGUI
             }
             outputField.Text = currentOutput;
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
+        
         private void RevertChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
-            if (LocationField.Text != Globals.Location) LocationField.Text = Globals.Location;
-            if (AssetIdField.Text != Globals.AssetId) AssetIdField.Text = Globals.AssetId;
-            if (UserField.Text != Globals.User && UserField.Text.Length > 0) UserField.Text = Globals.User;
-            if (NoteField.Text != Globals.Note) NoteField.Text = Globals.Note;
-            switch(Globals.Status)
+            try
             {
-                case "ACTIVE":
-                    StatusDisabledRadio.IsChecked = false;
-                    StatusDeprovisionedRadio.IsChecked = false;
-                    StatusActiveRadio.IsChecked = true;
-                    break;
-                case "DISABLED":
-                    StatusDisabledRadio.IsChecked = true;
-                    StatusDeprovisionedRadio.IsChecked = false;
-                    StatusActiveRadio.IsChecked = false;
-                    break;
-                default:
-                    break; // nothing, because if it's deprovisioned they can't check anything
+                // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
+                if (LocationField.Text != Globals.Location) LocationField.Text = Globals.Location;
+                if (AssetIdField.Text != Globals.AssetId) AssetIdField.Text = Globals.AssetId;
+                if (UserField.Text != Globals.User && UserField.Text.Length > 0) UserField.Text = Globals.User;
+                if (NoteField.Text != Globals.Note) NoteField.Text = Globals.Note;
+                switch (Globals.Status)
+                {
+                    case "ACTIVE":
+                        StatusDisabledRadio.IsChecked = false;
+                        StatusDeprovisionedRadio.IsChecked = false;
+                        StatusActiveRadio.IsChecked = true;
+                        break;
+                    case "DISABLED":
+                        StatusDisabledRadio.IsChecked = true;
+                        StatusDeprovisionedRadio.IsChecked = false;
+                        StatusActiveRadio.IsChecked = false;
+                        break;
+                    default:
+                        break; // nothing, because if it's deprovisioned they can't check anything
+                }
+                if (OrganizationalUnitField.Text != Globals.OrgUnitPath && Globals.OrgUnitPath.Length > 0) OrganizationalUnitField.Text = Globals.OrgUnitPath;
             }
-            if (OrganizationalUnitField.Text != Globals.OrgUnitPath && Globals.OrgUnitPath.Length > 0) OrganizationalUnitField.Text = Globals.OrgUnitPath;
+            catch (Exception err)
+            {
+                Debug.CaptureRichException(err, new Dictionary<string, object>
+                {
+
+                });
+
+            }
         }
 
         private async void ApplyChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            IsLoading = true;
-            // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
-            ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Updating Device", 50, "Updating device info...");
-            progressBar.UpdateBarAndText(50, "Updating device info...");
-            string gamCommand = "update cros " + Globals.DeviceId + " ";
-            string outputText = "";
+            
+            try
+            {
+                IsLoading = true;
+                // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
+                ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog(title: "Updating Device", initialProgressBarValue: 50, initialProgressText: "Updating device info...");
+                progressBar.UpdateBarAndText(value: 50, text: "Updating device info...");
+                string gamCommand = "update cros " + Globals.DeviceId + " ";
+                string outputText = "";
 
-            if (LocationField.Text != Globals.Location)
-            {
-                if (ShouldEmptyField(LocationField.Text, Globals.Location))
+                if (LocationField.Text != Globals.Location)
                 {
-                    switch (GetInput.GetYesOrNo("Empty Location?", "Clear the field?", "Click yes if you want to empty the Location field. Click no to cancel."))
+                    if (ShouldEmptyField(modifiedText: LocationField.Text, originalText: Globals.Location))
                     {
-                        case "yes":
-                            break;
-                        case "no":
-                            outputField.Text = "Cancelling because you didn't want to empty a field.";
-                            progressBar.Close();
-                            IsLoading = false;
-                            return;
-                        default:
-                            progressBar.Close();
-                            return;
+                        switch (GetInput.GetYesOrNo(title: "Empty Location?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the Location field. Click no to cancel."))
+                        {
+                            case "yes":
+                                break;
+                            case "no":
+                                outputField.Text = "Cancelling because you didn't want to empty a field.";
+                                progressBar.Close();
+                                IsLoading = false;
+                                return;
+                            default:
+                                progressBar.Close();
+                                return;
+                        }
                     }
+                    gamCommand += "location \"" + LocationField.Text + "\" ";
+                    Globals.Location = LocationField.Text;
+                    outputText += "Location, ";
                 }
-                gamCommand += "location \"" + LocationField.Text + "\" ";
-                Globals.Location = LocationField.Text;
-                outputText += "Location, ";
-            }
-            if (AssetIdField.Text != Globals.AssetId)
-            {
-                if (ShouldEmptyField(AssetIdField.Text, Globals.AssetId)) {
-                    switch(GetInput.GetYesOrNo("Empty Asset ID?", "Clear the field?", "Click yes if you want to empty the Asset ID field. Click no to cancel.")) {
-                        case "yes":
-                            break;
-                        case "no":
-                            outputField.Text = "Cancelling because you didn't want to empty a field.";
-                            progressBar.Close();
-                            IsLoading = false;
-                            return;
-                        default:
-                            progressBar.Close();
-                            return;
+                if (AssetIdField.Text != Globals.AssetId)
+                {
+                    if (ShouldEmptyField(modifiedText: AssetIdField.Text, originalText: Globals.AssetId))
+                    {
+                        switch (GetInput.GetYesOrNo(title: "Empty Asset ID?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the Asset ID field. Click no to cancel."))
+                        {
+                            case "yes":
+                                break;
+                            case "no":
+                                outputField.Text = "Cancelling because you didn't want to empty a field.";
+                                progressBar.Close();
+                                IsLoading = false;
+                                return;
+                            default:
+                                progressBar.Close();
+                                return;
+                        }
                     }
-                }
-                gamCommand += "asset_id \"" + AssetIdField.Text + "\" ";
-                Globals.AssetId = LocationField.Text;
-                outputText += "Asset ID, ";
+                    gamCommand += "asset_id \"" + AssetIdField.Text + "\" ";
+                    Globals.AssetId = LocationField.Text;
+                    outputText += "Asset ID, ";
 
-            }
-            if (UserField.Text != Globals.User)
-            {
-                if (ShouldEmptyField(UserField.Text, Globals.User))
+                }
+                if (UserField.Text != Globals.User)
                 {
-                    switch (GetInput.GetYesOrNo("Empty User?", "Clear the field?", "Click yes if you want to empty the User field. Click no to cancel."))
+                    if (ShouldEmptyField(modifiedText: UserField.Text, originalText: Globals.User))
                     {
-                        case "yes":
-                            break;
-                        case "no":
-                            outputField.Text = "Cancelling because you didn't want to empty a field.";
-                            progressBar.Close();
-                            return;
-                        default:
-                            progressBar.Close();
-                            return;
+                        switch (GetInput.GetYesOrNo(title: "Empty User?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the User field. Click no to cancel."))
+                        {
+                            case "yes":
+                                break;
+                            case "no":
+                                outputField.Text = "Cancelling because you didn't want to empty a field.";
+                                progressBar.Close();
+                                return;
+                            default:
+                                progressBar.Close();
+                                return;
+                        }
                     }
+                    gamCommand += "user \"" + UserField.Text + "\" ";
+                    Globals.User = UserField.Text;
+                    outputText += "User, ";
                 }
-                gamCommand += "user \"" + UserField.Text + "\" ";
-                Globals.User = UserField.Text;
-                outputText += "User, ";
-            }
-            if (NoteField.Text != Globals.Note)
-            {
-                if (ShouldEmptyField(NoteField.Text, Globals.Note))
+                if (NoteField.Text != Globals.Note)
                 {
-                    switch (GetInput.GetYesOrNo("Empty Note?", "Clear the field?", "Click yes if you want to empty the Note field. Click no to cancel."))
+                    if (ShouldEmptyField(modifiedText: NoteField.Text, originalText: Globals.Note))
                     {
-                        case "yes":
-                            break;
-                        case "no":
-                            outputField.Text = "Cancelling because you didn't want to empty a field.";
-                            progressBar.Close();
-                            IsLoading = false;
-                            return;
-                        default:
-                            progressBar.Close();
-                            return;
+                        switch (GetInput.GetYesOrNo(title: "Empty Note?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the Note field. Click no to cancel."))
+                        {
+                            case "yes":
+                                break;
+                            case "no":
+                                outputField.Text = "Cancelling because you didn't want to empty a field.";
+                                progressBar.Close();
+                                IsLoading = false;
+                                return;
+                            default:
+                                progressBar.Close();
+                                return;
+                        }
                     }
+                    gamCommand += "notes \"" + NoteField.Text.Replace(oldValue: "\"", newValue: "\\\"") + "\" "; // will output a note like this: "He told me \"Hello!\" yesterday."
+                    Globals.Note = NoteField.Text;
+                    outputText += "Note, ";
                 }
-                gamCommand += "notes \"" + NoteField.Text.Replace("\"", "\\\"") + "\" "; // will output a note like this: "He told me \"Hello!\" yesterday."
-                Globals.Note = NoteField.Text;
-                outputText += "Note, ";
-            }
-            if (StatusDisabledRadio.IsChecked == true && Globals.Status != "DISABLED")
-            {
-                progressBar.UpdateBarAndText(55, "Disabling...");
-                await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action disable"));
-                Globals.Status = "DISABLED";
-                outputText += "Status, ";
-            }
-            if (StatusActiveRadio.IsChecked == true && Globals.Status != "ACTIVE")
-            {
-                progressBar.UpdateBarAndText(55, "Enabling...");
-                await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action reenable"));
-                Globals.Status = "ACTIVE";
-                outputText += "Status, ";
-            }
-            if (StatusDeprovisionedRadio.IsChecked == true && Globals.Status != "DEPROVISIONED")
-            {
-                //deprovision_same_model_replace|deprovision_different_model_replace|deprovision_retiring_device [acknowledge_device_touch_requirement]
-                int depReason = GetInput.GetDeprovisionReason();
-                switch (depReason)
+                if (StatusDisabledRadio.IsChecked == true && Globals.Status != "DISABLED")
                 {
-                    case 1:
-                        progressBar.UpdateBarAndText(55, "Deprovisioning...");
-                        await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_same_model_replace acknowledge_device_touch_requirement"));
-                        break;
-                    case 2:
-                        progressBar.UpdateBarAndText(55, "Deprovisioning...");
-                        await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_different_model_replace acknowledge_device_touch_requirement"));
-                        break; // different
-                    case 3: // retire
-                        progressBar.UpdateBarAndText(55, "Deprovisioning...");
-                        await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_retiring_device acknowledge_device_touch_requirement"));
-                        break;
-                    default:
-                        outputField.Text = "No deprovision reason was selected so that choice was not saved.\n";
-                        break; // do nothing: they selected nothing.
-                }
-                if (depReason != 0)
-                {
-                    Globals.Status = "DEPROVISIONED";
+                    progressBar.UpdateBarAndText(value: 55, text: "Disabling...");
+                    await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action disable"));
+                    Globals.Status = "DISABLED";
                     outputText += "Status, ";
-                    StatusActiveRadio.IsEnabled = false;
-                    StatusDeprovisionedRadio.IsEnabled = false;
-                    StatusDisabledRadio.IsEnabled = false;
                 }
-            }
-            if (OrganizationalUnitField.Text != Globals.OrgUnitPath && Globals.OrgUnitPath.Length > 0)
-            {
-                gamCommand += "ou " + OrganizationalUnitField.Text + " ";
-                Globals.OrgUnitPath = OrganizationalUnitField.Text;
-                outputText += "Orgizational Unit ";
-            }
+                if (StatusActiveRadio.IsChecked == true && Globals.Status != "ACTIVE")
+                {
+                    progressBar.UpdateBarAndText(value: 55, text: "Enabling...");
+                    await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action reenable"));
+                    Globals.Status = "ACTIVE";
+                    outputText += "Status, ";
+                }
+                if (StatusDeprovisionedRadio.IsChecked == true && Globals.Status != "DEPROVISIONED")
+                {
+                    //deprovision_same_model_replace|deprovision_different_model_replace|deprovision_retiring_device [acknowledge_device_touch_requirement]
+                    int depReason = GetInput.GetDeprovisionReason();
+                    switch (depReason)
+                    {
+                        case 1:
+                            progressBar.UpdateBarAndText(value: 55, text: "Deprovisioning...");
+                            await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action deprovision_same_model_replace acknowledge_device_touch_requirement"));
+                            break;
+                        case 2:
+                            progressBar.UpdateBarAndText(value: 55, text: "Deprovisioning...");
+                            await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action deprovision_different_model_replace acknowledge_device_touch_requirement"));
+                            break; // different
+                        case 3: // retire
+                            progressBar.UpdateBarAndText(value: 55, text: "Deprovisioning...");
+                            await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action deprovision_retiring_device acknowledge_device_touch_requirement"));
+                            break;
+                        default:
+                            outputField.Text = "No deprovision reason was selected so that choice was not saved.\n";
+                            break; // do nothing: they selected nothing.
+                    }
+                    if (depReason != 0)
+                    {
+                        Globals.Status = "DEPROVISIONED";
+                        outputText += "Status, ";
+                        StatusActiveRadio.IsEnabled = false;
+                        StatusDeprovisionedRadio.IsEnabled = false;
+                        StatusDisabledRadio.IsEnabled = false;
+                    }
+                }
+                if (OrganizationalUnitField.Text != Globals.OrgUnitPath && Globals.OrgUnitPath.Length > 0)
+                {
+                    gamCommand += "ou " + OrganizationalUnitField.Text + " ";
+                    Globals.OrgUnitPath = OrganizationalUnitField.Text;
+                    outputText += "Orgizational Unit ";
+                }
 
-            if (OrganizationalUnitField.Text.Length < 1 || (OrganizationalUnitField.Text.Length == 1 && OrganizationalUnitField.Text[0] != '/'))
-            {
-                GetInput.ShowInfoDialog("No empty org unit path.", "Your org unit path can't be blank.", "You can't have a blank org unit path, silly!");
-                return;
-            }
+                if (OrganizationalUnitField.Text.Length < 1 || (OrganizationalUnitField.Text.Length == 1 && OrganizationalUnitField.Text[index: 0] != '/'))
+                {
+                    GetInput.ShowInfoDialog(title: "No empty org unit path.", subject: "Your org unit path can't be blank.", fullText: "You can't have a blank org unit path, silly!");
+                    return;
+                }
 
-            progressBar.UpdateBarAndText(75, "Updating info...");
-            if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
-            {
-                string gamOutput = await Task.Run(() => GAM.RunGAMFormatted(gamCommand));
-                Console.WriteLine(gamOutput);
+                progressBar.UpdateBarAndText(value: 75, text: "Updating info...");
+                if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
+                {
+                    string gamOutput = await Task.Run(function: () => GAM.RunGAMFormatted(gamCommand: gamCommand));
+                    Console.WriteLine(value: gamOutput);
+                }
+                progressBar.UpdateBarAndText(value: 99, text: "Finishing up...");
+                IsLoading = false;
+                if (outputText.Length > 1) outputField.Text = outputText += "was updated.";
+                progressBar.Close();
+                // build a GAM command from that information
+                // run it
+                // update globals
+                // show success in output field
             }
-            progressBar.UpdateBarAndText(99, "Finishing up...");
-            IsLoading = false;
-            if (outputText.Length > 1) outputField.Text = outputText += "was updated.";
-            progressBar.Close();
-            // build a GAM command from that information
-            // run it
-            // update globals
-            // show success in output field
+            catch (Exception err)
+            {
+                Debug.CaptureRichException(err, CollectFieldsForRichException());
+                Debug.ShowErrorMessage();
+            }
         }
 
         private bool ShouldEmptyField(string modifiedText, string originalText)
@@ -492,6 +526,19 @@ namespace ChromebookGUI
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             AutoComplete.Close(deviceInputFieldStack);
+        }
+
+        private Dictionary<string, object> CollectFieldsForRichException()
+        {
+            return new Dictionary<string, object>
+            {
+                [key: "omnibar-text"] = deviceInputField.Text,
+                [key: "note-field-text"] = NoteField.Text,
+                [key: "assetid-field-text"] = AssetIdField.Text,
+                [key: "location-field-text"] = LocationField.Text,
+                [key: "user-field-text"] = UserField.Text,
+                [key: "organizational-unit-field-text"] = OrganizationalUnitField.Text
+            };
         }
     }
 }
