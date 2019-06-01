@@ -8,6 +8,7 @@ This simple Chromebook management app makes it easy to perform simple Chrome OS 
 - [Screenshots](#screenshots)
 - [Bug reporting](#bug-reporting)
 - [Contributing](#contributions)
+- [Privacy policy](/PrivacyPolicy.md)
 
 ![main window screenshot](images/mainWindow.png)
 
@@ -15,7 +16,7 @@ This simple Chromebook management app makes it easy to perform simple Chrome OS 
 - 🎉 **Brand new interface!** (although, the old one is still available.)
 - ⏩ **Greatly improved performance!** (no more 'Not Responding')
 - 🏁 **Autocomplete in the Omnibar!**
-- ⚠ Automated error reporting! (to [sentry.io](https://sentry.io))
+- ⚠ Automated error reporting! (to [sentry.io](https://sentry.io), see our privacy policy [here](/PrivacyPolicy.md))
 - 🐛 fixes!
 - 📚 Much, much more.
 
@@ -26,7 +27,7 @@ This simple Chromebook management app makes it easy to perform simple Chrome OS 
 
 Before running, make sure that you can run `gam print cros` and from that command you get a bunch of 36 character ids, like this: `90a79523-658p-686y-bf20-19638646153c`. `gam` must be in your PATH.
 
-Please make sure your current installed version of GAM is compatible with your current version of ChromebookGUI. Visit the [GAM Compatibility Chart](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md), and use `gam version` to check your version.
+Please make sure your current installed version of GAM is compatible with your current version of ChromebookGUI. Visit the [GAM Compatibility Chart](/GAMCompatibility.md), and use `gam version` to check your version.
 
 ### Release build (best for most people)
 
@@ -42,7 +43,7 @@ Beta is a little less tested than Release. If you want new features but a usable
 
 Installation of **beta** is simple. Just pop on over to the [**beta** releases page](https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest), and download the msi. It should run on both x86 and x64 platforms.
 
-[Compatible GAM version: latest (4.82)](https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/GAMCompatibility.md)
+[Compatible GAM version: latest (4.82)](GAMCompatibility.md)
 
 ### Alpha build (less stable, updates very often, has newest features first)
 
@@ -51,7 +52,7 @@ please note that it may crash and bugs ~~may~~ occur.
 
 Please, if you find a bug, report it as an issue.
 
-To download the latest **alpha** build (again: not verified stable, but *should* work), download the MSI from [here](https://github.com/iamtheyammer/gam-cros-win-wrapper/tree/master/ChromebookGUI/Installer/Tool+Installer). It takes about 15-30 days of issue-free alpha to turn the alpha build into a beta build.
+To download the latest **alpha** build (again: not verified stable, but *should* work), download the MSI from [here](/ChromebookGUI/Installer/Tool+Installer). It takes about 15-30 days of issue-free alpha to turn the alpha build into a beta build.
 
 Compatible GAM versions: Latest (4.82)
 
