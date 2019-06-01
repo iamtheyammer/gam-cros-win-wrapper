@@ -16,7 +16,7 @@ A clear and concise description of what happened.
 If you don't have enhanced telemetry on, please enable it and allow the error to happen again.
 If don't want to enable it, that's OK., please note this, though.
 
-Please provide the approximate time the error occurred so we can trace it to a sentry issue.
+If a timestamp isn't in the title already, please add it here along with your time zone.
 
 (How do I know if I have enhanced telemetry on? Either go to File -> Preferences and look at the checkbox, or, if an error message comes up, it'll say whether enhanced telemetry is on.
 
