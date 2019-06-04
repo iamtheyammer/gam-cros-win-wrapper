@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ChromebookGUI.Main_Window_Views;
 
 namespace ChromebookGUI
 {
@@ -59,6 +60,12 @@ namespace ChromebookGUI
                 currentView.ToggleMainWindowButtons(true);
             }
             ViewFrame.Navigate(defaultView);
+        }
+
+        private void RenderWelcomePage()
+        {
+            WelcomePage welcomePage = new WelcomePage();
+            ViewFrame.Navigate(welcomePage);
         }
 
         private void FilePreferences_Click(object sender, RoutedEventArgs e)
@@ -183,7 +190,8 @@ namespace ChromebookGUI
 
         private void UseDefaultButtonLayout_Click(object sender, RoutedEventArgs e)
         {
-            RenderDefaultView();
+            //RenderDefaultView();
+            RenderWelcomePage();
         }
 
         private void UseTextBoxLayout_Click(object sender, RoutedEventArgs e)

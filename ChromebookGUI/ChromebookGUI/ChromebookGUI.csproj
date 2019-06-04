@@ -120,6 +120,9 @@
     <Compile Include="Classes\AutoComplete.cs" />
     <Compile Include="Classes\AutoCompleteResult.cs" />
     <Compile Include="Classes\Debug.cs" />
+    <Compile Include="Main Window Views\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Main Window Views\TextBoxView.xaml.cs">
       <DependentUpon>TextBoxView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
     <Compile Include="Windows\YesOrNoWindow.xaml.cs">
       <DependentUpon>YesOrNoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Main Window Views\WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Main Window Views\TextBoxView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -242,6 +249,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="mainWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="mainWindow-welcomeScreen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

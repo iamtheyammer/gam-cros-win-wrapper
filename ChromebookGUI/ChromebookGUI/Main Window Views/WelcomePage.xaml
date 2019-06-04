@@ -1,0 +1,31 @@
+﻿<Page x:Class="ChromebookGUI.Main_Window_Views.WelcomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ChromebookGUI.Main_Window_Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1">
+
+    <Grid>
+        <!--Just a background-->
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="450" Stroke="#00000000" VerticalAlignment="Top" Width="800"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19.282,15.224,0,0" TextWrapping="Wrap" Text="Thanks for installing ChromebookGUI!" VerticalAlignment="Top" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19.281,121.779,0,0" TextWrapping="Wrap" Text="ChromebookGUI depends on GAM." VerticalAlignment="Top" FontSize="14"/>
+        <TextBlock x:Name="IsGAMSetupCorrectlyButton" HorizontalAlignment="Left" Margin="30.282,144.828,0,0" TextWrapping="Wrap" Text="Click here to check if GAM is set up correctly." VerticalAlignment="Top" Height="23" Width="244" Foreground="#FF0064FF" TextDecorations="Underline" ContextMenuClosing="IsGAMSetupCorrectlyButton_Click" Cursor="Hand"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19.281,176.779,0,0" TextWrapping="Wrap" Text="ChromebookGUI is made to be simple." VerticalAlignment="Top" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30.282,200.828,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="361" Height="66"><Run Text="Use the Omnibar to find a device, then modify a field (or as many as you'd like), and apply your changes. That's it."/><LineBreak/><Run Text="You can even work in bulk by importing a CSV or using a Google Admin Query String."/></TextBlock>
+        <TextBlock Margin="405,55.469,0,0" TextWrapping="Wrap" Text="ChromebookGUI is open source." Height="22" Width="204" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Right"/>
+        <TextBlock HorizontalAlignment="Left" Margin="421,82.469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="69" Width="352"><Run Text="If you happen to know C# (.NET), we'd love your contribution! Go to Help -&gt; Go To GitHub Project... to see the source code."/><LineBreak/><Run/><LineBreak/><Run Text="If not, thanks for using my software!"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="405,170.469,0,0" TextWrapping="Wrap" Text="ChromebookGUI will have some bugs." VerticalAlignment="Top" Height="26" Width="265" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="405,196.469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="188" Width="368"><Run Text="When ChromebookGUI encounters an error, we'll automatically catch it and, generally, return you to where you were. However, to fix these errors, we need your permission to send some possibly identifiable information back to Sentry.io, who handles error collection."/><LineBreak/><Run/><LineBreak/><Run Text="Enabling Enhanced Telemetry is really, really helpful to the continued development of ChromebookGUI, and I'd be eternally grateful if you'd enable it. You can always change your mind in the preferences, too."/><LineBreak/><Run/><LineBreak/><Run Text="Once you choose your telemetry setting, ChromebookGUI will launch."/></TextBlock>
+        <Button x:Name="AllowEnhancedTelemetryButton" Content="Yes, allow Enhanced Telemetry and launch ChromebookGUI" HorizontalAlignment="Left" Margin="426.01,401.852,0,0" VerticalAlignment="Top" Width="346.99" Height="21.287" FontSize="13" Background="#FF409EFE" Foreground="White" Click="AllowEnhancedTelemetry_Click"/>
+        <Button x:Name="NoEnhancedTelemetryButton" Content="No, don't enable Enhanced Telemetry and launch ChromebookGUI" HorizontalAlignment="Left" Margin="21.505,401.852,0,0" VerticalAlignment="Top" Width="302.181" Height="21.287" Click="NoEnhancedTelemetryButton_Click" FontSize="10"/>
+        <Button x:Name="ViewPrivacyPolicyButton" Content="View Privacy Policy" HorizontalAlignment="Left" Margin="21.504,377.776,0,0" VerticalAlignment="Top" Width="106.512" Height="19.076" FontSize="11" Background="#FFDDDDDD" Click="ViewPrivacyPolicyButton_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19.282,57.828,0,0" TextWrapping="Wrap" Text="Choose a telemetry setting at the bottom right to launch ChromebookGUI." VerticalAlignment="Top" Height="59" Width="370" FontSize="18"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19.282,276.828,0,0" TextWrapping="Wrap" Text="ChromebookGUI is customizable." VerticalAlignment="Top" Height="20" Width="209" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30.282,301.828,0,0" TextWrapping="Wrap" Text="ChromebookGUI offers a preferences panel that allows you to change a few settings about how ChromebookGUI performs. Check them out in File -&gt; Preferences." VerticalAlignment="Top" Height="53" Width="361"/>
+
+    </Grid>
+</Page>
