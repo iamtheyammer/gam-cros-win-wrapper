@@ -156,6 +156,7 @@ namespace ChromebookGUI
             if (Globals.DeviceId == "csv")
             {
                 GetInput.ShowInfoDialog("Not Supported", "This action is not supported with a CSV", "We don't support using CSVs for info because they put out unreadable output.");
+                IsLoading = false;
                 return;
             }
             string deviceId = Globals.DeviceId;
