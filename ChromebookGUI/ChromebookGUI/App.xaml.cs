@@ -43,7 +43,7 @@ namespace ChromebookGUI
             {
                 if (Debug.IsDebugMode() == true)
                 {
-                    throw;
+                    throw err;
                 }
                 Debug.CaptureException(err);
 
