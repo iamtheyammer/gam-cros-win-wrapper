@@ -1,0 +1,6 @@
+{
+  "type": "release",
+  "currentVersion": "1.0.11",
+  "changes": "- The omnibar has much, much better text management in both views (thanks @msd-rjoachim)\n- New Enhanced Telemetry prompt (which you probably just saw!) Enhanced Telemetry is super, super, super helpful for me to be able to fix bugs. No data is ever shared.\n- Various under-the-hood changes to improve your experience",
+  "updateUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest"
+}
