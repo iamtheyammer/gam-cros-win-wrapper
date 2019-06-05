@@ -202,3 +202,6 @@ C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\Chro
 C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\Sentry.Protocol.xml
 C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\System.Collections.Immutable.xml
 C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\ChromebookGUI.exe.config
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\CsvHelper.dll
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\CsvHelper.xml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Tool+Installer\System.ValueTuple.xml

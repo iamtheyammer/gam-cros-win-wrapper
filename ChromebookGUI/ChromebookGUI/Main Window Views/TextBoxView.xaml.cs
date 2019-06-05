@@ -69,11 +69,9 @@ namespace ChromebookGUI
             {
                 IsLoading = true;
                 AutoComplete.Close(deviceInputFieldStack);
-                ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Getting Device Info", 5, "Searching for devices...");
                 if (deviceInputField.Text.Length < 1 || deviceInputField.Text.ToLower() == "enter a device id, asset id, serial number, query string or email...")
                 {
                     outputField.Text = "You must enter something into the field at the top.";
-                    progressBar.Close();
                     return;
                 }
 
@@ -85,31 +83,19 @@ namespace ChromebookGUI
                 if (deviceInfo.Error)
                 {
                     outputField.Text = deviceInfo.ErrorText;
-                    progressBar.Close();
                     return;
                 }
-                progressBar.UpdateBarAndText(30, "Getting more device info...");
-            
 
-                BasicDeviceInfo fullDeviceInfo = await Task.Run(() => GAM.GetAllDeviceInfo(deviceInfo.DeviceId));
-                fullDeviceInfo.LastSync = !string.IsNullOrEmpty(deviceInfo.LastSync) ? deviceInfo.LastSync : null;
-                fullDeviceInfo.DeviceId = deviceInfo.DeviceId;
-                fullDeviceInfo.SerialNumber = !string.IsNullOrEmpty(deviceInfo.SerialNumber) ? deviceInfo.SerialNumber : null;
-                fullDeviceInfo.Status = !string.IsNullOrEmpty(deviceInfo.Status) ? deviceInfo.Status : null;
-                fullDeviceInfo.User = !string.IsNullOrEmpty(deviceInfo.User) ? deviceInfo.User : null;
-                progressBar.UpdateBarAndText(40, "Saving variables...");
+                Globals.SetGlobalsFromBasicDeviceInfo(deviceInfo);
+                NoteField.Text = !string.IsNullOrEmpty(deviceInfo.Notes) ? deviceInfo.Notes : "";
+                AssetIdField.Text = !string.IsNullOrEmpty(deviceInfo.AssetId) ? deviceInfo.AssetId : "";
+                LocationField.Text = !string.IsNullOrEmpty(deviceInfo.Location) ? deviceInfo.Location : "";
+                UserField.Text = !string.IsNullOrEmpty(deviceInfo.User) ? deviceInfo.User : "";
+                OrganizationalUnitField.Text = !string.IsNullOrEmpty(deviceInfo.OrgUnitPath) ? deviceInfo.OrgUnitPath : "";
 
-                Globals.SetGlobalsFromBasicDeviceInfo(fullDeviceInfo);
-                progressBar.UpdateBarAndText(55, "Populating fields...");
-                if (!String.IsNullOrEmpty(fullDeviceInfo.Notes)) NoteField.Text = fullDeviceInfo.Notes; else NoteField.Text = "";
-                if (!String.IsNullOrEmpty(fullDeviceInfo.AssetId)) AssetIdField.Text = fullDeviceInfo.AssetId; else AssetIdField.Text = "";
-                if (!String.IsNullOrEmpty(fullDeviceInfo.Location)) LocationField.Text = fullDeviceInfo.Location; else LocationField.Text = "";
-                if (!String.IsNullOrEmpty(fullDeviceInfo.User)) UserField.Text = fullDeviceInfo.User; else UserField.Text = "";
-                if (!String.IsNullOrEmpty(fullDeviceInfo.OrgUnitPath)) OrganizationalUnitField.Text = fullDeviceInfo.OrgUnitPath; else OrganizationalUnitField.Text = "";
-
-                if (!String.IsNullOrEmpty(fullDeviceInfo.Status))
+                if (!String.IsNullOrEmpty(deviceInfo.Status))
                 {
-                    switch(fullDeviceInfo.Status)
+                    switch(deviceInfo.Status)
                     {
                         case "ACTIVE":
                             StatusActiveRadio.IsChecked = true;
@@ -134,16 +120,12 @@ namespace ChromebookGUI
                     }
                 }
 
-                progressBar.UpdateBarAndText(85, "Filling in output box...");
-                outputField.Text = "Found device. ID: " + fullDeviceInfo.DeviceId + ".";
-                if (!String.IsNullOrEmpty(fullDeviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + fullDeviceInfo.SerialNumber;
-                if (!String.IsNullOrEmpty(fullDeviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + fullDeviceInfo.LastSync;
+                outputField.Text = "Found device. ID: " + deviceInfo.DeviceId + ".";
+                if (!String.IsNullOrEmpty(deviceInfo.SerialNumber)) outputField.Text += "\nSerial Number: " + deviceInfo.SerialNumber;
+                if (!String.IsNullOrEmpty(deviceInfo.LastSync)) outputField.Text += "\nLast Sync: " + deviceInfo.LastSync;
 
-                progressBar.UpdateBarAndText(95, "Adding search to autocomplete...");
                 AutoComplete.AddItemToList(input);
-                progressBar.UpdateBarAndText(100, "Done!");
                 IsLoading = false;
-                progressBar.Close();
                 //deviceInputField.Text = deviceId;
             } catch (Exception err)
             {
@@ -174,6 +156,7 @@ namespace ChromebookGUI
             if (Globals.DeviceId == "csv")
             {
                 GetInput.ShowInfoDialog("Not Supported", "This action is not supported with a CSV", "We don't support using CSVs for info because they put out unreadable output.");
+                IsLoading = false;
                 return;
             }
             string deviceId = Globals.DeviceId;

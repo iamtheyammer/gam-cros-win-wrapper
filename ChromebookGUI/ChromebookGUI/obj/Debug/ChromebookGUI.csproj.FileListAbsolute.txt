@@ -247,3 +247,6 @@ C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\Chro
 C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\ChromebookGUI.exe.config
 C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\Main Window Views\WelcomePage.g.cs
 C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Debug\Main Window Views\WelcomePage.baml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\CsvHelper.dll
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\CsvHelper.xml
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\bin\Debug\System.ValueTuple.xml

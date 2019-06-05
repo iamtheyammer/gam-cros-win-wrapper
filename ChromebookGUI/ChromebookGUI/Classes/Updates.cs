@@ -15,7 +15,7 @@ namespace ChromebookGUI
         {
             Console.WriteLine("Starting newest version check...");
             HttpClient http = Globals.HttpClientObject;
-            Task<string> newestVersionsString = http.GetStringAsync("https://iamtheyammer.github.io/gam-cros-win-wrapper/releases.json");
+            Task<string> newestVersionsString = http.GetStringAsync("https://iamtheyammer.github.io/gam-cros-win-wrapper/updates/" + Software.Type + ".json");
             Dictionary<string, string> newestVersions = null;
             try
             {
@@ -36,7 +36,7 @@ namespace ChromebookGUI
                 GetInput.ShowInfoDialog("Error", "error checking for updates", "error!");
             }
             string currentVersion = Software.Version;
-            string newestVersion = newestVersions[Software.Type];
+            string newestVersion = newestVersions["newestVersion"];
             if (newestVersion == currentVersion)
             {
                 return new Dictionary<string, string>()
@@ -45,13 +45,15 @@ namespace ChromebookGUI
                 };
             } else
             {
-                Console.WriteLine(newestVersions[Software.Type]);
-                Console.WriteLine(String.IsNullOrEmpty(newestVersions[Software.Type]));
+                Console.WriteLine(newestVersions["newestVersion"]);
                 return new Dictionary<string, string>()
                 {
                     ["isNewestVersion"] = "false",
-                    ["newestVersion"] = !String.IsNullOrEmpty(newestVersions[Software.Type]) ? newestVersions[Software.Type] : "(could not be determined)",
-                    ["changes"] = !String.IsNullOrEmpty(newestVersions[Software.Type + "Changes"]) ? newestVersions[Software.Type + "Changes"] : "(there was an issue getting the changelog)"
+                    ["newestVersion"] = !String.IsNullOrEmpty(newestVersions["newestVersion"]) ? newestVersions["newestVersion"] : "(could not be determined)",
+                    ["changes"] = !String.IsNullOrEmpty(newestVersions["changes"]) ? newestVersions["changes"] : "(there was an issue getting the changelog)",
+                    ["updateUrl"] = (newestVersions["updateUrl"].StartsWith("https://github.com/iamtheyammer") ||
+                                     newestVersions["updateUrl"].StartsWith("https://iamtheyammer.github.io")) 
+                        ? newestVersions["updateUrl"] : "The update URL was deemed to be unsafe (not from iamtheyammmer!!!!). This is a MASSIVE DEAL. REPORT IMMEDIATELY."
                 };
             }
         }
@@ -73,7 +75,7 @@ namespace ChromebookGUI
                     new Button { IsEnabled = true, Text = "Download newest build" });
                 if(extraButtonPressed)
                 {
-                    Process.Start("https://github.com/iamtheyammer/releases/latest");
+                    Process.Start(isNewestVersion["updateUrl"]);
                 }
                 return "true";
             }

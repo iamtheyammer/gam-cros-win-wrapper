@@ -5,6 +5,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO;
+using CsvHelper;
+using CsvHelper.Configuration.Attributes;
 
 namespace ChromebookGUI
 {
@@ -48,6 +51,24 @@ namespace ChromebookGUI
             // have its own
         }
 
+        public static StreamReader RunGAMStream(string gamCommand)
+        {
+            // this function lets us run gam, which is pretty important
+
+            using (Process gam = new Process())
+            {
+                gam.StartInfo.FileName = "gam.exe";
+                gam.StartInfo.Arguments = gamCommand;
+                gam.StartInfo.UseShellExecute = false;
+                gam.StartInfo.RedirectStandardOutput = true;
+                gam.StartInfo.CreateNoWindow = true;
+
+                gam.Start();
+
+                return gam.StandardOutput;
+            }
+        }
+
         /// <summary>
         /// Runs GAM, but returns a newline character seperated string, ready for display.
         /// </summary>
@@ -73,16 +94,6 @@ namespace ChromebookGUI
         public static string GetGAMCSVCommand(String csvLocation, String gamCommandBeforeDeviceId, String gamCommandAfterDeviceId)
         {
             return "csv " + csvLocation + " " + gamCommandBeforeDeviceId + " ~deviceId " + gamCommandAfterDeviceId;
-        }
-
-        /// <summary>
-        /// Runs GAM and FixCSVCommas.FixCommas
-        /// </summary>
-        /// <param name="gamCommand"></param>
-        /// <returns></returns>
-        public static List<List<string>> RunGAMCommasFixed(String gamCommand)
-        {
-            return FixCSVCommas.FixCommas(GAM.RunGAM(gamCommand));
         }
 
 
@@ -112,13 +123,7 @@ namespace ChromebookGUI
         /// <returns></returns>
         public static List<BasicDeviceInfo> GetDeviceId(string input)
         {
-            try
-            {
 
-            } catch
-            {
-                 
-            }
             if (IsDeviceId(input)) // this is already a device ID
             {
                 return new List<BasicDeviceInfo>
@@ -172,67 +177,41 @@ namespace ChromebookGUI
         /// </summary>
         /// <param name="query">The gam query to search for: like "user:myUser"</param>
         /// <returns></returns>
-        public static List<BasicDeviceInfo> GetDeviceByGAMQuery(string query)
+        private static List<BasicDeviceInfo> GetDeviceByGAMQuery(string query)
         {
-            List<string> gamResults = RunGAM("print cros query \"" + query + "\" fields deviceId,lastSync,serialNumber,status,user,location,assetId,notes");
-            Dictionary<string, int> fieldOrder = new Dictionary<string, int>();
-            if (gamResults[0].StartsWith("deviceId"))
+            StreamReader gamResults = RunGAMStream("print cros query \"" + query +
+                                                   "\" fields deviceId,lastSync,serialNumber,status,user,location,assetId,notes,orgUnitPath");
+            using (var csv = new CsvReader(gamResults))
             {
-                string[] gamFieldOrder = gamResults[0].Split(',');
-                for (int i = 0; i < gamResults[0].Split(',').Length; i++)
+                csv.Configuration.HeaderValidated = null;
+                csv.Configuration.MissingFieldFound = null;
+                var records = csv.GetRecords<GAMCsvRecord>().ToList();
+                if (records.Count < 1)
                 {
-                    fieldOrder.Add(gamFieldOrder[i], i);
-                }
-                gamResults.RemoveAt(0);
-            }
-            if (gamResults.Count == 0) return new List<BasicDeviceInfo>()
-            {
-                new BasicDeviceInfo(){
-                    Error = true,
-                    ErrorText = "Invalid query string or no results for that query string."
-                }
-            };
-            List<List<string>> deviceInfos = FixCSVCommas.FixCommas(gamResults);
-            if (deviceInfos.Count == 1) if (deviceInfos[0].Count > 1) // using 2 if statements here because I can't check for [0] if it doesn't exist
-                {
-                    return new List<BasicDeviceInfo>()
+                    return new List<BasicDeviceInfo>
                     {
-                        new BasicDeviceInfo(){
-                            DeviceId = fieldOrder.ContainsKey("deviceId") ? deviceInfos[0][fieldOrder["deviceId"]] : null,
-                            LastSync = fieldOrder.ContainsKey("lastSync") ? deviceInfos[0][fieldOrder["lastSync"]] : null,
-                            SerialNumber = fieldOrder.ContainsKey("serialNumber") ? deviceInfos[0][fieldOrder["serialNumber"]] : null,
-                            AssetId = fieldOrder.ContainsKey("annotatedAssetId") ? deviceInfos[0][fieldOrder["annotatedAssetId"]] : null,
-                            Status = fieldOrder.ContainsKey("status") ? deviceInfos[0][fieldOrder["status"]] : null,
-                            User = fieldOrder.ContainsKey("annotatedUser") ? deviceInfos[0][fieldOrder["annotatedUser"]] : null,
-                            Notes = fieldOrder.ContainsKey("notes") ? deviceInfos[0][fieldOrder["notes"]] : null,
-                            Error = false
+                        new BasicDeviceInfo
+                        {
+                            Error = true,
+                            ErrorText = "No results for that entry."
                         }
                     };
                 }
-            // there is more than one result
-            Console.WriteLine(gamResults[0]);
-            List<BasicDeviceInfo> infoObjects = new List<BasicDeviceInfo>();
-            for (int i = 0; i < deviceInfos.Count; i++)
-            {
-
-                infoObjects.Add(new BasicDeviceInfo()
+                List<BasicDeviceInfo> output = new List<BasicDeviceInfo>();
+                foreach (GAMCsvRecord record in records)
                 {
-                    DeviceId = deviceInfos[i][fieldOrder["deviceId"]],
-                    LastSync = deviceInfos[i][fieldOrder["lastSync"]],
-                    SerialNumber = deviceInfos[i][fieldOrder["serialNumber"]],
-                    AssetId = deviceInfos[i][fieldOrder["annotatedAssetId"]],
-                    Status = deviceInfos[i][fieldOrder["status"]],
-                    User = deviceInfos[i][fieldOrder["annotatedUser"]],
-                    Notes = deviceInfos[i][fieldOrder["notes"]],
-                    Error = false
-                });
+                    output.Add(record.ToBasicDeviceInfo());
+                }
+
+                return output;
             }
-            return infoObjects;
         }
+       
 
         public static BasicDeviceInfo GetAllDeviceInfo(string deviceId)
         {
-            List<string> gamResult = RunGAM("info cros " + deviceId + " fields deviceId,lastSync,serialNumber,status,notes,assetId,location,user,orgUnitPath");
+            List<string> gamResult = RunGAM("info cros " + deviceId +
+                                            " fields deviceId,lastSync,serialNumber,status,notes,assetId,location,user,orgUnitPath");
             BasicDeviceInfo output = new BasicDeviceInfo
             {
                 DeviceId = deviceId
@@ -240,10 +219,13 @@ namespace ChromebookGUI
             Dictionary<string, string> dict = new Dictionary<string, string>();
             for (int i = 1; i < gamResult.Count; i++) //starting i at 1 to ignore the first line of GAM output
             {
-                gamResult[i] = gamResult[i].TrimStart(new char[] {' '}); // remove white space from the start of the string
+                gamResult[i] =
+                    gamResult[i].TrimStart(new char[] {' '}); // remove white space from the start of the string
                 int splitPoint = gamResult[i].IndexOf(": ");
-                dict.Add(gamResult[i].Substring(0, splitPoint), gamResult[i].Substring(splitPoint + 2, (gamResult[i].Length - splitPoint) - 2));
+                dict.Add(gamResult[i].Substring(0, splitPoint),
+                    gamResult[i].Substring(splitPoint + 2, (gamResult[i].Length - splitPoint) - 2));
             }
+
             // now, I need to put a switch in a for loop to put this data into a basicdeviceinfo object, but should test it first..
             foreach (KeyValuePair<string, string> kvp in dict)
             {
@@ -286,16 +268,66 @@ namespace ChromebookGUI
         {
             List<string> userInfo = RunGAM("info user");
             string emailLine = null;
-            foreach(string line in userInfo)
+            foreach (string line in userInfo)
             {
-                if(line.StartsWith("User: ")) {
+                if (line.StartsWith("User: "))
+                {
                     emailLine = line;
                     break;
                 }
             }
+
             if (string.IsNullOrEmpty(emailLine)) return "Error getting email.";
             return emailLine.Split(' ')[1];
-            
+
         }
+    }
+
+    class GAMCsvRecord
+    {
+        [Name("deviceId")]
+        public string DeviceId { get; set; }
+
+        [Name("serialNumber")]
+        public string SerialNumber { get; set; }
+
+        [Name("status")]
+        public string Status { get; set; }
+
+        [Name("lastSync")]
+        public string LastSync { get; set; }
+
+        [Name("annotatedUser")]
+        public string User { get; set; }
+
+        [Name("annotatedLocation")]
+        public string Location { get; set; }
+
+        [Name("annotatedAssetId")]
+        public string AssetId { get; set; }
+
+        [Name("notes")]
+        public string Notes { get; set; }
+
+        [Name("orgUnitPath")]
+        public string OrgUnitPath { get; set; }
+
+        public BasicDeviceInfo ToBasicDeviceInfo()
+        {
+            return new BasicDeviceInfo
+            {
+                DeviceId = !String.IsNullOrEmpty(DeviceId) ? DeviceId : null,
+                LastSync = !String.IsNullOrEmpty(LastSync) ? LastSync : null,
+                SerialNumber = !String.IsNullOrEmpty(SerialNumber) ? SerialNumber : null,
+                Status = !String.IsNullOrEmpty(Status) ? Status : null,
+                Notes = !String.IsNullOrEmpty(Notes) ? Notes : null,
+                AssetId = !String.IsNullOrEmpty(AssetId) ? AssetId : null,
+                Location = !String.IsNullOrEmpty(Location) ? Location : null,
+                User = !String.IsNullOrEmpty(User) ? User : null,
+                OrgUnitPath = !String.IsNullOrEmpty(OrgUnitPath) ? OrgUnitPath : null,
+                Error = false
+            };
+        }
+
     }
 }
