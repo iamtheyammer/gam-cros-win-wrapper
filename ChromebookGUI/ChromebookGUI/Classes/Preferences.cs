@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Windows;
 
 namespace ChromebookGUI
 {
@@ -42,6 +43,11 @@ namespace ChromebookGUI
         public static bool NeedsTelemetryConsent { get; set; }
 
         /// <summary>
+        /// Sets the UI Mode: "light" or "dark"
+        /// </summary>
+        public static string UiMode { get; set; }
+
+        /// <summary>
         /// Path to the preferences file
         /// </summary>
         private static readonly string prefsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\iamtheyammer\ChromebookGUI\preferences.json";
@@ -66,6 +72,7 @@ namespace ChromebookGUI
                 UseTextBoxLayoutInsteadOfButtonLayout = true;
                 AllowEnhancedTelemetry = false;
                 NeedsTelemetryConsent = true;
+                UiMode = "light";
                 return;
             }
 
@@ -74,7 +81,7 @@ namespace ChromebookGUI
             // more settings would go here. default prefs go in the catches.
             if (prefs.ContainsKey("SerialNumberAssetIdPriority"))
             {
-                SerialNumberAssetIdPriority = prefs["SerialNumberAssetIdPriority"] == "True" ? true : false;
+                SerialNumberAssetIdPriority = prefs["SerialNumberAssetIdPriority"] == "True";
             } else
             {
                 SerialNumberAssetIdPriority = false;
@@ -82,7 +89,7 @@ namespace ChromebookGUI
 
             if(prefs.ContainsKey("ShowWarningWhenImportingFromCSVFile"))
             {
-                ShowWarningWhenImportingFromCSVFile = prefs["ShowWarningWhenImportingFromCSVFile"] == "True" ? true : false;
+                ShowWarningWhenImportingFromCSVFile = prefs["ShowWarningWhenImportingFromCSVFile"] == "True";
             } else
             {
                 ShowWarningWhenImportingFromCSVFile = true;
@@ -90,7 +97,7 @@ namespace ChromebookGUI
 
             if(prefs.ContainsKey("PromptWhenUpdatesAreAvailable"))
             {
-                PromptWhenUpdatesAreAvailable = prefs["PromptWhenUpdatesAreAvailable"] == "True" ? true : false;
+                PromptWhenUpdatesAreAvailable = prefs["PromptWhenUpdatesAreAvailable"] == "True";
             } else
             {
                 PromptWhenUpdatesAreAvailable = true;
@@ -98,7 +105,7 @@ namespace ChromebookGUI
 
             if (prefs.ContainsKey("UseTextBoxLayoutInsteadOfButtonLayout"))
             {
-                UseTextBoxLayoutInsteadOfButtonLayout = prefs["UseTextBoxLayoutInsteadOfButtonLayout"] == "True" ? true : false;
+                UseTextBoxLayoutInsteadOfButtonLayout = prefs["UseTextBoxLayoutInsteadOfButtonLayout"] == "True";
             }
             else
             {
@@ -107,11 +114,20 @@ namespace ChromebookGUI
 
             if(prefs.ContainsKey("AllowEnhancedTelemetry"))
             {
-                AllowEnhancedTelemetry = prefs["AllowEnhancedTelemetry"] == "True" ? true : false;
+                AllowEnhancedTelemetry = prefs["AllowEnhancedTelemetry"] == "True";
                 NeedsTelemetryConsent = false;
             } else
             {
                 NeedsTelemetryConsent = true;
+            }
+
+            if (prefs.ContainsKey("UiMode"))
+            {
+                UiMode = prefs["UiMode"] == "light" ? "light" : "dark";
+            }
+            else
+            {
+                UiMode = "dark";
             }
         }
 
@@ -127,9 +143,9 @@ namespace ChromebookGUI
                 ["ShowWarningWhenImportingFromCSVFile"] = ShowWarningWhenImportingFromCSVFile.ToString(),
                 ["PromptWhenUpdatesAreAvailable"] = PromptWhenUpdatesAreAvailable.ToString(),
                 ["UseTextBoxLayoutInsteadOfButtonLayout"] = UseTextBoxLayoutInsteadOfButtonLayout.ToString(),
-                ["AllowEnhancedTelemetry"] = AllowEnhancedTelemetry.ToString()
+                ["UiMode"] = UiMode
             };
-
+            if(!NeedsTelemetryConsent) prefs.Add("AllowEnhancedTelemetry", AllowEnhancedTelemetry.ToString());
             File.WriteAllText(prefsFilePath, JsonConvert.SerializeObject(prefs));
         }
 
@@ -146,35 +162,6 @@ namespace ChromebookGUI
             window.AllowEnhancedTelemetryCheckbox.IsChecked = AllowEnhancedTelemetry;
             window.Title = "ChromebookGUI Preferences";
             window.ShowDialog();
-        }
-
-        public static void GetTelemetryConsent()
-        {
-            bool stop = false;
-            while (stop == false)
-            {
-                string decision = GetInput.GetYesOrNo(
-                "Enhanced Telemetry Consent",
-                "Can we send extra crash data?",
-                "It would be really helpful if you would allow us to send data like your email, your current device and other info back to the developers. See the privacy policy for more information.",
-                "Open Privacy Policy...",
-                false
-                );
-                switch (decision)
-                {
-                    case "yes":
-                        AllowEnhancedTelemetry = true;
-                        stop = true;
-                        break;
-                    case "no":
-                        AllowEnhancedTelemetry = false;
-                        stop = true;
-                        break;
-                    case "extraButtonClicked":
-                        Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/blob/master/PrivacyPolicy.md");
-                        break;
-                }
-            }
         }
     }
 }

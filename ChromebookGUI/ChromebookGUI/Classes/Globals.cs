@@ -104,7 +104,7 @@ namespace ChromebookGUI
         /// <returns></returns>
         public static string GetAndSaveUserEmail()
         {
-            if(String.IsNullOrEmpty(AdminEmail) == true)
+            if(String.IsNullOrEmpty(AdminEmail))
             {
                 AdminEmail = GAM.GetUserEmail();
             }

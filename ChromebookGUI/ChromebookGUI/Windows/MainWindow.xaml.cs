@@ -23,19 +23,23 @@ namespace ChromebookGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Preferences.UseTextBoxLayoutInsteadOfButtonLayout == true) RenderTextBoxView(); else RenderDefaultView();
-            if(Preferences.NeedsTelemetryConsent == true)
+            if(Preferences.NeedsTelemetryConsent)
             {
-                Preferences.GetTelemetryConsent();
+                RenderWelcomePage();
+                return;
             }
-            if(Preferences.AllowEnhancedTelemetry == true)
-            {
-                Classes.Debug.AddDefaultEnhancedTelemetryToScope();
-            }
+
+            if (Preferences.UseTextBoxLayoutInsteadOfButtonLayout) RenderTextBoxView(); else RenderDefaultView();
         }
 
         private void RenderTextBoxView()
         {
+            if (Preferences.NeedsTelemetryConsent)
+            {
+                RenderWelcomePage();
+                return;
+            }
+
             TextBoxView textBoxView = new TextBoxView();
             string currentOmnibarText = "";
             if (!string.IsNullOrEmpty(Globals.DeviceId)) currentOmnibarText = currentView.deviceInputField.Text;
@@ -50,6 +54,12 @@ namespace ChromebookGUI
 
         private void RenderDefaultView()
         {
+            if (Preferences.NeedsTelemetryConsent)
+            {
+                RenderWelcomePage();
+                return;
+            }
+
             DefaultView defaultView = new DefaultView();
             string currentOmnibarText = "";
             if (!string.IsNullOrEmpty(Globals.DeviceId)) currentOmnibarText = currentView.deviceInputField.Text;
@@ -141,7 +151,9 @@ namespace ChromebookGUI
                 GetInput.ShowInfoDialog("ChromebookGUI: Invalid Query String", "Invalid Query String", "That's an invalid query string. If you don't think it is, try running this in cmd:\n\ngam print cros query \"" + queryString + "\"");
                 currentView.IsLoading = false;
                 return;
-            } else if (gamResult.Count < 2)
+            }
+
+            if (gamResult.Count < 2)
             {
                 GetInput.ShowInfoDialog("ChromebookGUI: No Results", "No Results from Query String", "No results from that query (" + queryString + ")");
                 currentView.IsLoading = false;
@@ -190,8 +202,7 @@ namespace ChromebookGUI
 
         private void UseDefaultButtonLayout_Click(object sender, RoutedEventArgs e)
         {
-            //RenderDefaultView();
-            RenderWelcomePage();
+            RenderDefaultView();
         }
 
         private void UseTextBoxLayout_Click(object sender, RoutedEventArgs e)

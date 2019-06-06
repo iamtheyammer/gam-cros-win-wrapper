@@ -274,8 +274,10 @@ namespace ChromebookGUI
         /// Gets a yes or no input from the user.
         /// </summary>
         /// <param name="title">The title of the window</param>
-        /// <param name="instructionText">The text to instruct the user about what they're choosing.</param>
+        /// <param name="instructionBoxText">The text to instruct the user about what they're choosing.</param>
         /// <param name="extraButtonText">Text for the extra button.</param>
+        /// <param name="hasOwner">Whether the window has an owner.</param>
+        /// <param name="headline">Large text at the top of the prompt</param>
         /// <returns>A string with either "yes", "no" or "extraButtonClicked".</returns>
         public static string GetYesOrNo(string title, string headline, string instructionBoxText, string extraButtonText, bool hasOwner)
         {
@@ -285,7 +287,7 @@ namespace ChromebookGUI
             window.instructionTextBlock.Text = headline;
             window.InfoBox.Text = instructionBoxText;
             window.ExtraButton.Content = extraButtonText;
-            if(hasOwner == true)
+            if(hasOwner)
             {
                 window.Owner = Application.Current.MainWindow;
             }

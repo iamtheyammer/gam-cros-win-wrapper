@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Web.SessionState;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 
@@ -266,20 +267,39 @@ namespace ChromebookGUI
 
         public static string GetUserEmail()
         {
-            List<string> userInfo = RunGAM("info user");
-            string emailLine = null;
-            foreach (string line in userInfo)
+            try
             {
-                if (line.StartsWith("User: "))
+                List<string> userInfo = RunGAM("info user");
+                string emailLine = null;
+                foreach (string line in userInfo)
                 {
-                    emailLine = line;
-                    break;
+                    if (line.StartsWith("User: "))
+                    {
+                        emailLine = line;
+                        break;
+                    }
                 }
+
+                if (String.IsNullOrEmpty(emailLine)) return "Error getting email.";
+                return emailLine.Split(' ')[1];
+            }
+            catch
+            {
+                return "Exception when getting email.";
             }
 
-            if (string.IsNullOrEmpty(emailLine)) return "Error getting email.";
-            return emailLine.Split(' ')[1];
+        }
 
+        public static bool IsSetupCorrectly()
+        {
+            try
+            {
+                return RunGAM("info user").Count > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 
@@ -328,6 +348,5 @@ namespace ChromebookGUI
                 Error = false
             };
         }
-
     }
 }

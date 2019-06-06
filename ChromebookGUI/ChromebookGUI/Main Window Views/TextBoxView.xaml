@@ -20,7 +20,8 @@
                  KeyUp="DeviceInputField_KeyUp" HorizontalAlignment="Left" Height="32" Margin="24,31,0,0" 
                  TextWrapping="Wrap" Text="Enter a Device ID, Asset ID, Query String, Serial Number or Email..." 
                  VerticalAlignment="Top" Width="586" FontSize="18" GotKeyboardFocus="selectAllTextInBox" 
-                 GotMouseCapture="selectAllTextInBox" Cursor="IBeam"/>
+                 GotMouseCapture="selectAllTextInBox" Cursor="IBeam" HorizontalScrollBarVisibility="Auto"
+                 />
 
         <TextBlock HorizontalAlignment="Left" Margin="24,80,0,0" TextWrapping="Wrap" Text="Location" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="LocationField" Text="Set the Location..." HorizontalAlignment="Left" Height="23" Margin="24,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontSize="14" IsEnabled="False"/>

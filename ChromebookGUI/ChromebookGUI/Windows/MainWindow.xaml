@@ -13,7 +13,7 @@
     <Window.InputBindings>
         <KeyBinding Key="L" Modifiers="Ctrl" Command="Search" />
     </Window.InputBindings>
-    <Grid Margin="10,0,10,0">
+    <Grid Margin="10,0,10.333,-0.333">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" MinHeight="254.857" />
             <RowDefinition Height="auto" MinHeight="1.143" />
@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
 
-        <Frame x:Name="ViewFrame" NavigationUIVisibility="Hidden" Content="Loading ChromebookGUI..." HorizontalAlignment="Stretch" Height="Auto" Margin="-10,30,-9.714,0.429" VerticalAlignment="Stretch" Width="Auto" Grid.RowSpan="3"/>
+        <Frame x:Name="ViewFrame" NavigationUIVisibility="Hidden" Content="Loading ChromebookGUI..." HorizontalAlignment="Stretch" Height="Auto" Margin="-10,29,-10,0.667" VerticalAlignment="Stretch" Width="Auto" Grid.RowSpan="3"/>
 
         <Menu HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="-10,0,-9.714,225.857">
             <MenuItem Header="File" Height="29" Width="36">

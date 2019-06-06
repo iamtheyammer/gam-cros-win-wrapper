@@ -436,7 +436,7 @@ namespace ChromebookGUI
             set
             {
                 ToggleMainWindowButtons(!value);
-                if(value == true)
+                if(value)
                 {
                     outputField.Text = "Loading...";
                 } else

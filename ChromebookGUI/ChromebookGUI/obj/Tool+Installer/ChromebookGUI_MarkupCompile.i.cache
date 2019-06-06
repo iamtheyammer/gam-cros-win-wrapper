@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\obj\Tool+Installer\
 ChromebookGUI
 none
 false
 TRACE
-C:\Users\Sam Mendelson\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\App.xaml
-7-165901055
+C:\Users\serve\OneDrive\Documents\GitHub\gam-cros-win-wrapper\ChromebookGUI\ChromebookGUI\App.xaml
+11-782751264
 
-23-1369043121
-162113845627
-DataGridInput.xaml;DefaultView.xaml;DeprovosionSelect.xaml;InfoDialog.xaml;InputWindow.xaml;MainWindow.xaml;PreferencesWindow.xaml;
+26-449434759
+128180185023
+Main Window Views\WelcomePage.xaml;Main Window Views\TextBoxView.xaml;Windows\DataGridInput.xaml;Main Window Views\DefaultView.xaml;Windows\DeprovosionSelect.xaml;Windows\InfoDialog.xaml;Windows\InputWindow.xaml;Windows\MainWindow.xaml;Windows\PreferencesWindow.xaml;Windows\ProgressBarDialog.xaml;Windows\YesOrNoWindow.xaml;
 
 False
 

@@ -28,12 +28,12 @@ namespace ChromebookGUI
             try
             {
                 Preferences.Init();
-                Task.Run(() => AutoComplete.Init());
+                Task.Run(AutoComplete.Init);
 
                 MainWindow window = new MainWindow();
                 window.Show();
 
-                if (Preferences.PromptWhenUpdatesAreAvailable == true)
+                if (Preferences.PromptWhenUpdatesAreAvailable)
                 {
                     Updates.CheckForUpdates();
                 }
@@ -41,9 +41,9 @@ namespace ChromebookGUI
             }
             catch (Exception err)
             {
-                if (Debug.IsDebugMode() == true)
+                if (Debug.IsDebugMode())
                 {
-                    throw err;
+                    throw;
                 }
                 Debug.CaptureException(err);
 
@@ -60,7 +60,7 @@ namespace ChromebookGUI
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            if (Debug.IsDebugMode() == true)
+            if (Debug.IsDebugMode())
             {
                 e.Handled = false;
                 throw (e.Exception);

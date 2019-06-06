@@ -33,7 +33,7 @@ namespace ChromebookGUI.Classes
         public static void CaptureException(Exception e)
         {
             if(IsDefaultEnhancedTelemetryInScope == false &&
-                Preferences.AllowEnhancedTelemetry == true)
+                Preferences.AllowEnhancedTelemetry)
             {
                 AddDefaultEnhancedTelemetryToScope();
             }
@@ -54,7 +54,7 @@ namespace ChromebookGUI.Classes
         {
             SentrySdk.WithScope((scope) =>
             {
-                if(Preferences.AllowEnhancedTelemetry == true)
+                if(Preferences.AllowEnhancedTelemetry)
                 {
                     scope.SetExtras(extras);
                     scope.SetExtra("globals", Globals.ToJsonString());
@@ -73,7 +73,7 @@ namespace ChromebookGUI.Classes
         /// </summary>
         public static async void AddDefaultEnhancedTelemetryToScope()
         {
-            if (IsDefaultEnhancedTelemetryInScope == true) return;
+            if (IsDefaultEnhancedTelemetryInScope) return;
             await SentrySdk.ConfigureScopeAsync(async (scope) =>
             {
                 scope.SetTag("softwareType", Software.Type);
@@ -93,7 +93,7 @@ namespace ChromebookGUI.Classes
                 "Error",
                 "An error has occured",
                 "An error has occured in ChromebookGUI. " +
-                (Preferences.AllowEnhancedTelemetry == true ?
+                (Preferences.AllowEnhancedTelemetry ?
                 "Thanks to your enhanced telemetry setting, data that " +
                 "should be enough to fix this has been sent. " :
                 "No enhanced telemetry data has been sent per your preference. ") +
@@ -105,7 +105,7 @@ namespace ChromebookGUI.Classes
                     Text = "Open an issue..."
                 }
                 );
-            if(extraButtonClicked == true)
+            if(extraButtonClicked)
             {
                 Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/issues/new" +
                     "?assignees=iamtheyammer&labels=bug&template=issue-crash-report.md" +

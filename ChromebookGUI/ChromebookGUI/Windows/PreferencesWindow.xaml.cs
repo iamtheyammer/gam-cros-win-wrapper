@@ -28,10 +28,11 @@ namespace ChromebookGUI
         {
             // more settings go here
 
-            Preferences.SerialNumberAssetIdPriority = (SearchForAssetIdsBeforeSerialNumbersCheckBox.IsChecked == false) ? false : true;
-            Preferences.ShowWarningWhenImportingFromCSVFile = (ShowWarningWhenImportingFromCSVFile.IsChecked == false) ? false : true;
-            Preferences.PromptWhenUpdatesAreAvailable = (PromptWhenUpdatesAreAvailableCheckBox.IsChecked == false) ? false : true;
-            Preferences.UseTextBoxLayoutInsteadOfButtonLayout = (UseTextBoxLayoutInsteadOfButtonLayoutCheckBox.IsChecked == false) ? false : true;
+            Preferences.SerialNumberAssetIdPriority = (SearchForAssetIdsBeforeSerialNumbersCheckBox.IsChecked != false);
+            Preferences.ShowWarningWhenImportingFromCSVFile = (ShowWarningWhenImportingFromCSVFile.IsChecked != false);
+            Preferences.PromptWhenUpdatesAreAvailable = (PromptWhenUpdatesAreAvailableCheckBox.IsChecked != false);
+            Preferences.UseTextBoxLayoutInsteadOfButtonLayout = (UseTextBoxLayoutInsteadOfButtonLayoutCheckBox.IsChecked != false);
+            Preferences.UiMode = UseDarkModeCheckbox.IsChecked != null ? "dark" : "light";
             Preferences.Save();
             this.Close();
         }
@@ -40,5 +41,6 @@ namespace ChromebookGUI
         {
             this.Close();
         }
+
     }
 }
