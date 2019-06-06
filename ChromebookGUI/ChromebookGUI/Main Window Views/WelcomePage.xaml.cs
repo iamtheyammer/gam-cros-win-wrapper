@@ -86,7 +86,17 @@ namespace ChromebookGUI.Main_Window_Views
 
         private void EnableDarkMode_Checked(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine((sender as CheckBox).IsChecked);
+            Console.WriteLine((bool) (sender as CheckBox).IsChecked ? "yoooo" : "awwww");
         }
+
+        public void ToggleMainWindowButtons(bool unused)
+        {
+            GetInput.ShowInfoDialog(
+                "Not yet",
+                "Please launch ChromebookGUI first",
+                "Please make an enhanced telemetry choice before using ChromebookGUI.");
+        }
+
+        public bool IsLoading { get; set; }
     }
 }

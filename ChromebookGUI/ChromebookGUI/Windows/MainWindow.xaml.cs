@@ -75,6 +75,7 @@ namespace ChromebookGUI
         private void RenderWelcomePage()
         {
             WelcomePage welcomePage = new WelcomePage();
+            currentView = welcomePage;
             ViewFrame.Navigate(welcomePage);
         }
 
