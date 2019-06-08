@@ -2,5 +2,5 @@
   "type": "alpha",
   "newestVersion": "1.1.0",
   "changes": "- Text box view is 2x faster\n- Reduced crashing (erroring) when submitting an Omnibar query or browsing for org units\n- Added a new updates system (you'll have to wait until the next update to see it!)\n- Other bug fixes to improve your experience",
-  "updateUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest"
+  "updateUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/tag/v1.1.0"
 }
