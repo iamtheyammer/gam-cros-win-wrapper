@@ -44,6 +44,7 @@
 
             </MenuItem>
             <MenuItem Header="_Help">
+                <MenuItem x:Name="HelpReportAnIssue" Header="_Report an issue or crash..." Click="HelpReportAnIssue_Click"></MenuItem>
                 <MenuItem x:Name="HelpGoToGithubProject" Header="_Go to GitHub Project..." Click="HelpGoToGithubProject_Click" ></MenuItem>
                 <MenuItem x:Name="HelpGuides" Header="_Guides">
                     <MenuItem x:Name="HelpGuidesSearchingTheOmnibar" Header="_Searching the Omnibar" Click="HelpGuidesSearchingTheOmnibar_Click"></MenuItem>

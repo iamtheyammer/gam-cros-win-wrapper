@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Diagnostics;
 using System.IO;
+using System.Diagnostics;
+using ChromebookGUI.Classes;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Debug = ChromebookGUI.Classes.Debug;
 
 namespace ChromebookGUI
 {
@@ -194,6 +196,11 @@ namespace ChromebookGUI
         private void Search_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             currentView.ClearAndFocusInputBar();
+        }
+
+        private void HelpReportAnIssue_Click(object sender, RoutedEventArgs e)
+        {
+           Debug.OpenReportIssueOrCrash();
         }
     }
 

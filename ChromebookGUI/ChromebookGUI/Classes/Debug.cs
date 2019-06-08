@@ -73,13 +73,13 @@ namespace ChromebookGUI.Classes
         /// </summary>
         public static async void AddDefaultEnhancedTelemetryToScope()
         {
-            if (IsDefaultEnhancedTelemetryInScope == true) return;
+            if (IsDefaultEnhancedTelemetryInScope) return;
             await SentrySdk.ConfigureScopeAsync(async (scope) =>
             {
                 scope.SetTag("softwareType", Software.Type);
                 scope.User = new Sentry.Protocol.User
                 {
-                    Email = await Task.Run(() => Globals.GetAndSaveUserEmail())
+                    Email = await Task.Run(Globals.GetAndSaveUserEmail)
                 };
 
             });
@@ -90,27 +90,32 @@ namespace ChromebookGUI.Classes
         public static void ShowErrorMessage()
         {
             bool extraButtonClicked = GetInput.ShowInfoDialog(
-                "Error",
-                "An error has occured",
-                "An error has occured in ChromebookGUI. " +
-                (Preferences.AllowEnhancedTelemetry == true ?
-                "Thanks to your enhanced telemetry setting, data that " +
-                "should be enough to fix this has been sent. " :
-                "No enhanced telemetry data has been sent per your preference. ") +
-                "\n\nFeel free to try what you were doing again. If it continues crashing," +
-                " please open a GitHub issue.",
-                new Button
-                {
-                    IsEnabled = true,
-                    Text = "Open an issue..."
-                }
+                    "Error",
+                    "An error has occured",
+                    "An error has occured in ChromebookGUI. " +
+                    (Preferences.AllowEnhancedTelemetry == true ?
+                    "Thanks to your enhanced telemetry setting, data that " +
+                    "should be enough to fix this has been sent. " :
+                    "No enhanced telemetry data has been sent per your preference. ") +
+                    "\n\nFeel free to try what you were doing again. If it continues crashing," +
+                    " please open a GitHub issue.",
+                    new Button
+                    {
+                        IsEnabled = true,
+                        Text = "Open an issue..."
+                    }
                 );
-            if(extraButtonClicked == true)
+            if(extraButtonClicked)
             {
-                Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/issues/new" +
-                    "?assignees=iamtheyammer&labels=bug&template=issue-crash-report.md" +
-                    "&title=%5BI%2FC%5D%20Timestamp%3A%20" + DateTimeOffset.UtcNow.ToUnixTimeSeconds() + "%20%7C%20(title%20goes%20here)");
+                OpenReportIssueOrCrash();
             }
+        }
+
+        public static void OpenReportIssueOrCrash()
+        {
+            Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/issues/new" +
+                          "?assignees=iamtheyammer&labels=bug&template=issue-crash-report.md" +
+                          "&title=%5BI%2FC%5D%20(title%20goes%20here)%20%7C%20" + DateTimeOffset.UtcNow.ToUnixTimeSeconds());
         }
     }
 }
