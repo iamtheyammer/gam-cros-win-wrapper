@@ -1,7 +1,6 @@
 ﻿using Sentry;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,7 +112,7 @@ namespace ChromebookGUI.Classes
 
         public static void OpenReportIssueOrCrash()
         {
-            Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/issues/new" +
+            System.Diagnostics.Process.Start("https://github.com/iamtheyammer/gam-cros-win-wrapper/issues/new" +
                           "?assignees=iamtheyammer&labels=bug&template=issue-crash-report.md" +
                           "&title=%5BI%2FC%5D%20(title%20goes%20here)%20%7C%20" + DateTimeOffset.UtcNow.ToUnixTimeSeconds());
         }
