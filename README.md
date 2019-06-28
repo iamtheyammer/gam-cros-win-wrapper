@@ -1,6 +1,8 @@
 # gam-cros-win-wrapper
 ## A simple Chromebook management app.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/0k5wk1p6yp8s3jg1/branch/master?svg=true)](https://ci.appveyor.com/project/iamtheyammer/gam-cros-win-wrapper/branch/master)
+
 This simple Chromebook management app makes it easy to perform simple Chrome OS Google Admin Console tasks. It's a native app for windows written in C#.
 
 - [Install](#installation)
