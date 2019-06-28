@@ -297,16 +297,16 @@ namespace ChromebookGUI
             {
                 IsLoading = true;
                 // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
-                ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog(title: "Updating Device", initialProgressBarValue: 50, initialProgressText: "Updating device info...");
-                progressBar.UpdateBarAndText(value: 50, text: "Updating device info...");
+                ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Updating Device", 50, "Updating device info...");
+                progressBar.UpdateBarAndText(50, "Updating device info...");
                 string gamCommand = "update cros " + Globals.DeviceId + " ";
                 string outputText = "";
 
                 if (LocationField.Text != Globals.Location)
                 {
-                    if (ShouldEmptyField(modifiedText: LocationField.Text, originalText: Globals.Location))
+                    if (ShouldEmptyField(LocationField.Text, Globals.Location))
                     {
-                        switch (GetInput.GetYesOrNo(title: "Empty Location?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the Location field. Click no to cancel."))
+                        switch (GetInput.GetYesOrNo("Empty Location?", "Clear the field?", "Click yes if you want to empty the Location field. Click no to cancel."))
                         {
                             case "yes":
                                 break;
@@ -326,9 +326,9 @@ namespace ChromebookGUI
                 }
                 if (AssetIdField.Text != Globals.AssetId)
                 {
-                    if (ShouldEmptyField(modifiedText: AssetIdField.Text, originalText: Globals.AssetId))
+                    if (ShouldEmptyField(AssetIdField.Text, Globals.AssetId))
                     {
-                        switch (GetInput.GetYesOrNo(title: "Empty Asset ID?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the Asset ID field. Click no to cancel."))
+                        switch (GetInput.GetYesOrNo("Empty Asset ID?", "Clear the field?", "Click yes if you want to empty the Asset ID field. Click no to cancel."))
                         {
                             case "yes":
                                 break;
@@ -349,9 +349,9 @@ namespace ChromebookGUI
                 }
                 if (UserField.Text != Globals.User)
                 {
-                    if (ShouldEmptyField(modifiedText: UserField.Text, originalText: Globals.User))
+                    if (ShouldEmptyField(UserField.Text, Globals.User))
                     {
-                        switch (GetInput.GetYesOrNo(title: "Empty User?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the User field. Click no to cancel."))
+                        switch (GetInput.GetYesOrNo("Empty User?", "Clear the field?", "Click yes if you want to empty the User field. Click no to cancel."))
                         {
                             case "yes":
                                 break;
@@ -370,9 +370,9 @@ namespace ChromebookGUI
                 }
                 if (NoteField.Text != Globals.Note)
                 {
-                    if (ShouldEmptyField(modifiedText: NoteField.Text, originalText: Globals.Note))
+                    if (ShouldEmptyField(NoteField.Text, Globals.Note))
                     {
-                        switch (GetInput.GetYesOrNo(title: "Empty Note?", headline: "Clear the field?", instructionText: "Click yes if you want to empty the Note field. Click no to cancel."))
+                        switch (GetInput.GetYesOrNo("Empty Note?", "Clear the field?", "Click yes if you want to empty the Note field. Click no to cancel."))
                         {
                             case "yes":
                                 break;
@@ -386,21 +386,21 @@ namespace ChromebookGUI
                                 return;
                         }
                     }
-                    gamCommand += "notes \"" + NoteField.Text.Replace(oldValue: "\"", newValue: "\\\"") + "\" "; // will output a note like this: "He told me \"Hello!\" yesterday."
+                    gamCommand += "notes \"" + NoteField.Text.Replace("\"", "\\\"") + "\" "; // will output a note like this: "He told me \"Hello!\" yesterday."
                     Globals.Note = NoteField.Text;
                     outputText += "Note, ";
                 }
                 if (StatusDisabledRadio.IsChecked == true && Globals.Status != "DISABLED")
                 {
-                    progressBar.UpdateBarAndText(value: 55, text: "Disabling...");
-                    await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action disable"));
+                    progressBar.UpdateBarAndText(55, "Disabling...");
+                    await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action disable"));
                     Globals.Status = "DISABLED";
                     outputText += "Status, ";
                 }
                 if (StatusActiveRadio.IsChecked == true && Globals.Status != "ACTIVE")
                 {
-                    progressBar.UpdateBarAndText(value: 55, text: "Enabling...");
-                    await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action reenable"));
+                    progressBar.UpdateBarAndText(55, "Enabling...");
+                    await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action reenable"));
                     Globals.Status = "ACTIVE";
                     outputText += "Status, ";
                 }
@@ -411,16 +411,16 @@ namespace ChromebookGUI
                     switch (depReason)
                     {
                         case 1:
-                            progressBar.UpdateBarAndText(value: 55, text: "Deprovisioning...");
-                            await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action deprovision_same_model_replace acknowledge_device_touch_requirement"));
+                            progressBar.UpdateBarAndText(55, "Deprovisioning...");
+                            await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_same_model_replace acknowledge_device_touch_requirement"));
                             break;
                         case 2:
-                            progressBar.UpdateBarAndText(value: 55, text: "Deprovisioning...");
-                            await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action deprovision_different_model_replace acknowledge_device_touch_requirement"));
+                            progressBar.UpdateBarAndText(55, "Deprovisioning...");
+                            await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_different_model_replace acknowledge_device_touch_requirement"));
                             break; // different
                         case 3: // retire
-                            progressBar.UpdateBarAndText(value: 55, text: "Deprovisioning...");
-                            await Task.Run(function: () => GAM.RunGAM(gamCommand: "update cros " + Globals.DeviceId + " action deprovision_retiring_device acknowledge_device_touch_requirement"));
+                            progressBar.UpdateBarAndText(55, "Deprovisioning...");
+                            await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action deprovision_retiring_device acknowledge_device_touch_requirement"));
                             break;
                         default:
                             outputField.Text = "No deprovision reason was selected so that choice was not saved.\n";
@@ -442,19 +442,25 @@ namespace ChromebookGUI
                     outputText += "Orgizational Unit ";
                 }
 
-                if (OrganizationalUnitField.Text.Length < 1 || (OrganizationalUnitField.Text.Length == 1 && OrganizationalUnitField.Text[index: 0] != '/'))
+                if (OrganizationalUnitField.Text != Globals.OrgUnitPath)
                 {
-                    GetInput.ShowInfoDialog(title: "No empty org unit path.", subject: "Your org unit path can't be blank.", fullText: "You can't have a blank org unit path, silly!");
-                    return;
+                    if (ShouldEmptyField(OrganizationalUnitField.Text, Globals.OrgUnitPath))
+                    {
+                        GetInput.ShowInfoDialog("Empty org unit path.", "Your org unit path can't be blank.", "You can't have a blank org unit path.");
+                        return;
+                    }
+                    gamCommand += "ou " + OrganizationalUnitField.Text + " ";
+                    Globals.OrgUnitPath = OrganizationalUnitField.Text;
+                    outputText += "Organizational Unit ";
                 }
 
-                progressBar.UpdateBarAndText(value: 75, text: "Updating info...");
+                progressBar.UpdateBarAndText(75, "Updating info...");
                 if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
                 {
-                    string gamOutput = await Task.Run(function: () => GAM.RunGAMFormatted(gamCommand: gamCommand));
-                    Console.WriteLine(value: gamOutput);
+                    string gamOutput = await Task.Run(() => GAM.RunGAMFormatted(gamCommand));
+                    Console.WriteLine(gamOutput);
                 }
-                progressBar.UpdateBarAndText(value: 99, text: "Finishing up...");
+                progressBar.UpdateBarAndText(99, "Finishing up...");
                 IsLoading = false;
                 if (outputText.Length > 1) outputField.Text = outputText += "was updated.";
                 progressBar.Close();
