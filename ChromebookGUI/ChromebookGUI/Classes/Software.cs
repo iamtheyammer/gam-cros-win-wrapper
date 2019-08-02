@@ -16,7 +16,7 @@ namespace ChromebookGUI
         /// Beta: ex. 0.1
         /// Alpha: ex. 0.1.2
         /// </summary>
-        public static string Version => "1.1.1";
+        public static string Version => "1.1.2";
 
         /// <summary>
         /// This is the software type. It can be one of { "release", "beta", "alpha" }.

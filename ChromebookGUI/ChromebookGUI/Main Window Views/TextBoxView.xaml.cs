@@ -435,12 +435,6 @@ namespace ChromebookGUI
                         StatusDisabledRadio.IsEnabled = false;
                     }
                 }
-                if (OrganizationalUnitField.Text != Globals.OrgUnitPath && Globals.OrgUnitPath.Length > 0)
-                {
-                    gamCommand += "ou " + OrganizationalUnitField.Text + " ";
-                    Globals.OrgUnitPath = OrganizationalUnitField.Text;
-                    outputText += "Orgizational Unit ";
-                }
 
                 if (OrganizationalUnitField.Text != Globals.OrgUnitPath)
                 {
@@ -449,7 +443,7 @@ namespace ChromebookGUI
                         GetInput.ShowInfoDialog("Empty org unit path.", "Your org unit path can't be blank.", "You can't have a blank org unit path.");
                         return;
                     }
-                    gamCommand += "ou " + OrganizationalUnitField.Text + " ";
+                    gamCommand += "ou \"" + OrganizationalUnitField.Text + "\" ";
                     Globals.OrgUnitPath = OrganizationalUnitField.Text;
                     outputText += "Organizational Unit ";
                 }
@@ -457,6 +451,14 @@ namespace ChromebookGUI
                 progressBar.UpdateBarAndText(75, "Updating info...");
                 if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
                 {
+                    string decision = GetInput.GetYesOrNo("GAM Confirmation", "Do you want to send this GAM command?",
+                        "gam " + gamCommand.Replace("\\", "\\\\"));
+                    if (decision != "yes")
+                    {
+                        IsLoading = false;
+                        progressBar.Close();
+                        return;
+                    }
                     string gamOutput = await Task.Run(() => GAM.RunGAMFormatted(gamCommand));
                     Console.WriteLine(gamOutput);
                 }

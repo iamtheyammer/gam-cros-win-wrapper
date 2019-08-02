@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="YesOrNoWindow" Height="175" Width="400"
         Closed="Window_Closed">
-    <Grid Margin="10,0,10,0">
-        <TextBlock x:Name="instructionTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You should never see this!" VerticalAlignment="Top" Height="29" Width="354" FontSize="18"/>
-        <TextBlock x:Name="InfoBox" HorizontalAlignment="Left" Height="59" Margin="22,44,0,0" TextWrapping="Wrap" Text="InfoBox.Content" VerticalAlignment="Top" Width="324"/>
-        <Button x:Name="yesButton" Content="Yes" HorizontalAlignment="Left" Margin="271,116,0,0" VerticalAlignment="Top" Width="75" Click="YesButton_Click"/>
-        <Button x:Name="noButton" Content="No" HorizontalAlignment="Left" Margin="175,116,0,0" VerticalAlignment="Top" Width="75" Click="NoButton_Click"/>
-        <Button x:Name="ExtraButton" Content="ExtraButton.Text" HorizontalAlignment="Left" Margin="22,116,0,0" VerticalAlignment="Top" Width="120" Click="ExtraButton_Click"/>
+    <Grid Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Width="Auto">
+        <TextBlock x:Name="instructionTextBlock" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="You should never see this!" VerticalAlignment="Top" Height="29" Width="Auto" FontSize="18"/>
+        <TextBlock x:Name="InfoBox" HorizontalAlignment="Stretch" Height="Auto" Margin="22,44,10.333,45.333" TextWrapping="Wrap" Text="InfoBox.Content" VerticalAlignment="Stretch" Width="Auto"/>
+        <Button x:Name="yesButton" Content="Yes" HorizontalAlignment="Right" Margin="0,0,10.333,10.333" VerticalAlignment="Bottom" Width="75" Height="20" Click="YesButton_Click"/>
+        <Button x:Name="noButton" Content="No" HorizontalAlignment="Right" Margin="0,0,97.333,10.333" VerticalAlignment="Bottom" Width="75" Height="20" Click="NoButton_Click"/>
+        <Button x:Name="ExtraButton" Content="ExtraButton.Text" HorizontalAlignment="Left" Margin="22,0,0,10.333" VerticalAlignment="Bottom" Height="20" Width="120" Click="ExtraButton_Click"/>
 
     </Grid>
 </Window>
