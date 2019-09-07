@@ -1,7 +1,7 @@
 {
   "type": "alpha",
-  "newestVersion": "1.1.2",
-  "changes": "- Resolved an issue where ChromebookGUI would submit a malformed GAM command when Org Unit paths contained spaces or newlines",
-  "updateUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/tag/v1.1.2",
-  "msiUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/download/v1.1.2/ChromebookGUI-Alpha-1.1.2.msi"
+  "newestVersion": "1.1.3",
+  "changes": "- Removed the prompt when changing fields in the text box view",
+  "updateUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/tag/v1.1.3",
+  "msiUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/download/v1.1.3/ChromebookGUI-Alpha-1.1.3.msi"
 }
