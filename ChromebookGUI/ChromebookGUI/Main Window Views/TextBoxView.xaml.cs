@@ -451,14 +451,6 @@ namespace ChromebookGUI
                 progressBar.UpdateBarAndText(75, "Updating info...");
                 if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
                 {
-                    string decision = GetInput.GetYesOrNo("GAM Confirmation", "Do you want to send this GAM command?",
-                        "gam " + gamCommand.Replace("\\", "\\\\"));
-                    if (decision != "yes")
-                    {
-                        IsLoading = false;
-                        progressBar.Close();
-                        return;
-                    }
                     string gamOutput = await Task.Run(() => GAM.RunGAMFormatted(gamCommand));
                     Console.WriteLine(gamOutput);
                 }
@@ -489,10 +481,7 @@ namespace ChromebookGUI
         private bool _isLoading;
         public bool IsLoading
         {
-            get
-            {
-                return _isLoading;
-            }
+            get => _isLoading;
 
             set
             {
