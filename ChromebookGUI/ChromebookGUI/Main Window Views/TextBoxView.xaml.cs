@@ -4,6 +4,7 @@ using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -299,8 +300,8 @@ namespace ChromebookGUI
                 // check to see which fields have been changed (ones that aren't the global or "<no value present>", should make this an independent function)
                 ProgressBarDialog progressBar = GetInput.ShowProgressBarDialog("Updating Device", 50, "Updating device info...");
                 progressBar.UpdateBarAndText(50, "Updating device info...");
-                string gamCommand = "update cros " + Globals.DeviceId + " ";
-                string outputText = "";
+                var gamCommands = new List<string>();
+                var wasChanged = new List<string>();
 
                 if (LocationField.Text != Globals.Location)
                 {
@@ -320,9 +321,9 @@ namespace ChromebookGUI
                                 return;
                         }
                     }
-                    gamCommand += "location \"" + LocationField.Text + "\" ";
+                    gamCommands.Add("location \"" + LocationField.Text + "\"");
                     Globals.Location = LocationField.Text;
-                    outputText += "Location, ";
+                    wasChanged.Add("Location");
                 }
                 if (AssetIdField.Text != Globals.AssetId)
                 {
@@ -342,9 +343,9 @@ namespace ChromebookGUI
                                 return;
                         }
                     }
-                    gamCommand += "asset_id \"" + AssetIdField.Text + "\" ";
+                    gamCommands.Add("asset_id \"" + AssetIdField.Text + "\"");
                     Globals.AssetId = LocationField.Text;
-                    outputText += "Asset ID, ";
+                    wasChanged.Add("Asset ID");
 
                 }
                 if (UserField.Text != Globals.User)
@@ -364,9 +365,9 @@ namespace ChromebookGUI
                                 return;
                         }
                     }
-                    gamCommand += "user \"" + UserField.Text + "\" ";
+                    gamCommands.Add("user \"" + UserField.Text + "\"");
                     Globals.User = UserField.Text;
-                    outputText += "User, ";
+                    wasChanged.Add("User");
                 }
                 if (NoteField.Text != Globals.Note)
                 {
@@ -386,23 +387,23 @@ namespace ChromebookGUI
                                 return;
                         }
                     }
-                    gamCommand += "notes \"" + NoteField.Text.Replace("\"", "\\\"") + "\" "; // will output a note like this: "He told me \"Hello!\" yesterday."
+                    gamCommands.Add("notes \"" + NoteField.Text.Replace("\"", "\\\"") + "\""); // will output a note like this: "He told me \"Hello!\" yesterday."
                     Globals.Note = NoteField.Text;
-                    outputText += "Note, ";
+                    wasChanged.Add("Note");
                 }
                 if (StatusDisabledRadio.IsChecked == true && Globals.Status != "DISABLED")
                 {
                     progressBar.UpdateBarAndText(55, "Disabling...");
                     await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action disable"));
                     Globals.Status = "DISABLED";
-                    outputText += "Status, ";
+                    wasChanged.Add("Status");
                 }
                 if (StatusActiveRadio.IsChecked == true && Globals.Status != "ACTIVE")
                 {
                     progressBar.UpdateBarAndText(55, "Enabling...");
                     await Task.Run(() => GAM.RunGAM("update cros " + Globals.DeviceId + " action reenable"));
                     Globals.Status = "ACTIVE";
-                    outputText += "Status, ";
+                    wasChanged.Add("Status");
                 }
                 if (StatusDeprovisionedRadio.IsChecked == true && Globals.Status != "DEPROVISIONED")
                 {
@@ -429,7 +430,7 @@ namespace ChromebookGUI
                     if (depReason != 0)
                     {
                         Globals.Status = "DEPROVISIONED";
-                        outputText += "Status, ";
+                        wasChanged.Add("Status");
                         StatusActiveRadio.IsEnabled = false;
                         StatusDeprovisionedRadio.IsEnabled = false;
                         StatusDisabledRadio.IsEnabled = false;
@@ -443,20 +444,21 @@ namespace ChromebookGUI
                         GetInput.ShowInfoDialog("Empty org unit path.", "Your org unit path can't be blank.", "You can't have a blank org unit path.");
                         return;
                     }
-                    gamCommand += "ou \"" + OrganizationalUnitField.Text + "\" ";
+                    gamCommands.Add("ou \"" + OrganizationalUnitField.Text + "\"");
                     Globals.OrgUnitPath = OrganizationalUnitField.Text;
-                    outputText += "Organizational Unit ";
-                }
+                    wasChanged.Add("Organizational Unit");
+                } 
 
                 progressBar.UpdateBarAndText(75, "Updating info...");
-                if (gamCommand != "update cros " + Globals.DeviceId + " ") // if something was changed
+                if (gamCommands.Count > 0) // if something was changed
                 {
-                    string gamOutput = await Task.Run(() => GAM.RunGAMFormatted(gamCommand));
+                    Console.WriteLine(string.Join(" ", gamCommands));
+                    string gamOutput = await Task.Run(() => GAM.RunGAMFormatted("update cros " + Globals.DeviceId + " " + string.Join(" ", gamCommands)));
                     Console.WriteLine(gamOutput);
                 }
                 progressBar.UpdateBarAndText(99, "Finishing up...");
                 IsLoading = false;
-                if (outputText.Length > 1) outputField.Text = outputText += "was updated.";
+                if (wasChanged.Count > 0) outputField.Text = string.Join(", ", wasChanged) + " was changed.";
                 progressBar.Close();
                 // build a GAM command from that information
                 // run it
