@@ -2,6 +2,6 @@
   "type": "beta",
   "newestVersion": "1.1.4",
   "changes": "- Make text box view 2x faster\n- Fix OUs with spaces in their path\n- Improve text box view GAM command handling",
-  "updateUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest",
-  "msiUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/latest"
+  "updateUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/tag/1.1.4",
+  "msiUrl": "https://github.com/iamtheyammer/gam-cros-win-wrapper/releases/download/1.1.4/ChromebookGUI-1.1.4-Beta.msi"
 }
